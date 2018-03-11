@@ -12,6 +12,7 @@ public class Contacts {
     private byte[] _password;
     private byte[] _salt;
     private String _email;
+    private int filled_quiz;
 
     public Contacts(){}
 
@@ -62,5 +63,13 @@ public class Contacts {
 
     public void set_email(String _email) {
         this._email = _email;
+    }
+
+    public int getFilled_quiz() {
+        return filled_quiz;
+    }
+
+    public void setFilled_quiz(int filled_quiz) {
+        this.filled_quiz = filled_quiz;
     }
 }

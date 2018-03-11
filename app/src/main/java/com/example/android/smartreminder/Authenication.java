@@ -74,7 +74,7 @@ public class Authenication {
         return constantTimeEquals(hash, user.get_password());
     }
 
-    public Contacts register(String username, String nickname, String email, char[] password)
+    public Contacts register(String username, String nickname, String email, char[] password, int filed_quiz)
             throws Exception {
 
         byte[] salt = new byte[16];
@@ -88,6 +88,7 @@ public class Authenication {
         Contacts user = new Contacts();
         user.set_username(username);
         user.set_nick_name(nickname);
+        user.setFilled_quiz(filed_quiz);
         user.set_email(email);
         user.set_password(hash);
         user.set_salt(salt);

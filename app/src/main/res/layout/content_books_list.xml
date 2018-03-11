@@ -8,4 +8,6 @@
     tools:context="com.example.android.smartreminder.BooksListActivity"
     tools:showIn="@layout/activity_books_list">
 
+
+
 </android.support.constraint.ConstraintLayout>
