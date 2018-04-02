@@ -13,14 +13,29 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.example.android.smartreminder.database_sql.DatabaseHandler;
+
+import java.util.List;
+
+import static com.example.android.smartreminder.LoginActivity.username;
 
 public class BooksListActivity extends AppCompatActivity
 
     implements NavigationView.OnNavigationItemSelectedListener {
 
-        public static final String  EXTRA_MESSAGE = "com.example.android.smartreminder";
 
-        @Override
+        public static final String  EXTRA_MESSAGE = "com.example.android.smartreminder";
+        private DatabaseHandler dbHandler;
+        private TextView thedate;
+        private TextView currentBook;
+        private Button btngocalendar;
+        private Button getLastBook;
+
+
+    @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_books_list);
@@ -39,6 +54,45 @@ public class BooksListActivity extends AppCompatActivity
 
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
+
+            dbHandler = new DatabaseHandler(BooksListActivity.this);
+
+            //calendar view test
+            thedate = (TextView) findViewById(R.id.dateCalendar);
+            btngocalendar = (Button) findViewById(R.id.btngocalendar);
+            getLastBook = (Button) findViewById(R.id.getLastBook);
+            currentBook = (TextView) findViewById(R.id.currentBook);
+
+            //default addbook is not visible
+            getLastBook.setVisibility(View.GONE);
+            currentBook.setVisibility(View.GONE);
+
+            Contacts user = dbHandler.getUser(username);
+            System.out.println("nickname = " + username);
+            String last_book_of_user = user.get_book_name();
+            if(last_book_of_user.equals("EMPTY")){
+                getLastBook.setVisibility(View.VISIBLE);
+                currentBook.setVisibility(View.VISIBLE);
+            }
+
+            Intent incoming = getIntent();
+            String date = incoming.getStringExtra("date");
+            thedate.setText(date);
+
+            btngocalendar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(BooksListActivity.this, CalendarActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            getLastBook.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
         }
 
         @Override
@@ -96,6 +150,24 @@ public class BooksListActivity extends AppCompatActivity
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
             return true;
+        }
+
+
+        //show progress for given book
+
+        public void displayProgressBook(){
+
+            //number of pages have been finished
+
+
+            //number of pages on total
+
+            //calculate percentage
+
+            //display result
+
+            //optional add more information depending on character
+
         }
 
 }

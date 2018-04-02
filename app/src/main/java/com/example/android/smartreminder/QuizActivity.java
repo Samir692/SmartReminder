@@ -63,7 +63,37 @@ public class QuizActivity extends AppCompatActivity {
                     updateQuestion();
                 }
                 else{
-                    updateQuestion();
+                    if (mQuestionNumber >= 3){
+                        Toast.makeText(QuizActivity.this, "Thanks for your quiz", Toast.LENGTH_LONG).show();
+                        String personality = "UPHOLDER";
+                        switch (personality){
+                            case "UPHOLDER":
+                                databaseHandler.createUPHOLDERtable();
+                                break;
+                            case "OBLIGER":
+                                databaseHandler.createOBLIGERtable();
+                                break;
+                            case "REBEL":
+                                databaseHandler.createREBELtable();
+                                break;
+                            case "QUESTIONER":
+                                databaseHandler.createQUESTIONERtable();
+                                break;
+
+                        }
+                        Contacts user = new Contacts();
+                        if(username != null) {
+                            user.set_nick_name(username);
+                            user.setFilled_quiz(1);
+                            databaseHandler.addUserQuizValue(user);
+                            Intent intent = new Intent(QuizActivity.this, BooksListActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                    else {
+                        System.out.println("Question number = " + mQuestionNumber);
+                        updateQuestion();
+                    }
                 }
             }
         });
@@ -80,7 +110,37 @@ public class QuizActivity extends AppCompatActivity {
                     updateQuestion();
                 }
                 else{
-                    updateQuestion();
+                    if (mQuestionNumber >= 3){
+                        Toast.makeText(QuizActivity.this, "Thanks for your quiz", Toast.LENGTH_LONG).show();
+                        String personality = "UPHOLDER";
+                        switch (personality){
+                            case "UPHOLDER":
+                                databaseHandler.createUPHOLDERtable();
+                                break;
+                            case "OBLIGER":
+                                databaseHandler.createOBLIGERtable();
+                                break;
+                            case "REBEL":
+                                databaseHandler.createREBELtable();
+                                break;
+                            case "QUESTIONER":
+                                databaseHandler.createQUESTIONERtable();
+                                break;
+
+                        }
+                        Contacts user = new Contacts();
+                        if(username != null) {
+                            user.set_nick_name(username);
+                            user.setFilled_quiz(1);
+                            databaseHandler.addUserQuizValue(user);
+                            Intent intent = new Intent(QuizActivity.this, BooksListActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                    else {
+                        System.out.println("Question number = " + mQuestionNumber);
+                        updateQuestion();
+                    }
                 }
             }
         });
@@ -97,7 +157,37 @@ public class QuizActivity extends AppCompatActivity {
                     updateQuestion();
                 }
                 else{
-                    updateQuestion();
+                    if (mQuestionNumber >= 3){
+                        Toast.makeText(QuizActivity.this, "Thanks for your quiz", Toast.LENGTH_LONG).show();
+                        String personality = "UPHOLDER";
+                        switch (personality){
+                            case "UPHOLDER":
+                                databaseHandler.createUPHOLDERtable();
+                                break;
+                            case "OBLIGER":
+                                databaseHandler.createOBLIGERtable();
+                                break;
+                            case "REBEL":
+                                databaseHandler.createREBELtable();
+                                break;
+                            case "QUESTIONER":
+                                databaseHandler.createQUESTIONERtable();
+                                break;
+
+                        }
+                        Contacts user = new Contacts();
+                        if(username != null) {
+                            user.set_nick_name(username);
+                            user.setFilled_quiz(1);
+                            databaseHandler.addUserQuizValue(user);
+                            Intent intent = new Intent(QuizActivity.this, BooksListActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                    else {
+                        System.out.println("Question number = " + mQuestionNumber);
+                        updateQuestion();
+                    }
                 }
             }
         });
