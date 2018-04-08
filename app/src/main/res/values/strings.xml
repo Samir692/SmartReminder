@@ -26,4 +26,5 @@
     <string name="title_activity_books_list">BooksListActivity</string>
     <string name="title_activity_smartreminder">smartreminder</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_add_book">AddBook</string>
 </resources>

@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +44,15 @@ public class BooksListActivity extends AppCompatActivity
             setSupportActionBar(toolbar);
 
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("transition", "adding book");
+                    Intent intent = new Intent(BooksListActivity.this, AddBook.class);
+                    startActivity(intent);
 
+                }
+            });
 
 
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
