@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.android.smartreminder.Books;
 import com.example.android.smartreminder.Contacts;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
 
     // Tables names
     private static final String TABLE_CONTACTS = "contacts";
+    private static final String TABLE_BOOKS = "books";
     private static final String TABLE_UPHOLDER = "upholder";
     private static final String TABLE_OBLIGER = "obliger";
     private static final String TABLE_REBEL = "rebel";
@@ -36,10 +38,20 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     private static final String COLUMN_USER_ID = "user_id";
     private static final String COLUMN_USER_NAME = "user_name";
     private static final String COLUMN_USER_NICK_NAME = "nick_name";
+    private static final String COLUMN_USER_BOOK_NAME = "book_name";
     private static final String COLUMN_USER_EMAIL = "user_email";
     private static final String COLUMN_USER_PASSWORD = "user_password";
     private static final String COLUMN_USER_SALT = "user_salt";
     private static final String COLUMN_USER_FILLED_QUIZ = "user_filled_quiz";
+
+    // BOOKS Table Columns names
+    private static final String COLUMN_USER_BOOKS_ID = "id";
+    private static final String COLUMN_USER_BOOKS_NAME = "name";
+    private static final String COLUMN_USER_BOOKS_CREATED = "created";
+    private static final String COLUMN_USER_BOOKS_TOTAL_PAGES = "total_pages";
+    private static final String COLUMN_USER_BOOKS_DONE_PAGES = "done_pages";
+    private static final String COLUMN_USER_BOOKS_DEADLINE = "deadline";
+
 
     // UPHOLDER Table Columns names
     private static final String COLUMN_USER_UPHOLDER_DEADLINE = "deadline";
@@ -55,11 +67,12 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
 
     // create table sql query
     private String CREATE_USER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_CONTACTS + "("
-            + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + COLUMN_USER_NAME + " TEXT," + COLUMN_USER_NICK_NAME + " TEXT NOT NULL UNIQUE,"
+            + COLUMN_USER_ID          + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLUMN_USER_NAME        + " TEXT," + COLUMN_USER_NICK_NAME + " TEXT NOT NULL UNIQUE,"
             + COLUMN_USER_FILLED_QUIZ + " INTEGER,"
-            + COLUMN_USER_EMAIL + " TEXT NOT NULL UNIQUE," + COLUMN_USER_PASSWORD + " BLOB,"
-            + COLUMN_USER_SALT + " BLOB" + ")";
+            + COLUMN_USER_BOOK_NAME   + " TEXT,"
+            + COLUMN_USER_EMAIL       + " TEXT NOT NULL UNIQUE," + COLUMN_USER_PASSWORD + " BLOB,"
+            + COLUMN_USER_SALT        + " BLOB" + ")";
 
     private String CREATE_USER_UPHOLDER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_UPHOLDER + "("
             + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -84,7 +97,15 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
             + COLUMN_USER_QUESTIONER_PURPOSE + " TEXT"
             + ")";
 
-
+    private String CREATE_USER_BOOKS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_BOOKS + "("
+            + COLUMN_USER_BOOKS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLUMN_USER_NAME + " TEXT,"
+            + COLUMN_USER_BOOKS_NAME + " TEXT,"
+            + COLUMN_USER_BOOKS_DONE_PAGES + " INTEGER,"
+            + COLUMN_USER_BOOKS_TOTAL_PAGES + " INTEGER,"
+            + COLUMN_USER_BOOKS_CREATED + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
+            + COLUMN_USER_BOOKS_DEADLINE + " TEXT"
+            + ")";
 
 
     // drop table sql query
@@ -106,6 +127,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
 
         //create db's here
         db.execSQL(CREATE_USER_TABLE);
+        db.execSQL(CREATE_USER_BOOKS_TABLE);
     }
 
     public void dropAndCreate() {
@@ -167,9 +189,29 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         values.put(COLUMN_USER_PASSWORD, user.get_password());
         values.put(COLUMN_USER_SALT, user.get_salt());
         values.put(COLUMN_USER_FILLED_QUIZ, user.getFilled_quiz());
+        values.put(COLUMN_USER_BOOK_NAME, "EMPTY");
 
         // Inserting Row
         db.insert(TABLE_CONTACTS, null, values);
+        db.close();
+    }
+
+    /**
+     * This method is to create user record
+     *
+     * @param book
+     */
+    public void addBook(Books book) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_BOOKS_NAME, book.get_book_name());
+        values.put(COLUMN_USER_BOOKS_TOTAL_PAGES, book.get_book_total_pages());
+        values.put(COLUMN_USER_BOOKS_DONE_PAGES, book.get_book_done_pages());
+        values.put(COLUMN_USER_BOOKS_DEADLINE, book.get_book_deadline());
+
+        // Inserting Row
+        db.insert(TABLE_BOOKS, null, values);
         db.close();
     }
 
@@ -240,6 +282,63 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         return userList;
     }
 
+
+    /**
+     * This method is to fetch all user and return the list of user records
+     *
+     * @return list
+     */
+    public List<Books> getAllBooks() {
+        // array of columns to fetch
+
+        String[] columns = {
+                COLUMN_USER_BOOKS_NAME,
+                COLUMN_USER_BOOKS_TOTAL_PAGES,
+                COLUMN_USER_BOOKS_DONE_PAGES,
+                COLUMN_USER_BOOKS_DEADLINE
+        };
+
+
+        // sorting orders
+        String sortOrder =
+                COLUMN_USER_BOOKS_CREATED + " DESC";
+        List<Books> booksList = new ArrayList<Books>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // query the user table
+        /**
+         * SELECT user_id,user_name,user_email,user_password FROM user ORDER BY user_name;
+         */
+        Cursor cursor = db.query(TABLE_BOOKS, //Table to query
+                columns,    //columns to return
+                null,        //columns for the WHERE clause
+                null,        //The values for the WHERE clause
+                null,       //group the rows
+                null,       //filter by row groups
+                sortOrder); //The sort order
+
+        // Traversing through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Books book = new Books();
+                //user.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID))));
+                book.set_book_name(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_NAME)));
+                book.set_book_done_pages(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_DONE_PAGES))));
+                book.set_book_total_pages(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_TOTAL_PAGES))));
+                book.set_book_created(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_CREATED)));
+                book.set_book_deadline(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_DEADLINE)));
+                // Adding book record to list
+                booksList.add(book);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        // return user list
+        return booksList;
+    }
+
     /**
      * This method to update user record
      *
@@ -260,10 +359,31 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * This method to update user record
+     *
+     * @param book
+     */
+    public void updateBook(Books book) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_BOOKS_NAME, book.get_book_name());
+        values.put(COLUMN_USER_BOOKS_DONE_PAGES, book.get_book_done_pages());
+        values.put(COLUMN_USER_BOOKS_TOTAL_PAGES, book.get_book_total_pages());
+        values.put(COLUMN_USER_BOOKS_DEADLINE, book.get_book_deadline());
+
+        // updating row
+        db.update(TABLE_BOOKS, values, COLUMN_USER_BOOKS_ID + " = ?",
+                new String[]{String.valueOf(book.get_id())});
+        db.close();
+    }
+
+
      /*
      * This method to check user exist or not
      *
-             * @param email
+     * @param emailuser
      * @param nick_name
      * @return true/false
      */
@@ -370,7 +490,8 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
 
         // array of columns to fetch
         String[] columns = {
-                COLUMN_USER_ID
+                COLUMN_USER_ID,
+                COLUMN_USER_BOOK_NAME
         };
         SQLiteDatabase db = this.getReadableDatabase();
         // selection criteria
@@ -403,6 +524,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
                 do {
 
                     user.set_id((Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)))));
+                    user.set_book_name(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOK_NAME)));
                     //USER.set_hear_rate((cursor.getInt(cursor.getColumnIndex(COLUMN_USER_RATE))));
                 } while (cursor.moveToNext());
             }

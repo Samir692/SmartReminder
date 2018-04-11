@@ -9,6 +9,7 @@ public class Contacts {
     private int _id;
     private String _username;
     private String _nick_name;
+    private String _book_name;
     private byte[] _password;
     private byte[] _salt;
     private String _email;
@@ -71,5 +72,13 @@ public class Contacts {
 
     public void setFilled_quiz(int filled_quiz) {
         this.filled_quiz = filled_quiz;
+    }
+
+    public String get_book_name() {
+        return _book_name;
+    }
+
+    public void set_book_name(String _book_name) {
+        this._book_name = _book_name;
     }
 }

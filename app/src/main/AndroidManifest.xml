@@ -29,10 +29,18 @@
             android:label="@string/title_activity_books_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".CalendarActivity"
+            android:label="CalendarActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".QuizActivity"></activity>
+        <activity android:name=".QuizActivity" />
+        <activity
+            android:name=".AddBook"
+            android:label="@string/title_activity_add_book"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
