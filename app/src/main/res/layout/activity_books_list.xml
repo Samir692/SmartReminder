@@ -21,57 +21,62 @@
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer" />
 
-    <include layout="@layout/content_books_list" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/currentBook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Book"
-            android:textAlignment="center"
-            android:layout_marginTop="100dp"
-            android:layout_marginLeft="60dp"
-            android:textSize="45dp"
-            android:visibility="visible" />
-
-        <Button
-            android:id="@+id/getLastBook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:layout_marginLeft="20dp"
-            android:text="Get Last Book" />
-
-    </LinearLayout>
+    <include
+        layout="@layout/content_books_list"
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
-        <TextView
-            android:id="@+id/dateCalendar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date"
-            android:textAlignment="center"
-            android:layout_marginTop="200dp"
-            android:layout_marginLeft="120dp"
-            android:textSize="45dp"
-            android:visibility="visible" />
+        <!--<TextView-->
+            <!--android:id="@+id/currentBook"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Book"-->
+            <!--android:textAlignment="center"-->
+            <!--android:layout_marginTop="100dp"-->
+            <!--android:layout_marginLeft="60dp"-->
+            <!--android:textSize="45dp"-->
+            <!--android:visibility="visible" />-->
 
-        <Button
-            android:id="@+id/btngocalendar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
-            android:layout_marginLeft="10dp"
-            android:text="Go to calendar" />
+        <!--<Button-->
+            <!--android:id="@+id/getLastBook"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="100dp"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:text="Get Last Book" />-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
+
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/dateCalendar"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Date"-->
+            <!--android:textAlignment="center"-->
+            <!--android:layout_marginTop="200dp"-->
+            <!--android:layout_marginLeft="120dp"-->
+            <!--android:textSize="45dp"-->
+            <!--android:visibility="visible" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btngocalendar"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="200dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:text="Go to calendar" />-->
+
+    <!--</LinearLayout>-->
 
 </android.support.v4.widget.DrawerLayout>

@@ -24,74 +24,163 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="60dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/bookQuestion1"
-            android:text="test1"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/answer1"/>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/bookQuestion2"
-            android:text="test2"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/answer2"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/bookQuestion3"
-            android:text="test3"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/answer3"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/bookQuestion4"
-            android:text="test4"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/answer4"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/bookQuestion5"
-            android:text="test5"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/answer5"/>
-
-    </LinearLayout>
-    <Button
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add book"
-        android:id="@+id/addBook"
-        android:layout_marginTop="400dp"
-        android:layout_marginLeft="60dp"/>
+        android:orientation="horizontal">
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textBookName"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="60dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/textEditBookName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_BookName"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@android:color/white" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textTotalPages"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/textEditTotalPages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_TotalPage"
+                android:inputType="number"
+                android:maxLines="1"
+                android:textColor="@android:color/white" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textDeadline"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp">
+
+            <!--<android.support.design.widget.TextInputEditText-->
+                <!--android:id="@+id/textEditDeadline"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:hint="@string/hint_DealLine"-->
+                <!--android:inputType="text"-->
+                <!--android:maxLines="1"-->
+                <!--android:textColor="@android:color/white" />-->
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/textEditDeadline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hint_DealLine" />
+        </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/bookQuestion1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="test1" />
+
+                <EditText
+                    android:id="@+id/answer1"
+                    android:layout_width="274dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/bookQuestion2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="test2" />
+
+                <EditText
+                    android:id="@+id/answer2"
+                    android:layout_width="274dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/bookQuestion3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="test3" />
+
+                <EditText
+                    android:id="@+id/answer3"
+                    android:layout_width="274dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/bookQuestion4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="test4" />
+
+                <EditText
+                    android:id="@+id/answer4"
+                    android:layout_width="272dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/bookQuestion5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="test5" />
+
+                <EditText
+                    android:id="@+id/answer5"
+                    android:layout_width="272dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/addBook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:text="Add book" />
+    </LinearLayout>
 
 
     <Button
