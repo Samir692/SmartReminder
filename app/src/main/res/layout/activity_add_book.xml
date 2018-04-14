@@ -278,5 +278,14 @@
         </LinearLayout>
     </ScrollView>
 
+    <Button
+        android:id="@+id/btnSetDeadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="10dp"
+        android:text="choose deadline" />
+
+
 
 </android.support.design.widget.CoordinatorLayout>

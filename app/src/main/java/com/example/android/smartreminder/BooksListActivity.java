@@ -92,6 +92,7 @@ public class BooksListActivity extends AppCompatActivity
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(BooksListActivity.this, CalendarActivity.class);
+                    intent.putExtra("className","com.example.android.smartreminder.BooksListActivity");
                     startActivity(intent);
                 }
             });

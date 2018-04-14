@@ -27,7 +27,15 @@ public class CalendarActivity extends AppCompatActivity {
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int dayOfMonth) {
                 String date = year + "/" + month + "/"+ dayOfMonth ;
                 Log.d(TAG, "onSelectedDayChange: yyyy/mm/dd:" + date);
-                Intent intent = new Intent(CalendarActivity.this,BooksListActivity.class);
+                Intent incoming = getIntent();
+                String className = incoming.getStringExtra("className");
+                Class<?> myClass = null;
+                try {
+                    myClass = Class.forName(className);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                Intent intent = new Intent(CalendarActivity.this,myClass);
                 intent.putExtra("date",date);
                 startActivity(intent);
             }
