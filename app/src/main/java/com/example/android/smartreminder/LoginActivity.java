@@ -188,6 +188,24 @@ public class LoginActivity extends AppCompatActivity implements ActivityCompat.O
                 //accountsIntent.putExtra("EMAIL", textInputEditTextEmail.getText().toString().trim());
                 //Intent accountsIntent = new Intent(this, HeartRateMonitor.class);
 
+                //CHECK IF USER HAS FILLED QUESTIONERE FROM TABLEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+                Contacts user = databaseHelper.getFilledQuiz(username);
+                int userFilledQuestionerre = user.getFilled_quiz();
+
+                if(userFilledQuestionerre == 1) {
+                    Intent intent = new Intent(this, BooksListActivity.class);
+                    String message = username;
+                    intent.putExtra(EXTRA_MESSAGE, message);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(LoginActivity.this, "Please fill the questionerre", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(this, QuizActivity.class);
+                    String message = username;
+                    intent.putExtra(EXTRA_MESSAGE, message);
+                    startActivity(intent);
+                }
+
                 emptyInputEditText();
                 //startActivity(accountsIntent);
 
@@ -210,11 +228,6 @@ public class LoginActivity extends AppCompatActivity implements ActivityCompat.O
         textInputEditTextNickName.setText(null);
         textInputEditTextPassword.setText(null);
         System.out.println("Access granted");
-
-        Intent intent = new Intent(this, BooksListActivity.class);
-        String message = username;
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
     }
 
     public String getTextInputLayoutNickName() {

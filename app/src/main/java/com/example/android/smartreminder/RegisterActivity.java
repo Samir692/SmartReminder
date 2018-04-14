@@ -147,11 +147,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             String nickname = textInputEditTextNickName.getText().toString().trim();
             String email = textInputEditTextEmail.getText().toString().trim();
             char[] password = textInputEditTextPassword.getText().toString().trim().toCharArray();
+            int filled_quiz = 0;
 
             Authenication ath = new Authenication();
 
             try {
-                Contacts user = ath.register(username, nickname, email, password);
+                Contacts user = ath.register(username, nickname, email, password, filled_quiz);
                 databaseHelper.addUser(user);
             } catch (Exception e) {
                 //e.printStackTrace();
