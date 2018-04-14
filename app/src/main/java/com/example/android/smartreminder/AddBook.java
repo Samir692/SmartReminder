@@ -33,6 +33,7 @@ public class AddBook extends AppCompatActivity {
 
         final TextView bookQuestion1 = (TextView) findViewById(R.id.bookQuestion1);
         final EditText answer1 = (EditText) findViewById(R.id.answer1);
+        final TextView deadline = (TextView) findViewById(R.id.deadline);
         Button btnSetDeadline = (Button) findViewById(R.id.btnSetDeadline);
 
 
@@ -49,7 +50,7 @@ public class AddBook extends AppCompatActivity {
         Intent incoming = getIntent();
         final String date = incoming.getStringExtra("date");
         System.out.println("got date = " + date);
-
+        deadline.setText(date);
         //add Book properties
         Button addBook = (Button) findViewById(R.id.addBook);
         addBook.setOnClickListener(new View.OnClickListener() {
