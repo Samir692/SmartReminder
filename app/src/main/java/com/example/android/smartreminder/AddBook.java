@@ -51,6 +51,7 @@ public class AddBook extends AppCompatActivity {
         final String date = incoming.getStringExtra("date");
         System.out.println("got date = " + date);
         deadline.setText(date);
+        //working example
         //add Book properties
         Button addBook = (Button) findViewById(R.id.addBook);
         addBook.setOnClickListener(new View.OnClickListener() {
