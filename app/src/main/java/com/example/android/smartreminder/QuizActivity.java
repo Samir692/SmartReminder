@@ -68,16 +68,16 @@ public class QuizActivity extends AppCompatActivity {
                         String personality = "UPHOLDER";
                         switch (personality){
                             case "UPHOLDER":
-                                databaseHandler.createUPHOLDERtable();
+                                //databaseHandler.createUPHOLDERtable();
                                 break;
                             case "OBLIGER":
-                                databaseHandler.createOBLIGERtable();
+                                //databaseHandler.createOBLIGERtable();
                                 break;
                             case "REBEL":
-                                databaseHandler.createREBELtable();
+                                //databaseHandler.createREBELtable();
                                 break;
                             case "QUESTIONER":
-                                databaseHandler.createQUESTIONERtable();
+                                //databaseHandler.createQUESTIONERtable();
                                 break;
 
                         }
@@ -115,16 +115,16 @@ public class QuizActivity extends AppCompatActivity {
                         String personality = "UPHOLDER";
                         switch (personality){
                             case "UPHOLDER":
-                                databaseHandler.createUPHOLDERtable();
+                                //databaseHandler.createUPHOLDERtable();
                                 break;
                             case "OBLIGER":
-                                databaseHandler.createOBLIGERtable();
+                                //databaseHandler.createOBLIGERtable();
                                 break;
                             case "REBEL":
-                                databaseHandler.createREBELtable();
+                                //databaseHandler.createREBELtable();
                                 break;
                             case "QUESTIONER":
-                                databaseHandler.createQUESTIONERtable();
+                                //databaseHandler.createQUESTIONERtable();
                                 break;
 
                         }
@@ -162,16 +162,16 @@ public class QuizActivity extends AppCompatActivity {
                         String personality = "UPHOLDER";
                         switch (personality){
                             case "UPHOLDER":
-                                databaseHandler.createUPHOLDERtable();
+                                //databaseHandler.createUPHOLDERtable();
                                 break;
                             case "OBLIGER":
-                                databaseHandler.createOBLIGERtable();
+                                //databaseHandler.createOBLIGERtable();
                                 break;
                             case "REBEL":
-                                databaseHandler.createREBELtable();
+                                //databaseHandler.createREBELtable();
                                 break;
                             case "QUESTIONER":
-                                databaseHandler.createQUESTIONERtable();
+                                //databaseHandler.createQUESTIONERtable();
                                 break;
 
                         }
@@ -209,16 +209,16 @@ public class QuizActivity extends AppCompatActivity {
                         String personality = "UPHOLDER";
                         switch (personality){
                             case "UPHOLDER":
-                                databaseHandler.createUPHOLDERtable();
+                                //databaseHandler.createUPHOLDERtable();
                                 break;
                             case "OBLIGER":
-                                databaseHandler.createOBLIGERtable();
+                                //databaseHandler.createOBLIGERtable();
                                 break;
                             case "REBEL":
-                                databaseHandler.createREBELtable();
+                                //databaseHandler.createREBELtable();
                                 break;
                             case "QUESTIONER":
-                                databaseHandler.createQUESTIONERtable();
+                                //databaseHandler.createQUESTIONERtable();
                                 break;
 
                         }

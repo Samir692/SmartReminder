@@ -165,7 +165,7 @@ public class BooksListActivity extends AppCompatActivity
 
         //show progress for given book
 
-        public void displayProgressBook(){
+        private void displayProgressBook(){
 
             //number of pages have been finished
 

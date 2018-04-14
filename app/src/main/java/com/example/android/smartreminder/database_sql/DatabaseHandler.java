@@ -28,11 +28,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     // Tables names
     private static final String TABLE_CONTACTS = "contacts";
     private static final String TABLE_BOOKS = "books";
-    private static final String TABLE_UPHOLDER = "upholder";
-    private static final String TABLE_OBLIGER = "obliger";
-    private static final String TABLE_REBEL = "rebel";
-    private static final String TABLE_QUESTIONER = "questioner";
-
+    private static final String TABLE_QUESTIONS_ANSWERS = "questions_answers_character_based";
 
     // User Table Columns names
     private static final String COLUMN_USER_ID = "user_id";
@@ -53,14 +49,12 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     private static final String COLUMN_USER_BOOKS_DEADLINE = "deadline";
 
 
-    // UPHOLDER Table Columns names
-    private static final String COLUMN_USER_UPHOLDER_DEADLINE = "deadline";
-    // OBLIGER Table Columns names
-    private static final String COLUMN_USER_OBLIGER_PAGES = "pages";
-    // REBEL Table Columns names
-    private static final String COLUMN_USER_REBEL_REASON = "reason";
-    // QUESTIONER Table Columns names
-    private static final String COLUMN_USER_QUESTIONER_PURPOSE = "purpose";
+    // Character questions and answers Table Columns names
+    private static final String COLUMN_USER_QUEST_ANSW_ID = "id";
+    private static final String COLUMN_USER_QUEST_ANSW_CHARACHTER = "character";
+    private static final String COLUMN_USER_QUEST_ANSW_QUESTIONS = "questions";
+    private static final String COLUMN_USER_QUEST_ANSW_ANSWERS = "answers";
+    private static final String COLUMN_USER_QUEST_ANSW_CREATED = "created";
 
 
 
@@ -74,27 +68,12 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
             + COLUMN_USER_EMAIL       + " TEXT NOT NULL UNIQUE," + COLUMN_USER_PASSWORD + " BLOB,"
             + COLUMN_USER_SALT        + " BLOB" + ")";
 
-    private String CREATE_USER_UPHOLDER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_UPHOLDER + "("
-            + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + COLUMN_USER_NAME + " TEXT,"
-            + COLUMN_USER_UPHOLDER_DEADLINE + " TEXT"
-            + ")";
-
-    private String CREATE_USER_OBLIGER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_OBLIGER + "("
-            + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + COLUMN_USER_NAME + " TEXT,"
-            + COLUMN_USER_OBLIGER_PAGES + " INTEGER"
-            + ")";
-    private String CREATE_USER_REBEL_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_REBEL + "("
-            + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + COLUMN_USER_NAME + " TEXT,"
-            + COLUMN_USER_REBEL_REASON + " TEXT"
-            + ")";
-
-    private String CREATE_USER_QUESTIONER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_QUESTIONER + "("
-            + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + COLUMN_USER_NAME + " TEXT,"
-            + COLUMN_USER_QUESTIONER_PURPOSE + " TEXT"
+    private String CREATE_USER_QUESTIONS_ANSWERS_CHARACTER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_QUESTIONS_ANSWERS + "("
+            + COLUMN_USER_QUEST_ANSW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLUMN_USER_QUEST_ANSW_CHARACHTER + " TEXT,"
+            + COLUMN_USER_QUEST_ANSW_QUESTIONS + " TEXT,"
+            + COLUMN_USER_QUEST_ANSW_ANSWERS + " TEXT,"
+            + COLUMN_USER_QUEST_ANSW_CREATED + " DATETIME DEFAULT CURRENT_TIMESTAMP"
             + ")";
 
     private String CREATE_USER_BOOKS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_BOOKS + "("
@@ -128,6 +107,8 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         //create db's here
         db.execSQL(CREATE_USER_TABLE);
         db.execSQL(CREATE_USER_BOOKS_TABLE);
+        db.execSQL(CREATE_USER_QUESTIONS_ANSWERS_CHARACTER_TABLE);
+
     }
 
     public void dropAndCreate() {
@@ -149,30 +130,30 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void createTable(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(CREATE_USER_TABLE);
-    }
+//    public void createTable(){
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        db.execSQL(CREATE_USER_TABLE);
+//    }
 
-    public void createUPHOLDERtable() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(CREATE_USER_UPHOLDER_TABLE);
-    }
-
-    public void createOBLIGERtable() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(CREATE_USER_OBLIGER_TABLE);
-    }
-
-    public void createREBELtable() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(CREATE_USER_REBEL_TABLE);
-    }
-
-    public void createQUESTIONERtable() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(CREATE_USER_QUESTIONER_TABLE);
-    }
+//    public void createUPHOLDERtable() {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        db.execSQL(CREATE_USER_UPHOLDER_TABLE);
+//    }
+//
+//    public void createOBLIGERtable() {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        db.execSQL(CREATE_USER_OBLIGER_TABLE);
+//    }
+//
+//    public void createREBELtable() {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        db.execSQL(CREATE_USER_REBEL_TABLE);
+//    }
+//
+//    public void createQUESTIONERtable() {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        db.execSQL(CREATE_USER_QUESTIONER_TABLE);
+//    }
 
     /**
      * This method is to create user record

@@ -31,12 +31,45 @@ public class AddBook extends AppCompatActivity {
         dbHandler = new DatabaseHandler(AddBook.this);
 
 
+        QuestionsAnswersCharacterBased questAnsChar = new QuestionsAnswersCharacterBased();
+
+
+        final EditText book_name = (EditText) findViewById(R.id.book_name);
+        final EditText total_page = (EditText) findViewById(R.id.total_page);
         final TextView bookQuestion1 = (TextView) findViewById(R.id.bookQuestion1);
         final EditText answer1 = (EditText) findViewById(R.id.answer1);
+        final TextView bookQuestion2 = (TextView) findViewById(R.id.bookQuestion2);
+        final EditText answer2 = (EditText) findViewById(R.id.answer2);
+        final TextView bookQuestion3 = (TextView) findViewById(R.id.bookQuestion3);
+        final EditText answer3 = (EditText) findViewById(R.id.answer3);
+        final TextView bookQuestion4 = (TextView) findViewById(R.id.bookQuestion4);
+        final EditText answer4 = (EditText) findViewById(R.id.answer4);
+        final TextView bookQuestion5 = (TextView) findViewById(R.id.bookQuestion5);
+        final EditText answer5 = (EditText) findViewById(R.id.answer5);
+
         final TextView deadline = (TextView) findViewById(R.id.deadline);
         Button btnSetDeadline = (Button) findViewById(R.id.btnSetDeadline);
 
 
+
+        //create questions
+
+        switch () {
+
+            case :
+                break;
+
+            case :
+                break;
+
+            case :
+                break;
+
+            case :
+                break;
+            bookQuestion1.setText(questAnsChar.);
+
+        }
         //get deadline from Calendar class
         btnSetDeadline.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,12 +93,41 @@ public class AddBook extends AppCompatActivity {
                 Log.d("transition", "adding book to database");
                 String answer1Text = answer1.getText().toString();
 
+
+                //TODO restrict editText to only integers
                 //add Book
                 Books book = new Books();
-                book.set_book_name("book_name");
-                book.set_book_total_pages(99);
+                String bookName = book_name.getText().toString();
+                int totalPage = Integer.parseInt(total_page.getText().toString());
+                String ANSWER1 = answer1.getText().toString();
+                String ANSWER2 = answer2.getText().toString();
+                String ANSWER3 = answer3.getText().toString();
+                String ANSWER4 = answer4.getText().toString();
+                String ANSWER5 = answer5.getText().toString();
+
+
+                book.set_book_name(bookName);
+                book.set_book_total_pages(totalPage);
                 book.set_book_done_pages(0);
                 book.set_book_deadline(date);
+
+                switch (character){
+                    case "questionerre":
+
+
+                        break;
+                    case "questionerre":
+
+                        break;
+                    case "questionerre":
+
+
+                        break;
+                    case "questionerre":
+
+
+                        break;
+                }
 
                 if(dbHandler.addBook(book) > 0){
                     Intent intent = new Intent(AddBook.this, BooksListActivity.class);
