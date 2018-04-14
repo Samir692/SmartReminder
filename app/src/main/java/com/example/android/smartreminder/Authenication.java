@@ -98,7 +98,7 @@ public class Authenication {
     }
 
 
-    public byte[] hashPassword(char[] password, byte[] salt)
+    private byte[] hashPassword(char[] password, byte[] salt)
             throws NoSuchAlgorithmException, InvalidKeySpecException {
         int iterations = 50;
 

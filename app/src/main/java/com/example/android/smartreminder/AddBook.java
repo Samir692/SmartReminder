@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.smartreminder.database_sql.DatabaseHandler;
 
@@ -64,7 +65,14 @@ public class AddBook extends AppCompatActivity {
                 book.set_book_done_pages(0);
                 book.set_book_deadline(date);
 
-                dbHandler.addBook(book);
+                if(dbHandler.addBook(book) > 0){
+                    Intent intent = new Intent(AddBook.this, BooksListActivity.class);
+                    intent.putExtra("book","added");
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(AddBook.this, R.string.error_add_book, Toast.LENGTH_LONG).show();
+                }
 
                 //add book information depending on category
 

@@ -201,7 +201,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
      *
      * @param book
      */
-    public void addBook(Books book) {
+    public long addBook(Books book) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -211,8 +211,9 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         values.put(COLUMN_USER_BOOKS_DEADLINE, book.get_book_deadline());
 
         // Inserting Row
-        db.insert(TABLE_BOOKS, null, values);
+        long id = db.insert(TABLE_BOOKS, null, values);
         db.close();
+        return  id;
     }
 
     /**
