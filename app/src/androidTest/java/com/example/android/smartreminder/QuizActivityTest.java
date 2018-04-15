@@ -17,32 +17,32 @@ import static org.junit.Assert.*;
 import static android.support.test.espresso.Espresso.onView;
 
 
-public class MainActivityTest {
+public class QuizActivityTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> mainActivityActivityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class);
+    public ActivityTestRule<QuizActivity> quizActivityActivityTestRule = new ActivityTestRule<QuizActivity>(QuizActivity.class);
 
-    private MainActivity mActivity = null;
-
-    Instrumentation.ActivityMonitor monitor = InstrumentationRegistry.getInstrumentation().
-                                              addMonitor(LoginActivity.class.getName(), null, false);
+    private QuizActivity mActivity = null;
+    private DatabaseHandler databaseHandler = new DatabaseHandler(QuizActivity.this);
 
     @Before
     public void setUp() throws Exception {
-        mActivity = mainActivityActivityTestRule.getActivity();
+        mActivity = quizActivityActivityTestRule.getActivity();
     }
 
     @Test
-    public void testLaunchMainAndLogin(){
-        assertNotNull(mActivity.findViewById(R.id.textview));
+    public void testIfUpholderDBCreated(){
+        assertNotNull(mActivity.findViewById(R.layout.activity_quiz));
         onView(withId(R.id.login_page)).perform(click());
-        Activity loginActivity = InstrumentationRegistry.getInstrumentation().waitForMonitorWithTimeout(monitor, 500);
-        assertNotNull(loginActivity);
-        loginActivity.finish();
+    }
+
+    private void(){
+
     }
 
     @After
     public void tearDown() throws Exception {
+        mActivity.finish();
         mActivity = null;
     }
 
