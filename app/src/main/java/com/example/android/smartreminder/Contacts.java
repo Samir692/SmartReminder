@@ -10,6 +10,7 @@ public class Contacts {
     private String _username;
     private String _nick_name;
     private String _book_name;
+    private String _personality_type;
     private byte[] _password;
     private byte[] _salt;
     private String _email;
@@ -80,5 +81,13 @@ public class Contacts {
 
     public void set_book_name(String _book_name) {
         this._book_name = _book_name;
+    }
+
+    public String get_personality_type() {
+        return _personality_type;
+    }
+
+    public void set_personality_type(String _personality_type) {
+        this._personality_type = _personality_type;
     }
 }

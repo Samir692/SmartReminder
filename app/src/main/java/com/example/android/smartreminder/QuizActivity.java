@@ -86,6 +86,11 @@ public class QuizActivity extends AppCompatActivity {
                             user.set_nick_name(username);
                             user.setFilled_quiz(1);
                             databaseHandler.addUserQuizValue(user);
+
+                            user.set_personality_type(personality);
+                            //add personality information
+                            databaseHandler.addPersonalityTypeValue(user);
+
                             Intent intent = new Intent(QuizActivity.this, BooksListActivity.class);
                             startActivity(intent);
                         }
@@ -133,6 +138,11 @@ public class QuizActivity extends AppCompatActivity {
                             user.set_nick_name(username);
                             user.setFilled_quiz(1);
                             databaseHandler.addUserQuizValue(user);
+
+                            user.set_personality_type(personality);
+                            //add personality information
+                            databaseHandler.addPersonalityTypeValue(user);
+
                             Intent intent = new Intent(QuizActivity.this, BooksListActivity.class);
                             startActivity(intent);
                         }
@@ -180,6 +190,11 @@ public class QuizActivity extends AppCompatActivity {
                             user.set_nick_name(username);
                             user.setFilled_quiz(1);
                             databaseHandler.addUserQuizValue(user);
+
+                            user.set_personality_type(personality);
+                            //add personality information
+                            databaseHandler.addPersonalityTypeValue(user);
+
                             Intent intent = new Intent(QuizActivity.this, BooksListActivity.class);
                             startActivity(intent);
                         }
@@ -227,6 +242,11 @@ public class QuizActivity extends AppCompatActivity {
                             user.set_nick_name(username);
                             user.setFilled_quiz(1);
                             databaseHandler.addUserQuizValue(user);
+
+                            user.set_personality_type(personality);
+                            //add personality information
+                            databaseHandler.addPersonalityTypeValue(user);
+
                             Intent intent = new Intent(QuizActivity.this, BooksListActivity.class);
                             startActivity(intent);
                         }

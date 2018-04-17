@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.android.smartreminder.Books;
 import com.example.android.smartreminder.Contacts;
+import com.example.android.smartreminder.QuestionsAnswersCharacterBased;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     private static final String COLUMN_USER_NAME = "user_name";
     private static final String COLUMN_USER_NICK_NAME = "nick_name";
     private static final String COLUMN_USER_BOOK_NAME = "book_name";
+    private static final String COLUMN_USER_PERSONALITY_TYPE = "personality_type";
     private static final String COLUMN_USER_EMAIL = "user_email";
     private static final String COLUMN_USER_PASSWORD = "user_password";
     private static final String COLUMN_USER_SALT = "user_salt";
@@ -65,6 +67,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
             + COLUMN_USER_NAME        + " TEXT," + COLUMN_USER_NICK_NAME + " TEXT NOT NULL UNIQUE,"
             + COLUMN_USER_FILLED_QUIZ + " INTEGER,"
             + COLUMN_USER_BOOK_NAME   + " TEXT,"
+            + COLUMN_USER_PERSONALITY_TYPE + " TEXT,"
             + COLUMN_USER_EMAIL       + " TEXT NOT NULL UNIQUE," + COLUMN_USER_PASSWORD + " BLOB,"
             + COLUMN_USER_SALT        + " BLOB" + ")";
 
@@ -171,6 +174,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         values.put(COLUMN_USER_SALT, user.get_salt());
         values.put(COLUMN_USER_FILLED_QUIZ, user.getFilled_quiz());
         values.put(COLUMN_USER_BOOK_NAME, "EMPTY");
+        values.put(COLUMN_USER_PERSONALITY_TYPE, "EMPTY");
 
         // Inserting Row
         db.insert(TABLE_CONTACTS, null, values);
@@ -195,6 +199,25 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         long id = db.insert(TABLE_BOOKS, null, values);
         db.close();
         return  id;
+    }
+
+    /**
+     * This method is to create QUESTIONS ANSWERS TABLE ITEM
+     * @param question
+     * @param answer
+     * @param personality_type
+     */
+    public void addQuestionAnswer(String question, String answer, String personality_type) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_QUEST_ANSW_CHARACHTER, personality_type);
+        values.put(COLUMN_USER_QUEST_ANSW_QUESTIONS, question);
+        values.put(COLUMN_USER_QUEST_ANSW_ANSWERS, answer);
+
+        // Inserting Row
+        db.insert(TABLE_QUESTIONS_ANSWERS, null, values);
+        db.close();
     }
 
     /**
@@ -584,6 +607,81 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
             if (cursor.moveToFirst()) {
                 do {
                     user.setFilled_quiz((Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_FILLED_QUIZ)))));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            db.close();
+            return user;
+
+        }
+        System.out.print("Duplicated Users");
+        return user;
+    }
+
+    /**
+     * This method is to add personality of user
+     *
+     * @param user
+     */
+    public void addPersonalityTypeValue(Contacts user) {
+
+        //get User's ID
+        Contacts user_with_id = getUser(user.get_nick_name());
+        int uID = user_with_id.get_id();
+
+
+        //update row id number uID
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_PERSONALITY_TYPE, user.get_personality_type());
+
+        // updating row
+        db.update(TABLE_CONTACTS, values, COLUMN_USER_ID + " = ?",
+                new String[]{String.valueOf(uID)});
+        db.close();
+    };
+
+
+    /**
+     * This method is to check if user has filled quiz
+     * @param nickname
+     * @return user
+     */
+    public Contacts getPersonalityType(String nickname) {
+
+        // array of columns to fetch
+        String[] columns = {
+                COLUMN_USER_PERSONALITY_TYPE
+        };
+        SQLiteDatabase db = this.getReadableDatabase();
+        // selection criteria
+        if (nickname == null) {
+            return new Contacts();
+        }
+        String selection = COLUMN_USER_NICK_NAME + " = ?";
+
+        // selection arguments
+        String[] selectionArgs = {nickname};
+
+        // query user table with conditions
+        /**
+         * SELECT COLUMN_USER_FILLED_QUIZ FROM user WHERE user_nickname = 'user692';
+         */
+        Cursor cursor = db.query(TABLE_CONTACTS, //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                       //filter by row groups
+                null);                      //The sort order
+
+        int cursorCount = cursor.getCount();
+        Contacts user = new Contacts();
+
+        if (cursorCount == 1) {
+            if (cursor.moveToFirst()) {
+                do {
+                    user.set_personality_type(cursor.getString(cursor.getColumnIndex(COLUMN_USER_PERSONALITY_TYPE)));
                 } while (cursor.moveToNext());
             }
             cursor.close();
