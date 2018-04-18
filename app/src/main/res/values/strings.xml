@@ -5,7 +5,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="error_email_nickname_exists">Email Or Username Already Exists</string>
-    <string name="error_add_book">Book could not be added, please try again</string>
     <string name="error_password_match">Password Does Not Matches</string>
     <string name="hint_name">Name</string>
     <string name="hint_email">Email</string>

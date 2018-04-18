@@ -2,8 +2,8 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="@android:color/background_light"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.android.smartreminder.MainActivity"
@@ -26,37 +26,97 @@
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        android:layout_marginLeft="50dp"
+        >
+        <!--btngocalendar = (Button) findViewById(R.id.btngocalendar);-->
+        <!--getLastBook = (Button) findViewById(R.id.getLastBook);-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Book name"
+            android:textAlignment="center"
+            android:textSize="30dp"
+            />
+        <!--<ProgressBar-->
+            <!--android:id="@+id/ProgressBar"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+        <ProgressBar
+            android:id="@+id/simpleProgressBar"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:max="100"
+            android:progress="60"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deadline :"/>
             <TextView
-                android:id="@+id/currentBook"
+                android:id="@+id/DeadlineText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Book"
-                android:textAlignment="center"
-                android:textSize="45dp"
-                android:visibility="visible" />
-
-            <Button
-                android:id="@+id/getLastBook"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Get Last Book" />
-
+                />
+        </android.support.v7.widget.LinearLayoutCompat>
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/dateCalendar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date"
-                android:textAlignment="center"
-                android:textSize="45dp"
-                android:visibility="visible" />
+                android:text="Done :"/>
+            <TextView
+                android:id="@+id/DonePage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </android.support.v7.widget.LinearLayoutCompat>
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total :"/>
+            <TextView
+                android:id="@+id/TotalPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </android.support.v7.widget.LinearLayoutCompat>
+            <!--<TextView-->
+                <!--android:id="@+id/currentBook"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Book"-->
+                <!--android:textAlignment="center"-->
+                <!--android:textSize="45dp"-->
+                <!--android:visibility="visible" />-->
 
-            <Button
-                android:id="@+id/btngocalendar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Go to calendar" />
+            <!--<Button-->
+                <!--android:id="@+id/getLastBook"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Get Last Book" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/dateCalendar"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Date"-->
+                <!--android:textAlignment="center"-->
+                <!--android:textSize="45dp"-->
+                <!--android:visibility="visible" />-->
+
+            <!--<Button-->
+                <!--android:id="@+id/btngocalendar"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Go to calendar" />-->
 
         <!--<Button-->
         <!--android:id="@+id/main_page"-->
