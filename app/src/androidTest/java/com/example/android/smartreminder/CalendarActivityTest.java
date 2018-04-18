@@ -31,7 +31,7 @@ public class CalendarActivityTest {
 
     @Test
     public void testLaunchCalendar(){
-        assertNotNull(cActivity.findViewById(R.id.textview));
+        assertNotNull(cActivity.findViewById(R.id.calendarView));
     }
 
     @After
