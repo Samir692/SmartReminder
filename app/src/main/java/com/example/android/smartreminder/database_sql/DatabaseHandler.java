@@ -693,5 +693,80 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         return user;
     }
 
+    /**
+     * This method is to add personality of user
+     *
+     * @param user
+     */
+    public void addBookNameValue(Contacts user) {
+
+        //get User's ID
+        Contacts user_with_id = getUser(user.get_nick_name());
+        int uID = user_with_id.get_id();
+
+
+        //update row id number uID
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_BOOK_NAME, user.get_book_name());
+
+        // updating row
+        db.update(TABLE_CONTACTS, values, COLUMN_USER_ID + " = ?",
+                new String[]{String.valueOf(uID)});
+        db.close();
+    };
+
+    /**
+     * This method is to check if user has filled quiz
+     * @param nickname
+     * @return user
+     */
+    public Contacts getUsersBookName(String nickname) {
+
+        // array of columns to fetch
+        String[] columns = {
+                COLUMN_USER_BOOK_NAME
+        };
+        SQLiteDatabase db = this.getReadableDatabase();
+        // selection criteria
+        if (nickname == null) {
+            return new Contacts();
+        }
+        String selection = COLUMN_USER_NICK_NAME + " = ?";
+
+        // selection arguments
+        String[] selectionArgs = {nickname};
+
+        // query user table with conditions
+        /**
+         * SELECT COLUMN_USER_FILLED_QUIZ FROM user WHERE user_nickname = 'user692';
+         */
+        Cursor cursor = db.query(TABLE_CONTACTS, //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                       //filter by row groups
+                null);                      //The sort order
+
+        int cursorCount = cursor.getCount();
+        Contacts user = new Contacts();
+
+        if (cursorCount == 1) {
+            if (cursor.moveToFirst()) {
+                do {
+                    user.set_book_name(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOK_NAME)));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            db.close();
+            return user;
+
+        }
+        System.out.print("Duplicated Users");
+        return user;
+    }
+
+
 
 }

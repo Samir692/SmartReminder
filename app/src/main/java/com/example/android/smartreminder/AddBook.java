@@ -256,6 +256,11 @@ public class AddBook extends AppCompatActivity {
                 }
 
                 if(dbHandler.addBook(book) > 0){
+                    Contacts user_local = new Contacts();
+                    user_local.set_book_name(bookName);
+                    user_local.set_nick_name(username);
+                    dbHandler.addBookNameValue(user_local);
+
                     Intent intent = new Intent(AddBook.this, BooksListActivity.class);
                     intent.putExtra("book","added");
                     startActivity(intent);
