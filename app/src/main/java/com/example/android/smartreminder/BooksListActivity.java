@@ -66,43 +66,43 @@ public class BooksListActivity extends AppCompatActivity
 
             dbHandler = new DatabaseHandler(BooksListActivity.this);
 
-            //calendar view test
-            thedate = (TextView) findViewById(R.id.dateCalendar);
-            btngocalendar = (Button) findViewById(R.id.btngocalendar);
-            getLastBook = (Button) findViewById(R.id.getLastBook);
-            currentBook = (TextView) findViewById(R.id.currentBook);
-
-            //default addbook is not visible
-            getLastBook.setVisibility(View.GONE);
-            currentBook.setVisibility(View.GONE);
-
-            Contacts user = dbHandler.getUser(username);
-            System.out.println("nickname = " + username);
-            String last_book_of_user = user.get_book_name();
-            if(last_book_of_user.equals("EMPTY")){
-                getLastBook.setVisibility(View.VISIBLE);
-                currentBook.setVisibility(View.VISIBLE);
-            }
-
-            Intent incoming = getIntent();
-            String date = incoming.getStringExtra("date");
-            thedate.setText(date);
-
-            btngocalendar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(BooksListActivity.this, CalendarActivity.class);
-                    intent.putExtra("className","com.example.android.smartreminder.BooksListActivity");
-                    startActivity(intent);
-                }
-            });
-
-            getLastBook.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
+//            //calendar view test
+//            thedate = (TextView) findViewById(R.id.dateCalendar);
+//            btngocalendar = (Button) findViewById(R.id.btngocalendar);
+//            getLastBook = (Button) findViewById(R.id.getLastBook);
+//            currentBook = (TextView) findViewById(R.id.currentBook);
+//
+//            //default addbook is not visible
+//            getLastBook.setVisibility(View.GONE);
+//            currentBook.setVisibility(View.GONE);
+//
+//            Contacts user = dbHandler.getUser(username);
+//            System.out.println("nickname = " + username);
+//            String last_book_of_user = user.get_book_name();
+//            if(last_book_of_user.equals("EMPTY")){
+//                getLastBook.setVisibility(View.VISIBLE);
+//                currentBook.setVisibility(View.VISIBLE);
+//            }
+//
+//            Intent incoming = getIntent();
+//            String date = incoming.getStringExtra("date");
+//            thedate.setText(date);
+//
+//            btngocalendar.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent intent = new Intent(BooksListActivity.this, CalendarActivity.class);
+//                    intent.putExtra("className","com.example.android.smartreminder.BooksListActivity");
+//                    startActivity(intent);
+//                }
+//            });
+//
+//            getLastBook.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//
+//                }
+//            });
         }
 
         @Override

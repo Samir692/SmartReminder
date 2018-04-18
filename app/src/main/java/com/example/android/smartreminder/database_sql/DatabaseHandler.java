@@ -693,6 +693,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         return user;
     }
 
+
     /**
      * This method is to add personality of user
      *

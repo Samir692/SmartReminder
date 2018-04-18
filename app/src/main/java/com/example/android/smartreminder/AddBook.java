@@ -28,6 +28,10 @@ import static com.example.android.smartreminder.LoginActivity.username;
 public class AddBook extends AppCompatActivity {
 
     private DatabaseHandler dbHandler;
+//    private TextView deadline;
+//    private String date;
+//    private Calendar myCalendar;
+
 
     private TextView deadline;
     private String date;
