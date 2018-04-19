@@ -542,6 +542,67 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         return user;
     }
 
+
+    /**
+     * This method fetches user and returns user records
+     *
+     * @param bookname
+     * @return book
+     */
+    public Books getBook(String bookname) {
+
+        // array of columns to fetch
+        String[] columns = {
+                COLUMN_USER_BOOKS_DEADLINE,
+                COLUMN_USER_BOOKS_DONE_PAGES,
+                COLUMN_USER_BOOKS_TOTAL_PAGES
+        };
+        SQLiteDatabase db = this.getReadableDatabase();
+        // selection criteria
+        if (bookname == null){
+            // System.out.println("USERNAMEEEEEEEEEEEEEEEEEEEEE" + nickname);
+            return new Books();
+        }
+        String selection = COLUMN_USER_BOOKS_NAME+ " = ?" ;
+
+        // selection arguments
+        String[] selectionArgs = {bookname};
+
+        // query user table with conditions
+        /**
+         * SELECT user_id FROM user WHERE user_nickname = 'user692';
+         */
+        Cursor cursor = db.query(TABLE_BOOKS, //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                       //filter by row groups
+                null);                      //The sort order
+
+        int cursorCount = cursor.getCount();
+        Books book = new Books();
+
+        if (cursorCount == 1) {
+            if (cursor.moveToFirst()) {
+                do {
+                    book.set_book_deadline(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_DEADLINE)));
+                    book.set_book_total_pages((Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_TOTAL_PAGES)))));
+                    book.set_book_done_pages((Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_DONE_PAGES)))));
+                    //book.set_id((Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)))));
+                    //book.set_book_name(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOK_NAME)));
+                    //USER.set_hear_rate((cursor.getInt(cursor.getColumnIndex(COLUMN_USER_RATE))));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            db.close();
+            return book;
+        }
+
+        System.out.print("Duplicated Users");
+        return book;
+    }
+
     /**
      * This method is to save the value if quiz registered
      *
