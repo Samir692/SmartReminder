@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.android.smartreminder.Books;
 import com.example.android.smartreminder.Contacts;
+import com.example.android.smartreminder.QuestionsAnswersCharacterBased;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,17 +29,14 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     // Tables names
     private static final String TABLE_CONTACTS = "contacts";
     private static final String TABLE_BOOKS = "books";
-    private static final String TABLE_UPHOLDER = "upholder";
-    private static final String TABLE_OBLIGER = "obliger";
-    private static final String TABLE_REBEL = "rebel";
-    private static final String TABLE_QUESTIONER = "questioner";
-
+    private static final String TABLE_QUESTIONS_ANSWERS = "questions_answers_character_based";
 
     // User Table Columns names
     private static final String COLUMN_USER_ID = "user_id";
     private static final String COLUMN_USER_NAME = "user_name";
     private static final String COLUMN_USER_NICK_NAME = "nick_name";
     private static final String COLUMN_USER_BOOK_NAME = "book_name";
+    private static final String COLUMN_USER_PERSONALITY_TYPE = "personality_type";
     private static final String COLUMN_USER_EMAIL = "user_email";
     private static final String COLUMN_USER_PASSWORD = "user_password";
     private static final String COLUMN_USER_SALT = "user_salt";
@@ -53,14 +51,12 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     private static final String COLUMN_USER_BOOKS_DEADLINE = "deadline";
 
 
-    // UPHOLDER Table Columns names
-    private static final String COLUMN_USER_UPHOLDER_DEADLINE = "deadline";
-    // OBLIGER Table Columns names
-    private static final String COLUMN_USER_OBLIGER_PAGES = "pages";
-    // REBEL Table Columns names
-    private static final String COLUMN_USER_REBEL_REASON = "reason";
-    // QUESTIONER Table Columns names
-    private static final String COLUMN_USER_QUESTIONER_PURPOSE = "purpose";
+    // Character questions and answers Table Columns names
+    private static final String COLUMN_USER_QUEST_ANSW_ID = "id";
+    private static final String COLUMN_USER_QUEST_ANSW_CHARACHTER = "character";
+    private static final String COLUMN_USER_QUEST_ANSW_QUESTIONS = "questions";
+    private static final String COLUMN_USER_QUEST_ANSW_ANSWERS = "answers";
+    private static final String COLUMN_USER_QUEST_ANSW_CREATED = "created";
 
 
 
@@ -71,30 +67,16 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
             + COLUMN_USER_NAME        + " TEXT," + COLUMN_USER_NICK_NAME + " TEXT NOT NULL UNIQUE,"
             + COLUMN_USER_FILLED_QUIZ + " INTEGER,"
             + COLUMN_USER_BOOK_NAME   + " TEXT,"
+            + COLUMN_USER_PERSONALITY_TYPE + " TEXT,"
             + COLUMN_USER_EMAIL       + " TEXT NOT NULL UNIQUE," + COLUMN_USER_PASSWORD + " BLOB,"
             + COLUMN_USER_SALT        + " BLOB" + ")";
 
-    private String CREATE_USER_UPHOLDER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_UPHOLDER + "("
-            + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + COLUMN_USER_NAME + " TEXT,"
-            + COLUMN_USER_UPHOLDER_DEADLINE + " TEXT"
-            + ")";
-
-    private String CREATE_USER_OBLIGER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_OBLIGER + "("
-            + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + COLUMN_USER_NAME + " TEXT,"
-            + COLUMN_USER_OBLIGER_PAGES + " INTEGER"
-            + ")";
-    private String CREATE_USER_REBEL_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_REBEL + "("
-            + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + COLUMN_USER_NAME + " TEXT,"
-            + COLUMN_USER_REBEL_REASON + " TEXT"
-            + ")";
-
-    private String CREATE_USER_QUESTIONER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_QUESTIONER + "("
-            + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + COLUMN_USER_NAME + " TEXT,"
-            + COLUMN_USER_QUESTIONER_PURPOSE + " TEXT"
+    private String CREATE_USER_QUESTIONS_ANSWERS_CHARACTER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_QUESTIONS_ANSWERS + "("
+            + COLUMN_USER_QUEST_ANSW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLUMN_USER_QUEST_ANSW_CHARACHTER + " TEXT,"
+            + COLUMN_USER_QUEST_ANSW_QUESTIONS + " TEXT,"
+            + COLUMN_USER_QUEST_ANSW_ANSWERS + " TEXT,"
+            + COLUMN_USER_QUEST_ANSW_CREATED + " DATETIME DEFAULT CURRENT_TIMESTAMP"
             + ")";
 
     private String CREATE_USER_BOOKS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_BOOKS + "("
@@ -128,6 +110,8 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         //create db's here
         db.execSQL(CREATE_USER_TABLE);
         db.execSQL(CREATE_USER_BOOKS_TABLE);
+        db.execSQL(CREATE_USER_QUESTIONS_ANSWERS_CHARACTER_TABLE);
+
     }
 
     public void dropAndCreate() {
@@ -149,30 +133,30 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void createTable(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(CREATE_USER_TABLE);
-    }
+//    public void createTable(){
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        db.execSQL(CREATE_USER_TABLE);
+//    }
 
-    public void createUPHOLDERtable() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(CREATE_USER_UPHOLDER_TABLE);
-    }
-
-    public void createOBLIGERtable() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(CREATE_USER_OBLIGER_TABLE);
-    }
-
-    public void createREBELtable() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(CREATE_USER_REBEL_TABLE);
-    }
-
-    public void createQUESTIONERtable() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(CREATE_USER_QUESTIONER_TABLE);
-    }
+//    public void createUPHOLDERtable() {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        db.execSQL(CREATE_USER_UPHOLDER_TABLE);
+//    }
+//
+//    public void createOBLIGERtable() {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        db.execSQL(CREATE_USER_OBLIGER_TABLE);
+//    }
+//
+//    public void createREBELtable() {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        db.execSQL(CREATE_USER_REBEL_TABLE);
+//    }
+//
+//    public void createQUESTIONERtable() {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        db.execSQL(CREATE_USER_QUESTIONER_TABLE);
+//    }
 
     /**
      * This method is to create user record
@@ -190,6 +174,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         values.put(COLUMN_USER_SALT, user.get_salt());
         values.put(COLUMN_USER_FILLED_QUIZ, user.getFilled_quiz());
         values.put(COLUMN_USER_BOOK_NAME, "EMPTY");
+        values.put(COLUMN_USER_PERSONALITY_TYPE, "EMPTY");
 
         // Inserting Row
         db.insert(TABLE_CONTACTS, null, values);
@@ -201,7 +186,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
      *
      * @param book
      */
-    public void addBook(Books book) {
+    public long addBook(Books book) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -211,7 +196,27 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         values.put(COLUMN_USER_BOOKS_DEADLINE, book.get_book_deadline());
 
         // Inserting Row
-        db.insert(TABLE_BOOKS, null, values);
+        long id = db.insert(TABLE_BOOKS, null, values);
+        db.close();
+        return  id;
+    }
+
+    /**
+     * This method is to create QUESTIONS ANSWERS TABLE ITEM
+     * @param question
+     * @param answer
+     * @param personality_type
+     */
+    public void addQuestionAnswer(String question, String answer, String personality_type) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_QUEST_ANSW_CHARACHTER, personality_type);
+        values.put(COLUMN_USER_QUEST_ANSW_QUESTIONS, question);
+        values.put(COLUMN_USER_QUEST_ANSW_ANSWERS, answer);
+
+        // Inserting Row
+        db.insert(TABLE_QUESTIONS_ANSWERS, null, values);
         db.close();
     }
 
@@ -537,6 +542,67 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         return user;
     }
 
+
+    /**
+     * This method fetches user and returns user records
+     *
+     * @param bookname
+     * @return book
+     */
+    public Books getBook(String bookname) {
+
+        // array of columns to fetch
+        String[] columns = {
+                COLUMN_USER_BOOKS_DEADLINE,
+                COLUMN_USER_BOOKS_DONE_PAGES,
+                COLUMN_USER_BOOKS_TOTAL_PAGES
+        };
+        SQLiteDatabase db = this.getReadableDatabase();
+        // selection criteria
+        if (bookname == null){
+            // System.out.println("USERNAMEEEEEEEEEEEEEEEEEEEEE" + nickname);
+            return new Books();
+        }
+        String selection = COLUMN_USER_BOOKS_NAME+ " = ?" ;
+
+        // selection arguments
+        String[] selectionArgs = {bookname};
+
+        // query user table with conditions
+        /**
+         * SELECT user_id FROM user WHERE user_nickname = 'user692';
+         */
+        Cursor cursor = db.query(TABLE_BOOKS, //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                       //filter by row groups
+                null);                      //The sort order
+
+        int cursorCount = cursor.getCount();
+        Books book = new Books();
+
+        if (cursorCount == 1) {
+            if (cursor.moveToFirst()) {
+                do {
+                    book.set_book_deadline(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_DEADLINE)));
+                    book.set_book_total_pages((Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_TOTAL_PAGES)))));
+                    book.set_book_done_pages((Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_DONE_PAGES)))));
+                    //book.set_id((Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)))));
+                    //book.set_book_name(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOK_NAME)));
+                    //USER.set_hear_rate((cursor.getInt(cursor.getColumnIndex(COLUMN_USER_RATE))));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            db.close();
+            return book;
+        }
+
+        System.out.print("Duplicated Users");
+        return book;
+    }
+
     /**
      * This method is to save the value if quiz registered
      *
@@ -612,6 +678,157 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         System.out.print("Duplicated Users");
         return user;
     }
+
+    /**
+     * This method is to add personality of user
+     *
+     * @param user
+     */
+    public void addPersonalityTypeValue(Contacts user) {
+
+        //get User's ID
+        Contacts user_with_id = getUser(user.get_nick_name());
+        int uID = user_with_id.get_id();
+
+
+        //update row id number uID
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_PERSONALITY_TYPE, user.get_personality_type());
+
+        // updating row
+        db.update(TABLE_CONTACTS, values, COLUMN_USER_ID + " = ?",
+                new String[]{String.valueOf(uID)});
+        db.close();
+    };
+
+
+    /**
+     * This method is to check if user has filled quiz
+     * @param nickname
+     * @return user
+     */
+    public Contacts getPersonalityType(String nickname) {
+
+        // array of columns to fetch
+        String[] columns = {
+                COLUMN_USER_PERSONALITY_TYPE
+        };
+        SQLiteDatabase db = this.getReadableDatabase();
+        // selection criteria
+        if (nickname == null) {
+            return new Contacts();
+        }
+        String selection = COLUMN_USER_NICK_NAME + " = ?";
+
+        // selection arguments
+        String[] selectionArgs = {nickname};
+
+        // query user table with conditions
+        /**
+         * SELECT COLUMN_USER_FILLED_QUIZ FROM user WHERE user_nickname = 'user692';
+         */
+        Cursor cursor = db.query(TABLE_CONTACTS, //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                       //filter by row groups
+                null);                      //The sort order
+
+        int cursorCount = cursor.getCount();
+        Contacts user = new Contacts();
+
+        if (cursorCount == 1) {
+            if (cursor.moveToFirst()) {
+                do {
+                    user.set_personality_type(cursor.getString(cursor.getColumnIndex(COLUMN_USER_PERSONALITY_TYPE)));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            db.close();
+            return user;
+
+        }
+        System.out.print("Duplicated Users");
+        return user;
+    }
+
+
+    /**
+     * This method is to add personality of user
+     *
+     * @param user
+     */
+    public void addBookNameValue(Contacts user) {
+
+        //get User's ID
+        Contacts user_with_id = getUser(user.get_nick_name());
+        int uID = user_with_id.get_id();
+
+
+        //update row id number uID
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_BOOK_NAME, user.get_book_name());
+
+        // updating row
+        db.update(TABLE_CONTACTS, values, COLUMN_USER_ID + " = ?",
+                new String[]{String.valueOf(uID)});
+        db.close();
+    };
+
+    /**
+     * This method is to check if user has filled quiz
+     * @param nickname
+     * @return user
+     */
+    public Contacts getUsersBookName(String nickname) {
+
+        // array of columns to fetch
+        String[] columns = {
+                COLUMN_USER_BOOK_NAME
+        };
+        SQLiteDatabase db = this.getReadableDatabase();
+        // selection criteria
+        if (nickname == null) {
+            return new Contacts();
+        }
+        String selection = COLUMN_USER_NICK_NAME + " = ?";
+
+        // selection arguments
+        String[] selectionArgs = {nickname};
+
+        // query user table with conditions
+        /**
+         * SELECT COLUMN_USER_FILLED_QUIZ FROM user WHERE user_nickname = 'user692';
+         */
+        Cursor cursor = db.query(TABLE_CONTACTS, //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                       //filter by row groups
+                null);                      //The sort order
+
+        int cursorCount = cursor.getCount();
+        Contacts user = new Contacts();
+
+        if (cursorCount == 1) {
+            if (cursor.moveToFirst()) {
+                do {
+                    user.set_book_name(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOK_NAME)));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            db.close();
+            return user;
+
+        }
+        System.out.print("Duplicated Users");
+        return user;
+    }
+
 
 
 }

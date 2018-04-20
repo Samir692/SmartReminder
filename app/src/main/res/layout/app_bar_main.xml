@@ -20,8 +20,40 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/box"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorControlHighlight"
+        android:orientation="vertical">
 
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="56dp"
+                android:layout_weight="1"
+            android:background="@drawable/image4"
+            >
+
+                <include
+                    layout="@layout/content_main2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+        </ScrollView>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2">
+
+                <include
+                    layout="@layout/content_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="10dp" />
+            </ScrollView>
+
+
+    </android.support.v7.widget.LinearLayoutCompat>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

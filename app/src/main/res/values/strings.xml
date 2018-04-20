@@ -10,12 +10,16 @@
     <string name="hint_email">Email</string>
     <string name="hint_nickname">Username</string>
     <string name="hint_password">Password</string>
+    <string name="hint_BookName">BookName</string>
+    <string name="hint_TotalPage">Total page</string>
+    <string name="hint_DealLine">Deadline</string>
     <string name="hint_confirm_password">Confirm Password</string>
     <string name="success_message">Registration Successful</string>
     <string name="text_login">Login</string>
     <string name="text_register">Register</string>
     <string name="text_not_member">No account yet? Create one</string>
     <string name="error_message_name">Enter Full Name</string>
+    <string name="error_add_book">Book could not be added</string>
     <string name="error_message_nickname">Enter Valid Username</string>
     <string name="error_message_email">Enter Valid Email</string>
     <string name="error_message_password">Enter Password</string>
