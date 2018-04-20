@@ -33,13 +33,14 @@ public class LoginActivity extends AppCompatActivity implements ActivityCompat.O
 
     Button b1;
     int counter = 3;
-    private static final int PERMISSION_REQUEST_CAMERA = 0;
+    public static String personality_type;
+    public static String username;
+
 
     private final AppCompatActivity activity = LoginActivity.this;
 
     private NestedScrollView nestedScrollView;
 
-    public static String username;
 
     private TextInputLayout textInputLayoutNickName;
     private TextInputLayout textInputLayoutPassword;
@@ -193,6 +194,7 @@ public class LoginActivity extends AppCompatActivity implements ActivityCompat.O
                 int userFilledQuestionerre = user.getFilled_quiz();
 
                 if(userFilledQuestionerre == 1) {
+                    //get personality type
                     Intent intent = new Intent(this, BooksListActivity.class);
                     String message = username;
                     intent.putExtra(EXTRA_MESSAGE, message);

@@ -32,9 +32,10 @@
         <!--btngocalendar = (Button) findViewById(R.id.btngocalendar);-->
         <!--getLastBook = (Button) findViewById(R.id.getLastBook);-->
         <TextView
+            android:id="@+id/book_name_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Book name"
+            android:text="No book so far"
             android:textAlignment="center"
             android:textSize="30dp"
             />

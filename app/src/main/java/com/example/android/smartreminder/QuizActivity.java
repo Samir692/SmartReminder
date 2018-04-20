@@ -68,16 +68,16 @@ public class QuizActivity extends AppCompatActivity {
                         String personality = "UPHOLDER";
                         switch (personality){
                             case "UPHOLDER":
-                                databaseHandler.createUPHOLDERtable();
+                                //databaseHandler.createUPHOLDERtable();
                                 break;
                             case "OBLIGER":
-                                databaseHandler.createOBLIGERtable();
+                                //databaseHandler.createOBLIGERtable();
                                 break;
                             case "REBEL":
-                                databaseHandler.createREBELtable();
+                                //databaseHandler.createREBELtable();
                                 break;
                             case "QUESTIONER":
-                                databaseHandler.createQUESTIONERtable();
+                                //databaseHandler.createQUESTIONERtable();
                                 break;
 
                         }
@@ -86,6 +86,11 @@ public class QuizActivity extends AppCompatActivity {
                             user.set_nick_name(username);
                             user.setFilled_quiz(1);
                             databaseHandler.addUserQuizValue(user);
+
+                            user.set_personality_type(personality);
+                            //add personality information
+                            databaseHandler.addPersonalityTypeValue(user);
+
                             Intent intent = new Intent(QuizActivity.this, BooksListActivity.class);
                             startActivity(intent);
                         }
@@ -115,16 +120,16 @@ public class QuizActivity extends AppCompatActivity {
                         String personality = "UPHOLDER";
                         switch (personality){
                             case "UPHOLDER":
-                                databaseHandler.createUPHOLDERtable();
+                                //databaseHandler.createUPHOLDERtable();
                                 break;
                             case "OBLIGER":
-                                databaseHandler.createOBLIGERtable();
+                                //databaseHandler.createOBLIGERtable();
                                 break;
                             case "REBEL":
-                                databaseHandler.createREBELtable();
+                                //databaseHandler.createREBELtable();
                                 break;
                             case "QUESTIONER":
-                                databaseHandler.createQUESTIONERtable();
+                                //databaseHandler.createQUESTIONERtable();
                                 break;
 
                         }
@@ -133,6 +138,11 @@ public class QuizActivity extends AppCompatActivity {
                             user.set_nick_name(username);
                             user.setFilled_quiz(1);
                             databaseHandler.addUserQuizValue(user);
+
+                            user.set_personality_type(personality);
+                            //add personality information
+                            databaseHandler.addPersonalityTypeValue(user);
+
                             Intent intent = new Intent(QuizActivity.this, BooksListActivity.class);
                             startActivity(intent);
                         }
@@ -162,16 +172,16 @@ public class QuizActivity extends AppCompatActivity {
                         String personality = "UPHOLDER";
                         switch (personality){
                             case "UPHOLDER":
-                                databaseHandler.createUPHOLDERtable();
+                                //databaseHandler.createUPHOLDERtable();
                                 break;
                             case "OBLIGER":
-                                databaseHandler.createOBLIGERtable();
+                                //databaseHandler.createOBLIGERtable();
                                 break;
                             case "REBEL":
-                                databaseHandler.createREBELtable();
+                                //databaseHandler.createREBELtable();
                                 break;
                             case "QUESTIONER":
-                                databaseHandler.createQUESTIONERtable();
+                                //databaseHandler.createQUESTIONERtable();
                                 break;
 
                         }
@@ -180,6 +190,11 @@ public class QuizActivity extends AppCompatActivity {
                             user.set_nick_name(username);
                             user.setFilled_quiz(1);
                             databaseHandler.addUserQuizValue(user);
+
+                            user.set_personality_type(personality);
+                            //add personality information
+                            databaseHandler.addPersonalityTypeValue(user);
+
                             Intent intent = new Intent(QuizActivity.this, BooksListActivity.class);
                             startActivity(intent);
                         }
@@ -209,16 +224,16 @@ public class QuizActivity extends AppCompatActivity {
                         String personality = "UPHOLDER";
                         switch (personality){
                             case "UPHOLDER":
-                                databaseHandler.createUPHOLDERtable();
+                                //databaseHandler.createUPHOLDERtable();
                                 break;
                             case "OBLIGER":
-                                databaseHandler.createOBLIGERtable();
+                                //databaseHandler.createOBLIGERtable();
                                 break;
                             case "REBEL":
-                                databaseHandler.createREBELtable();
+                                //databaseHandler.createREBELtable();
                                 break;
                             case "QUESTIONER":
-                                databaseHandler.createQUESTIONERtable();
+                                //databaseHandler.createQUESTIONERtable();
                                 break;
 
                         }
@@ -227,6 +242,11 @@ public class QuizActivity extends AppCompatActivity {
                             user.set_nick_name(username);
                             user.setFilled_quiz(1);
                             databaseHandler.addUserQuizValue(user);
+
+                            user.set_personality_type(personality);
+                            //add personality information
+                            databaseHandler.addPersonalityTypeValue(user);
+
                             Intent intent = new Intent(QuizActivity.this, BooksListActivity.class);
                             startActivity(intent);
                         }
