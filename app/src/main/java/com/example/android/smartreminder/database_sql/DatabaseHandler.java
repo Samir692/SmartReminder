@@ -219,6 +219,56 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         db.insert(TABLE_QUESTIONS_ANSWERS, null, values);
         db.close();
     }
+    /**
+     * This method is to get all values in Questions and Answers table
+     * @param question
+     * @param answer
+     * @param personality_type
+     */
+    public List<String> getAllQuestionAnswer() {
+        // array of columns to fetch
+        String[] columns = {
+                COLUMN_USER_QUEST_ANSW_CHARACHTER,
+                COLUMN_USER_QUEST_ANSW_QUESTIONS,
+                COLUMN_USER_QUEST_ANSW_ANSWERS
+        };
+
+
+        // sorting orders
+        String sortOrder =
+                COLUMN_USER_QUEST_ANSW_CHARACHTER + " ASC";
+        List<String> qaList = new ArrayList<String>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // query the table of questions and answers
+        /**
+         * SELECT character, question, answer FROM user ORDER BY character;
+         */
+        Cursor cursor = db.query(TABLE_QUESTIONS_ANSWERS, //Table to query
+                columns,    //columns to return
+                null,        //columns for the WHERE clause
+                null,        //The values for the WHERE clause
+                null,       //group the rows
+                null,       //filter by row groups
+                sortOrder); //The sort order
+
+        // Traversing through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                String character_q_a="";
+                character_q_a+=cursor.getString(cursor.getColumnIndex(COLUMN_USER_QUEST_ANSW_CHARACHTER));
+                character_q_a+=cursor.getString(cursor.getColumnIndex(COLUMN_USER_QUEST_ANSW_QUESTIONS));
+                character_q_a+=cursor.getString(cursor.getColumnIndex(COLUMN_USER_QUEST_ANSW_ANSWERS));
+                qaList.add(character_q_a);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        // return user list
+        return qaList;
+    }
 
     /**
      * This method is to delete user record
