@@ -37,11 +37,15 @@ public class AddBookActivityTest {
     @Test
     public void testAddingBook(){
         assertNotNull(mActivity.findViewById(R.id.textview));
-        onView(withId(R.id.btnSetDeadline)).perform(click());
+        onView(withId(R.id.addBook)).perform(click());
 
-        int actualCount=dbHandler.getAllBooks().size();
-        int expectedCount=1;
-        assertEquals(actualCount, expectedCount);
+        int actualCountBooks=dbHandler.getAllBooks().size();
+        int expectedCountBooks=1;
+        assertEquals(actualCountBooks, expectedCountBooks);
+
+        int actualCountQA=dbHandler.getAllQuestionAnswer().size();
+        int expectedCountQA=1;
+        assertEquals(actualCountQA, expectedCountQA);
     }
 
     @After

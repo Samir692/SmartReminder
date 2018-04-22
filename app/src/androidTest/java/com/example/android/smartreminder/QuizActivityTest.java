@@ -34,10 +34,29 @@ public class QuizActivityTest {
     public void testIfUpholderDBCreated(){
         assertNotNull(mActivity.findViewById(R.layout.activity_quiz));
         onView(withId(R.id.login_page)).perform(click());
+        checkIfDBCreated("UPHOLDER");
     }
 
-    private void(){
+    private void checkIfDBCreated(String personality){
+        int expectedsize=1;
+        int actualsize=0;
+        switch (personality){
+            case "UPHOLDER":
+                actualsize=databaseHandler.get
+                break;
+            case "OBLIGER":
+                actualsize=databaseHandler.get
+                break;
+            case "REBEL":
+                actualsize=databaseHandler.get
+                break;
+            case "QUESTIONER":
+                actualsize=databaseHandler.get
+                break;
 
+        }
+
+        assertEquals(expectedsize, actualsize);
     }
 
     @After
