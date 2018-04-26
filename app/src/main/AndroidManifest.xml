@@ -40,7 +40,10 @@
         <activity
             android:name=".AddBook"
             android:label="@string/title_activity_add_book"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".HistoryActivity" />
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".UpdateActivity"></activity>
     </application>
 
 </manifest>

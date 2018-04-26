@@ -62,7 +62,8 @@ public class BooksListActivity extends AppCompatActivity
             //check if there is already book stored or book is finished
             Contacts user_for_recent_book = dbHandler.getUsersBookName(username);
             String book_name = user_for_recent_book.get_book_name();
-            if(book_name.equals("empty")) {
+//        System.out.println("book_name = " +book_name);
+            if(book_name.equals("EMPTY")) {
 
                 fab.show();
                 fab.setEnabled(true);

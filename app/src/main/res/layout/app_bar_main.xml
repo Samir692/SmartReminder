@@ -27,11 +27,11 @@
         android:background="?attr/colorControlHighlight"
         android:orientation="vertical">
 
-        <ScrollView
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="56dp"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
             android:background="@drawable/image4"
             >
 
@@ -39,11 +39,11 @@
                     layout="@layout/content_main2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-        </ScrollView>
+        </LinearLayout>
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2">
+                android:layout_weight="0">
 
                 <include
                     layout="@layout/content_main"
@@ -51,7 +51,18 @@
                     android:layout_height="fill_parent"
                     android:layout_marginTop="10dp" />
             </ScrollView>
+        <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+            android:layout_weight="0.5">
+            <include
+                layout="@layout/content_main3"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                 />
 
+
+        </LinearLayout>
 
     </android.support.v7.widget.LinearLayoutCompat>
     <android.support.design.widget.FloatingActionButton

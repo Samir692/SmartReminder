@@ -96,7 +96,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     //constructor
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        //deleteDb(context);
+//        deleteDb(context);
     }
 
 
