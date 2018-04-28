@@ -6,21 +6,43 @@ package com.example.android.smartreminder;
 
 public class QuestionLibrary {
 
-    private String mQuestions [] = {
-            "Whats up baby?",
-            "When you guys will finish this project?",
-            "DO you know how much time is left?",
-            "Should I come there and force you to begin??  BEGIN TO CODEEEEEEEEE OR DIEEEE"
-    };
+//    private String mQuestions [] = {
+//            "Whats up baby?",
+//            "When you guys will finish this project?",
+//            "DO you know how much time is left?",
+//            "Should I come there and force you to begin??  BEGIN TO CODEEEEEEEEE OR DIEEEE"
+//    };
+//    private String mChoices[][] = {
+//            {"Cool", "NOt bad", "FIne", "Perfect"},
+//            {"Today", "In a minute", "IN a second", "IN a millisecond"},
+//            {"No", "Yes", "Maybe", "Not sure"},
+//            {"Yes please", "No I will finish", "Never", "I have already finished"}
+//    };
 
+//    upholder : respond readily to outer and inner expectations
+//    Questioners: question all expectations; they’ll meet an expectation if they think it makes sense (my husband is a Questioner); essentially, they make all expectations into inner expectations
+//    Rebels :resist all expectations, outer and inner alike
+//    Obligers: meet outer expectations, but struggle to meet expectations they impose on themselves
+        private String mQuestions [] = {
+
+            "Can you keep promises that you give to others?",
+            "Are you responsible for duties for yourself?",
+            "Do you need somebody to remind what you are required to do?",
+            "Can you set goals and promises to yourself and keep it?",
+            "Does it bother you when things are unfair or arbitrary?",
+            "Don't you doubt the opinion of experts in some fields?"
+    };
     private String mChoices[][] = {
-            {"Cool", "NOt bad", "FIne", "Perfect"},
-            {"Today", "In a minute", "IN a second", "IN a millisecond"},
-            {"No", "Yes", "Maybe", "Not sure"},
-            {"Yes please", "No I will finish", "Never", "I have already finished"}
+            {"Yes", "No"},
+            {"Yes", "No"},
+            {"Yes", "No"},
+            {"Yes", "No"},
+            {"Yes", "No"},
+            {"Yes", "No"}
     };
 
-    private String mCorrectAnswers[] = {"Perfect","IN a millisecond","No","Never"};
+
+//    private String mCorrectAnswers[] = {"Upholder","Questioner","Obliger","Rebel"};
 
     public String getQuestion(int i){
         return mQuestions[i];
@@ -34,15 +56,15 @@ public class QuestionLibrary {
         return mChoices[i][1];
     };
 
-    public String getChoice3(int i){
-        return mChoices[i][2];
-    };
+//    public String getChoice3(int i){
+//        return mChoices[i][2];
+//    };
+//
+//    public String getChoice4(int i){
+//        return mChoices[i][3];
+//    };
 
-    public String getChoice4(int i){
-        return mChoices[i][3];
-    };
-
-    public String getCorrectAnswer(int i){
-        return mCorrectAnswers[i];
-    }
+//    public String getCorrectAnswer(int i){
+//        return mCorrectAnswers[i];
+//    }
 }

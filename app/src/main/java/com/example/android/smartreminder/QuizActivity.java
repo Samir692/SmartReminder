@@ -1,12 +1,14 @@
 package com.example.android.smartreminder;
 
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.*;
 
 import com.example.android.smartreminder.R;
 import com.example.android.smartreminder.database_sql.DatabaseHandler;
@@ -22,14 +24,12 @@ public class QuizActivity extends AppCompatActivity {
     private TextView mQuestionView;
     private Button mButtonChoice1;
     private Button mButtonChoice2;
-    private Button mButtonChoice3;
-    private Button mButtonChoice4;
 
-    private String mAnswer;
-    private int mScore = 0;
+//    private String mAnswer;
+//    private int mScore = 0;
     private int mQuestionNumber = 0;
     private String username;
-
+    private List<String> answers= new ArrayList<String>();
 
 
     @Override
@@ -40,8 +40,6 @@ public class QuizActivity extends AppCompatActivity {
         mQuestionView = (TextView) findViewById(R.id.quiz_question);
         mButtonChoice1 = (Button) findViewById(R.id.quiz_answer1);
         mButtonChoice2 = (Button) findViewById(R.id.quiz_answer2);
-        mButtonChoice4 = (Button) findViewById(R.id.quiz_answer3);
-        mButtonChoice3 = (Button) findViewById(R.id.quiz_answer4);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null){
@@ -57,15 +55,24 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //logic for button
 
-                if (mButtonChoice1.getText() == mAnswer){
-                    mScore = mScore + 1;
-                    updateScore(mScore);
-                    updateQuestion();
-                }
-                else{
-                    if (mQuestionNumber >= 3){
-                        Toast.makeText(QuizActivity.this, "Thanks for your quiz", Toast.LENGTH_LONG).show();
+//                if (mButtonChoice1.getText() == mAnswer){
+//                    mScore = mScore + 1;
+//                    updateScore(mScore);
+//                    updateQuestion();
+//                }
+//                updateQuestion();
+                recordAnswers((String)mButtonChoice1.getText());
+                System.out.println("choice : "+(String)mButtonChoice1.getText());
+//                else{
+                    if (mQuestionNumber >= 6){
                         String personality = "UPHOLDER";
+
+                        //To define personality
+                        personality = getPersonalityByQuiz();
+
+                        System.out.println("Personality : "+personality);
+                        Toast.makeText(QuizActivity.this, "Thanks for your quiz", Toast.LENGTH_LONG).show();
+
                         switch (personality){
                             case "UPHOLDER":
                                 //databaseHandler.createUPHOLDERtable();
@@ -99,7 +106,7 @@ public class QuizActivity extends AppCompatActivity {
                         System.out.println("Question number = " + mQuestionNumber);
                         updateQuestion();
                     }
-                }
+//                }
             }
         });
 
@@ -109,15 +116,21 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //logic for button
 
-                if (mButtonChoice2.getText() == mAnswer){
-                    mScore = mScore + 1;
-                    updateScore(mScore);
-                    updateQuestion();
-                }
-                else{
-                    if (mQuestionNumber >= 3){
-                        Toast.makeText(QuizActivity.this, "Thanks for your quiz", Toast.LENGTH_LONG).show();
+//                if (mButtonChoice2.getText() == mAnswer){
+//                    mScore = mScore + 1;
+//                    updateScore(mScore);
+//                    updateQuestion();
+//                }
+//                updateQuestion();
+                recordAnswers((String)mButtonChoice2.getText());
+                System.out.println("choice : "+(String)mButtonChoice2.getText());
+//                else{
+                    if (mQuestionNumber >= 6){
                         String personality = "UPHOLDER";
+                        personality = getPersonalityByQuiz();
+                        System.out.println("Personality : "+personality);
+                        Toast.makeText(QuizActivity.this, "Thanks for your quiz", Toast.LENGTH_LONG).show();
+
                         switch (personality){
                             case "UPHOLDER":
                                 //databaseHandler.createUPHOLDERtable();
@@ -151,124 +164,177 @@ public class QuizActivity extends AppCompatActivity {
                         System.out.println("Question number = " + mQuestionNumber);
                         updateQuestion();
                     }
-                }
+//                }
             }
         });
+
 
         //Button3 listener start
-        mButtonChoice3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //logic for button
-
-                if (mButtonChoice3.getText() == mAnswer){
-                    mScore = mScore + 1;
-                    updateScore(mScore);
-                    updateQuestion();
-                }
-                else{
-                    if (mQuestionNumber >= 3){
-                        Toast.makeText(QuizActivity.this, "Thanks for your quiz", Toast.LENGTH_LONG).show();
-                        String personality = "UPHOLDER";
-                        switch (personality){
-                            case "UPHOLDER":
-                                //databaseHandler.createUPHOLDERtable();
-                                break;
-                            case "OBLIGER":
-                                //databaseHandler.createOBLIGERtable();
-                                break;
-                            case "REBEL":
-                                //databaseHandler.createREBELtable();
-                                break;
-                            case "QUESTIONER":
-                                //databaseHandler.createQUESTIONERtable();
-                                break;
-
-                        }
-                        Contacts user = new Contacts();
-                        if(username != null) {
-                            user.set_nick_name(username);
-                            user.setFilled_quiz(1);
-                            databaseHandler.addUserQuizValue(user);
-
-                            user.set_personality_type(personality);
-                            //add personality information
-                            databaseHandler.addPersonalityTypeValue(user);
-
-                            Intent intent = new Intent(QuizActivity.this, BooksListActivity.class);
-                            startActivity(intent);
-                        }
-                    }
-                    else {
-                        System.out.println("Question number = " + mQuestionNumber);
-                        updateQuestion();
-                    }
-                }
-            }
-        });
-
-        //Button4 listener start
-        mButtonChoice4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //logic for button
-
-                if (mButtonChoice4.getText() == mAnswer){
-                    mScore = mScore + 1;
-                    updateScore(mScore);
-                    updateQuestion();
-                }
-                else{
-                    if (mQuestionNumber >= 3){
-                        Toast.makeText(QuizActivity.this, "Thanks for your quiz", Toast.LENGTH_LONG).show();
-                        String personality = "UPHOLDER";
-                        switch (personality){
-                            case "UPHOLDER":
-                                //databaseHandler.createUPHOLDERtable();
-                                break;
-                            case "OBLIGER":
-                                //databaseHandler.createOBLIGERtable();
-                                break;
-                            case "REBEL":
-                                //databaseHandler.createREBELtable();
-                                break;
-                            case "QUESTIONER":
-                                //databaseHandler.createQUESTIONERtable();
-                                break;
-
-                        }
-                        Contacts user = new Contacts();
-                        if(username != null) {
-                            user.set_nick_name(username);
-                            user.setFilled_quiz(1);
-                            databaseHandler.addUserQuizValue(user);
-
-                            user.set_personality_type(personality);
-                            //add personality information
-                            databaseHandler.addPersonalityTypeValue(user);
-
-                            Intent intent = new Intent(QuizActivity.this, BooksListActivity.class);
-                            startActivity(intent);
-                        }
-                    }
-                    else {
-                        System.out.println("Question number = " + mQuestionNumber);
-                        updateQuestion();
-                    }
-                }
-            }
-        });
+//        mButtonChoice3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //logic for button
+//
+//                if (mButtonChoice3.getText() == mAnswer){
+//                    mScore = mScore + 1;
+//                    updateScore(mScore);
+//                    updateQuestion();
+//                }
+//                else{
+//                    if (mQuestionNumber >= 3){
+//                        Toast.makeText(QuizActivity.this, "Thanks for your quiz", Toast.LENGTH_LONG).show();
+//                        String personality = "UPHOLDER";
+//                        switch (personality){
+//                            case "UPHOLDER":
+//                                //databaseHandler.createUPHOLDERtable();
+//                                break;
+//                            case "OBLIGER":
+//                                //databaseHandler.createOBLIGERtable();
+//                                break;
+//                            case "REBEL":
+//                                //databaseHandler.createREBELtable();
+//                                break;
+//                            case "QUESTIONER":
+//                                //databaseHandler.createQUESTIONERtable();
+//                                break;
+//
+//                        }
+//                        Contacts user = new Contacts();
+//                        if(username != null) {
+//                            user.set_nick_name(username);
+//                            user.setFilled_quiz(1);
+//                            databaseHandler.addUserQuizValue(user);
+//
+//                            user.set_personality_type(personality);
+//                            //add personality information
+//                            databaseHandler.addPersonalityTypeValue(user);
+//
+//                            Intent intent = new Intent(QuizActivity.this, BooksListActivity.class);
+//                            startActivity(intent);
+//                        }
+//                    }
+//                    else {
+//                        System.out.println("Question number = " + mQuestionNumber);
+//                        updateQuestion();
+//                    }
+//                }
+//            }
+//        });
+//
+//        //Button4 listener start
+//        mButtonChoice4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //logic for button
+//
+//                if (mButtonChoice4.getText() == mAnswer){
+//                    mScore = mScore + 1;
+//                    updateScore(mScore);
+//                    updateQuestion();
+//                }
+//                else{
+//                    if (mQuestionNumber >= 3){
+//                        Toast.makeText(QuizActivity.this, "Thanks for your quiz", Toast.LENGTH_LONG).show();
+//                        String personality = "UPHOLDER";
+//                        switch (personality){
+//                            case "UPHOLDER":
+//                                //databaseHandler.createUPHOLDERtable();
+//                                break;
+//                            case "OBLIGER":
+//                                //databaseHandler.createOBLIGERtable();
+//                                break;
+//                            case "REBEL":
+//                                //databaseHandler.createREBELtable();
+//                                break;
+//                            case "QUESTIONER":
+//                                //databaseHandler.createQUESTIONERtable();
+//                                break;
+//
+//                        }
+//                        Contacts user = new Contacts();
+//                        if(username != null) {
+//                            user.set_nick_name(username);
+//                            user.setFilled_quiz(1);
+//                            databaseHandler.addUserQuizValue(user);
+//
+//                            user.set_personality_type(personality);
+//                            //add personality information
+//                            databaseHandler.addPersonalityTypeValue(user);
+//
+//                            Intent intent = new Intent(QuizActivity.this, BooksListActivity.class);
+//                            startActivity(intent);
+//                        }
+//                    }
+//                    else {
+//                        System.out.println("Question number = " + mQuestionNumber);
+//                        updateQuestion();
+//                    }
+//                }
+//            }
+//        });
     }
 
     private void updateQuestion(){
         mQuestionView.setText(mQuestLib.getQuestion(mQuestionNumber));
         mButtonChoice1.setText(mQuestLib.getChoice1(mQuestionNumber));
         mButtonChoice2.setText(mQuestLib.getChoice2(mQuestionNumber));
-        mButtonChoice3.setText(mQuestLib.getChoice3(mQuestionNumber));
-        mButtonChoice4.setText(mQuestLib.getChoice4(mQuestionNumber));
 
-        mAnswer = mQuestLib.getCorrectAnswer(mQuestionNumber);
+//       mAnswer = mQuestLib.getCorrectAnswer(mQuestionNumber);
         mQuestionNumber++;
+    }
+    private void recordAnswers(String an){
+        answers.add(an);
+    }
+    private String getPersonalityByQuiz(){
+        String rel = "Upholder";
+
+        int countOutterYes=0;
+        int countOutterNo=0;
+        int countInnterYes=0;
+        int countInnterNo=0;
+
+        // 0 - No  1 -Yes
+        int outter=0;
+        int inner =0;
+        for(int i=0;i<(answers.size()-1)/2;i++){
+            if(answers.get(i)=="Yes"){
+                countOutterYes++;
+            }else{
+                countOutterNo++;
+            }
+        }
+        for(int i=(answers.size()-1)/2;i<answers.size();i++){
+            if(answers.get(i)=="Yes"){
+                countInnterYes++;
+            }else{
+                countInnterNo++;
+            }
+        }
+        System.out.println("outter: "+outter);
+        System.out.println("inner: "+inner);
+        if(countOutterYes>countOutterNo){
+            outter=1;
+        }else{
+            outter=0;
+        }
+
+        if(countInnterYes>countInnterNo){
+            inner=1;
+        }else{
+            inner=0;
+        }
+
+        if(outter ==1 & inner ==1){
+            rel = "Upholder";
+        }else if(outter ==1 & inner==0){
+            rel = "Questioner";
+        }else if(outter == 0 & inner ==1){
+            rel = "Obliger";
+        }else if(outter ==0 & inner ==0){
+            rel = "Rebel";
+        }
+        return rel;
+
     }
 
     private void updateScore(int point){

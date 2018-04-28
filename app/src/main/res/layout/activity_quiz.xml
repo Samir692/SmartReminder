@@ -9,24 +9,23 @@
     tools:context="com.example.android.smartreminder.QuizActivity">
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:layout_marginBottom="40dp">
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="8dp"-->
+        <!--android:layout_marginBottom="40dp">-->
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/quiz_header"/>
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/quiz_header"/>-->
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:text="Which one do you like baby?"
         android:textSize="20sp"
         android:padding="8dp"
         android:layout_marginBottom="40dp"
@@ -35,7 +34,6 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ALl of it"
         android:background="#0091EA"
         android:textColor="#fff"
         android:padding="8dp"
@@ -46,7 +44,6 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="A bit of it"
         android:background="#0091EA"
         android:textColor="#fff"
         android:padding="8dp"
@@ -54,26 +51,26 @@
         android:id="@+id/quiz_answer2"/>
 
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="None of it"
-        android:background="#0091EA"
-        android:textColor="#fff"
-        android:padding="8dp"
-        android:layout_marginBottom="24dp"
-        android:id="@+id/quiz_answer3"/>
+    <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="None of it"-->
+        <!--android:background="#0091EA"-->
+        <!--android:textColor="#fff"-->
+        <!--android:padding="8dp"-->
+        <!--android:layout_marginBottom="24dp"-->
+        <!--android:id="@+id/quiz_answer3"/>-->
 
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Some of it"
-        android:background="#0091EA"
-        android:textColor="#fff"
-        android:padding="8dp"
-        android:layout_marginBottom="24dp"
-        android:id="@+id/quiz_answer4"/>
+    <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Some of it"-->
+        <!--android:background="#0091EA"-->
+        <!--android:textColor="#fff"-->
+        <!--android:padding="8dp"-->
+        <!--android:layout_marginBottom="24dp"-->
+        <!--android:id="@+id/quiz_answer4"/>-->
 
 
 </LinearLayout>
