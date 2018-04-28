@@ -15,6 +15,7 @@
             android:layout_height="fill_parent"
             android:orientation="vertical">
 
+<<<<<<< HEAD
             <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -28,6 +29,21 @@
                     app:popupTheme="@style/AppTheme.PopupOverlay" />
 
             </android.support.design.widget.AppBarLayout>
+=======
+            <!--<android.support.design.widget.AppBarLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:theme="@style/AppTheme.AppBarOverlay">-->
+
+                <!--<android.support.v7.widget.Toolbar-->
+                    <!--android:id="@+id/toolbar"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="?attr/actionBarSize"-->
+                    <!--android:background="?attr/colorPrimary"-->
+                    <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
+
+            <!--</android.support.design.widget.AppBarLayout>-->
+>>>>>>> shujian97-master
 
             <include layout="@layout/content_add_book" />
 
