@@ -20,6 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
@@ -28,6 +29,9 @@
             android:name=".BooksListActivity"
             android:label="@string/title_activity_books_list"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <receiver android:name=".AlarmReceiver" android:process=":remote"></receiver>
+        <receiver android:name=".CancelAlarmBroadcastReceiver" android:process=":remote"></receiver>
         <activity
             android:name=".CalendarActivity"
             android:label="CalendarActivity"
@@ -41,6 +45,7 @@
             android:name=".AddBook"
             android:label="@string/title_activity_add_book"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".HistoryActivity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".UpdateActivity"></activity>
