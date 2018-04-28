@@ -28,6 +28,9 @@
             android:name=".BooksListActivity"
             android:label="@string/title_activity_books_list"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <receiver android:name=".AlarmReceiver" android:process=":remote"></receiver>
+        <receiver android:name=".CancelAlarmBroadcastReceiver" android:process=":remote"></receiver>
         <activity
             android:name=".CalendarActivity"
             android:label="CalendarActivity"
@@ -40,7 +43,7 @@
         <activity
             android:name=".AddBook"
             android:label="@string/title_activity_add_book"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

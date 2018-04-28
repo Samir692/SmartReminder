@@ -1,12 +1,17 @@
 package com.example.android.smartreminder;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,8 +24,11 @@ import com.example.android.smartreminder.database_sql.DatabaseHandler;
 
 import org.w3c.dom.Text;
 
+import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import static com.example.android.smartreminder.LoginActivity.username;
@@ -36,6 +44,7 @@ public class AddBook extends AppCompatActivity {
     private TextView deadline;
     private String date;
     private Calendar myCalendar;
+    private long millis;
 
 
     @Override
@@ -57,7 +66,22 @@ public class AddBook extends AppCompatActivity {
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 date = updateLabel();
-                System.out.println("got date = " + date);
+
+                String delegate = "hh:mm aaa";
+                String date_hour_min = (String) DateFormat.format(delegate,Calendar.getInstance().getTime());
+                String deadline_hour_min = date + " " + date_hour_min;
+                System.out.println("date fully = " + deadline_hour_min);
+
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy h:mm a", Locale.ENGLISH);
+                Date deadline_date_format = null;
+                try {
+                    deadline_date_format = sdf.parse(deadline_hour_min);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                millis = deadline_date_format.getTime();
+                System.out.println("chosen millisecond = " + millis);
+
                 deadline.setText(date);
             }
         };
@@ -68,6 +92,7 @@ public class AddBook extends AppCompatActivity {
 
         final EditText book_name = (EditText) findViewById(R.id.book_name);
         final EditText total_page = (EditText) findViewById(R.id.total_page);
+        total_page.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
         final TextView bookQuestion1 = (TextView) findViewById(R.id.bookQuestion1);
         final EditText answer1 = (EditText) findViewById(R.id.answer1);
         final TextView bookQuestion2 = (TextView) findViewById(R.id.bookQuestion2);
@@ -90,7 +115,7 @@ public class AddBook extends AppCompatActivity {
 
         Contacts user_local = dbHandler.getPersonalityType(username);
         final String personality = user_local.get_personality_type();
-        System.out.println("personalityyyyyyy = " + personality + " username = " + username);
+        System.out.println("personality = " + personality + " username = " + username);
 
         if(personality.length() > 0){
             //create questions
@@ -170,19 +195,23 @@ public class AddBook extends AppCompatActivity {
                 Log.d("transition", "adding book to database");
                 String answer1Text = answer1.getText().toString();
 
-
-                //TODO restrict editText to only integers
                 //add Book
                 Books book = new Books();
                 String bookName = book_name.getText().toString();
-                int totalPage = Integer.parseInt(total_page.getText().toString());
+                int totalPage = 0;
+                try {
+                    totalPage = Integer.parseInt(total_page.getText().toString());
+                }
+                catch (Exception e){
+
+                }
                 String ANSWER1 = answer1.getText().toString();
                 String ANSWER2 = answer2.getText().toString();
                 String ANSWER3 = answer3.getText().toString();
                 String ANSWER4 = answer4.getText().toString();
                 String ANSWER5 = answer5.getText().toString();
 
-
+                System.out.println("Setting book details");
                 book.set_book_name(bookName);
                 book.set_book_total_pages(totalPage);
                 book.set_book_done_pages(0);
@@ -265,6 +294,11 @@ public class AddBook extends AppCompatActivity {
                     user_local.set_nick_name(username);
                     dbHandler.addBookNameValue(user_local);
 
+                    //set alarms
+                    long time_interval_alarm = millis;
+
+                    scheduleAlarm(time_interval_alarm);
+
                     Intent intent = new Intent(AddBook.this, BooksListActivity.class);
                     intent.putExtra("book","added");
                     startActivity(intent);
@@ -289,5 +323,24 @@ public class AddBook extends AppCompatActivity {
         return date;
 
     }
+
+    private void scheduleAlarm(long deadline){
+
+        /* Create the PendingIntent that will launch the BroadcastReceiver */
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pending = PendingIntent.getBroadcast(this, 0, new Intent(this, AlarmReceiver.class), 0);
+        Log.d("alarm", "Setted repeated alarms");
+
+        //set alarmmanaget to cancel already existing alarm
+        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), manager.INTERVAL_DAY, pending);
+        Intent cancellationIntent = new Intent(this, CancelAlarmBroadcastReceiver.class);
+        cancellationIntent.putExtra("key", pending);
+        PendingIntent cancellationPendingIntent = PendingIntent.getBroadcast(this, 0, cancellationIntent, 0);
+        manager.set(AlarmManager.RTC_WAKEUP,  deadline, cancellationPendingIntent);
+
+        Log.d("alarm", "Setted cancellation");
+
+    }
+
 
 }
