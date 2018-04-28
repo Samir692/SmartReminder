@@ -1,5 +1,8 @@
 package com.example.android.smartreminder;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +24,10 @@ import android.widget.TextView;
 
 import com.example.android.smartreminder.database_sql.DatabaseHandler;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import static com.example.android.smartreminder.LoginActivity.username;
 
@@ -62,7 +69,8 @@ public class BooksListActivity extends AppCompatActivity
             //check if there is already book stored or book is finished
             Contacts user_for_recent_book = dbHandler.getUsersBookName(username);
             String book_name = user_for_recent_book.get_book_name();
-            if(book_name.equals("empty")) {
+            //System.out.println("book name = " + book_name);
+            if(book_name.equals("EMPTY")) {
 
                 fab.show();
                 fab.setEnabled(true);
@@ -142,6 +150,8 @@ public class BooksListActivity extends AppCompatActivity
 //                }
 //            });
         }
+
+
 
         @Override
         public void onBackPressed() {
