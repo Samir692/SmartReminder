@@ -43,7 +43,7 @@
                     <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
 
             <!--</android.support.design.widget.AppBarLayout>-->
->>>>>>> shujian97-master
+
 
             <include layout="@layout/content_add_book" />
 
