@@ -28,10 +28,10 @@ public class AuthenticationTest {
     public void testAuthenication() throws Exception{
         Context context=null;
         try {
-            boolean negativeresult = a.authenication(context, null, null);
+            boolean negativeresult = a.authenticate(context, null, null);
             assertEquals(false, negativeresult);
 
-            boolean positiveresult = a.authenication(context, "Smart Reminder user", "password");
+            boolean positiveresult = a.authenticate(context, "Smart Reminder user", "password");
             assertEquals(true, positiveresult);
         } catch (NoSuchAlgorithmException e1){
 
