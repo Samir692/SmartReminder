@@ -325,13 +325,13 @@ public class QuizActivity extends AppCompatActivity {
         }
 
         if(outter ==1 & inner ==1){
-            rel = "Upholder";
+            rel = "UPHOLDER";
         }else if(outter ==1 & inner==0){
-            rel = "Questioner";
+            rel = "QUESTIONER";
         }else if(outter == 0 & inner ==1){
-            rel = "Obliger";
+            rel = "OBLIGER";
         }else if(outter ==0 & inner ==0){
-            rel = "Rebel";
+            rel = "REBEL";
         }
         return rel;
 
