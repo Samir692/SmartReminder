@@ -1,0 +1,24 @@
+Welcome to "SmartReminder" project created by enthusiastic future students from Computer Science course of Eotvos Lorand University. 
+
+This file includes the manuals for users and developers.
+
+The purpose of the application is creating the Android application which can help people to finish the started books by properly finding the personality types and working with user accrodingly.
+User's manual:
+This application is instinctive and native to use with clear instructions written in English. 
+
+Developer's manual:
+The required tools:
+-Android studio
+-java libraries, Eclipse for integration testing
+
+First of all, clone this project, and check carefully the Gradle settings and if the source code requirements are up-to-date.
+The project is organized as standard Gradle project in a following way:
+|->app
+  |->src
+    |->main // this folder contains the java code for the application 
+    |->test // the unit tests that for correctness of single functions in the source code
+    |->android tests // the instrumented tests for checkign the functionality of the application and the logic
+    
+The integration and system tests can be found here: https://github.com/AkzharkynDM/Integration-Tests-for-SmartReminder.
+
+Have fun using our application:)
