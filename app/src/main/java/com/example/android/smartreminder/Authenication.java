@@ -43,7 +43,9 @@ public class Authenication {
     public boolean authenticate(Context context, String username, String password)
             throws NoSuchAlgorithmException, InvalidKeySpecException {
 
-
+        if (context == null){
+            return false;
+        }
         DatabaseHandler dbhand = new DatabaseHandler(context);
         Contacts user = dbhand.getPassAndSalt(username);
 

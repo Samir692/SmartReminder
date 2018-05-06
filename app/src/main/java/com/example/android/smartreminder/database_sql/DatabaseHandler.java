@@ -88,7 +88,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
             + COLUMN_USER_HISTORY_BOOK_NAME   + " TEXT,"
             + COLUMN_USER_HISTORY_BOOK_DONE_PAGES + " INTEGER,"
             + COLUMN_USER_HISTORY_BOOK_TOTAL_PAGES + " INTEGER,"
-            + COLUMN_USER_HISTORY_BOOK_CREATED + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
+            + COLUMN_USER_HISTORY_BOOK_CREATED + " DATETIME DEFAULT CURRENT_TIMESTAMP"
             + ")";
 
 
@@ -117,7 +117,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     //constructor
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-//        deleteDb(context);
+        //deleteDb(context);
     }
 
 
