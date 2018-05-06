@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.android.smartreminder.Books;
 import com.example.android.smartreminder.Contacts;
+import com.example.android.smartreminder.History;
 import com.example.android.smartreminder.QuestionsAnswersCharacterBased;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
 
     // Tables names
     private static final String TABLE_CONTACTS = "contacts";
+
+    private static final String TABLE_HISTORY = "history";
     private static final String TABLE_BOOKS = "books";
     private static final String TABLE_QUESTIONS_ANSWERS = "questions_answers_character_based";
 
@@ -41,6 +44,15 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     private static final String COLUMN_USER_PASSWORD = "user_password";
     private static final String COLUMN_USER_SALT = "user_salt";
     private static final String COLUMN_USER_FILLED_QUIZ = "user_filled_quiz";
+
+
+    // History Table Columns names
+    private static final String COLUMN_USER_HISTORY_ID = "id";
+    private static final String COLUMN_USER_HISTORY_NICK_NAME = "user_nick_name";
+    private static final String COLUMN_USER_HISTORY_BOOK_NAME = "book_name";
+    private static final String COLUMN_USER_HISTORY_BOOK_TOTAL_PAGES = "total_pages";
+    private static final String COLUMN_USER_HISTORY_BOOK_DONE_PAGES = "done_pages";
+    private static final String COLUMN_USER_HISTORY_BOOK_CREATED = "created";
 
     // BOOKS Table Columns names
     private static final String COLUMN_USER_BOOKS_ID = "id";
@@ -59,8 +71,6 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     private static final String COLUMN_USER_QUEST_ANSW_CREATED = "created";
 
 
-
-
     // create table sql query
     private String CREATE_USER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_CONTACTS + "("
             + COLUMN_USER_ID          + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -70,6 +80,17 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
             + COLUMN_USER_PERSONALITY_TYPE + " TEXT,"
             + COLUMN_USER_EMAIL       + " TEXT NOT NULL UNIQUE," + COLUMN_USER_PASSWORD + " BLOB,"
             + COLUMN_USER_SALT        + " BLOB" + ")";
+
+    // create table sql query
+    private String CREATE_USER_HISTORY = "CREATE TABLE IF NOT EXISTS " + TABLE_HISTORY + "("
+            + COLUMN_USER_HISTORY_ID          + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLUMN_USER_HISTORY_NICK_NAME + " TEXT NOT NULL UNIQUE,"
+            + COLUMN_USER_HISTORY_BOOK_NAME   + " TEXT,"
+            + COLUMN_USER_HISTORY_BOOK_DONE_PAGES + " INTEGER,"
+            + COLUMN_USER_HISTORY_BOOK_TOTAL_PAGES + " INTEGER,"
+            + COLUMN_USER_HISTORY_BOOK_CREATED + " DATETIME DEFAULT CURRENT_TIMESTAMP"
+            + ")";
+
 
     private String CREATE_USER_QUESTIONS_ANSWERS_CHARACTER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_QUESTIONS_ANSWERS + "("
             + COLUMN_USER_QUEST_ANSW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -111,6 +132,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         db.execSQL(CREATE_USER_TABLE);
         db.execSQL(CREATE_USER_BOOKS_TABLE);
         db.execSQL(CREATE_USER_QUESTIONS_ANSWERS_CHARACTER_TABLE);
+        db.execSQL(CREATE_USER_HISTORY);
 
     }
 
@@ -182,7 +204,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     }
 
     /**
-     * This method is to create user record
+     * This method is to create book record
      *
      * @param book
      */
@@ -197,6 +219,26 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
 
         // Inserting Row
         long id = db.insert(TABLE_BOOKS, null, values);
+        db.close();
+        return  id;
+    }
+
+    /**
+     * This method is to create history record
+     *
+     * @param history
+     */
+    public long addHistory(History history) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_HISTORY_NICK_NAME, history.get_nick_name());
+        values.put(COLUMN_USER_HISTORY_BOOK_NAME, history.get_book_name());
+        values.put(COLUMN_USER_HISTORY_BOOK_TOTAL_PAGES, history.get_book_total_pages());
+        values.put(COLUMN_USER_HISTORY_BOOK_DONE_PAGES, history.get_book_done_pages());
+
+        // Inserting Row
+        long id = db.insert(TABLE_HISTORY, null, values);
         db.close();
         return  id;
     }
@@ -221,9 +263,6 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     }
     /**
      * This method is to get all values in Questions and Answers table
-     * @param question
-     * @param answer
-     * @param personality_type
      */
     public List<String> getAllQuestionAnswer() {
         // array of columns to fetch
@@ -335,6 +374,65 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
 
         // return user list
         return userList;
+    }
+
+
+    /**
+     * This method is to fetch all history and return the list of history records
+     *
+     * @return list
+     */
+    public List<History> getAllHistroy() {
+        // array of columns to fetch
+
+
+        String[] columns = {
+                COLUMN_USER_HISTORY_NICK_NAME,
+                COLUMN_USER_HISTORY_BOOK_NAME,
+                COLUMN_USER_HISTORY_BOOK_DONE_PAGES,
+                COLUMN_USER_HISTORY_BOOK_TOTAL_PAGES,
+                COLUMN_USER_HISTORY_BOOK_CREATED
+        };
+
+
+        // sorting orders
+        String sortOrder =
+                COLUMN_USER_HISTORY_BOOK_CREATED + " DESC";
+        List<History> histroyList = new ArrayList<History>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // query the user table
+        /**
+         * SELECT user_id,user_name,user_email,user_password FROM user ORDER BY user_name;
+         */
+        Cursor cursor = db.query(TABLE_HISTORY, //Table to query
+                columns,    //columns to return
+                null,        //columns for the WHERE clause
+                null,        //The values for the WHERE clause
+                null,       //group the rows
+                null,       //filter by row groups
+                sortOrder); //The sort order
+
+        // Traversing through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                History history = new History();
+                //user.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID))));
+                history.set_book_name(cursor.getString(cursor.getColumnIndex(COLUMN_USER_HISTORY_BOOK_NAME)));
+                history.set_book_done_pages(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_HISTORY_BOOK_DONE_PAGES))));
+                history.set_book_total_pages(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_HISTORY_BOOK_TOTAL_PAGES))));
+                history.set_book_created(cursor.getString(cursor.getColumnIndex(COLUMN_USER_HISTORY_BOOK_CREATED)));
+
+                // Adding book record to list
+                histroyList.add(history);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        // return user list
+        return histroyList;
     }
 
 

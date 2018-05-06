@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.android.smartreminder.SettingActivity">
+    <ScrollView
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+
+        >
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+            </android.support.design.widget.AppBarLayout>
+
+            <!--<android.support.design.widget.AppBarLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:theme="@style/AppTheme.AppBarOverlay">-->
+
+                <!--<android.support.v7.widget.Toolbar-->
+                    <!--android:id="@+id/toolbar"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="?attr/actionBarSize"-->
+                    <!--android:background="?attr/colorPrimary"-->
+                    <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
+
+            <!--</android.support.design.widget.AppBarLayout>-->
+
+
+            <include layout="@layout/content_add_book" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="20dp"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:width="80dp"
+                                android:text="Name" />
+
+                            <EditText
+                                android:id="@+id/edit_Name"
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="name"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:width="80dp"
+                                android:text="Email" />
+
+                            <EditText
+                                android:id="@+id/edit_Email"
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="email"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:width="80dp"
+                                android:text="Password" />
+
+                            <EditText
+                                android:id="@+id/edit_Password"
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="password"/>
+
+
+
+
+                    </LinearLayout>
+
+                    </LinearLayout>
+                    <Button
+                        android:id="@+id/edit_submit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="submit"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="80dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</android.support.design.widget.CoordinatorLayout>
