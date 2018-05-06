@@ -59,6 +59,7 @@ public class BooksListActivity extends AppCompatActivity
             TextView book_done_pages = (TextView) findViewById(R.id.DonePage);
             TextView book_total_pages = (TextView) findViewById(R.id.TotalPage);
             ProgressBar simpleProgressBar = (ProgressBar) findViewById(R.id.simpleProgressBar);
+            Button updateButton = (Button) findViewById(R.id.updateButton);
 
 
 
@@ -95,12 +96,35 @@ public class BooksListActivity extends AppCompatActivity
                     book_deadline_main.setText(deadline);
                     book_done_pages.setText(Integer.toString(done_pages));
                     book_total_pages.setText(Integer.toString(total_pages));
-                    int progress = (done_pages/total_pages)*100;
+
+                    float donePages = (float) done_pages;
+                    float totalPages = (float) total_pages;
+
+                    float division = donePages/totalPages;
+
+                    //System.out.println("TOTAL PAGES = " + total_pages);
+
+                    //System.out.println("Done PAGES = " + done_pages);
+
+                    //System.out.println(" DIVISON = " + division);
+
+                    float progress_division = division*100;
+                    //System.out.println("PROGRESSSSSSSSSSSSSSS DIVISON = " + progress_division);
+                    int progress = Math.round(progress_division);
+                    //System.out.println("PROGRESSSSSSSSSSSSSSS = " + progress);
                     simpleProgressBar.setProgress(progress);
 
                 }
             }
 
+
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentLocal = new Intent(getApplicationContext(), UpdateActivity.class);
+                startActivity(intentLocal);
+            }
+        });
 
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -189,13 +213,19 @@ public class BooksListActivity extends AppCompatActivity
         @Override
         public boolean onNavigationItemSelected(MenuItem item) {
             // Handle navigation view item clicks here.
+
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             int id = item.getItemId();
 
             if (id == R.id.nav_camera) {
                 // Handle the camera action
             } else if (id == R.id.nav_gallery) {
 
-            } else if (id == R.id.nav_slideshow) {
+            } else if (id == R.id.nav_history) {
+                drawer.closeDrawers();
+                Intent intent1 = new Intent(getApplicationContext(), HistoryActivity.class);
+                startActivity(intent1);
+                return true;
 
             } else if (id == R.id.nav_manage) {
 
@@ -205,7 +235,7 @@ public class BooksListActivity extends AppCompatActivity
 
             }
 
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
             drawer.closeDrawer(GravityCompat.START);
             return true;
         }

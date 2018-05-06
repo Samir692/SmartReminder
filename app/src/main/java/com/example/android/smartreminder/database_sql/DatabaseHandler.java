@@ -84,7 +84,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     // create table sql query
     private String CREATE_USER_HISTORY = "CREATE TABLE IF NOT EXISTS " + TABLE_HISTORY + "("
             + COLUMN_USER_HISTORY_ID          + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + COLUMN_USER_HISTORY_NICK_NAME + " TEXT NOT NULL UNIQUE,"
+            + COLUMN_USER_HISTORY_NICK_NAME + " TEXT NOT NULL,"
             + COLUMN_USER_HISTORY_BOOK_NAME   + " TEXT,"
             + COLUMN_USER_HISTORY_BOOK_DONE_PAGES + " INTEGER,"
             + COLUMN_USER_HISTORY_BOOK_TOTAL_PAGES + " INTEGER,"
@@ -533,6 +533,29 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * This method to update user record
+     *
+     * @param book
+     */
+    public long updateDonePages(Books book) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        int bookID = book.get_id();//getBook(book.get_book_name()).get_id();
+
+        values.put(COLUMN_USER_BOOKS_NAME, book.get_book_name());
+        values.put(COLUMN_USER_BOOKS_DONE_PAGES, book.get_book_done_pages());
+
+
+        // updating row
+        long id = db.update(TABLE_BOOKS, values, COLUMN_USER_BOOKS_ID + " = ?",
+                new String[]{String.valueOf(bookID)});
+        db.close();
+        return  id;
+
+    }
+
      /*
      * This method to check user exist or not
      *
@@ -703,7 +726,8 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         String[] columns = {
                 COLUMN_USER_BOOKS_DEADLINE,
                 COLUMN_USER_BOOKS_DONE_PAGES,
-                COLUMN_USER_BOOKS_TOTAL_PAGES
+                COLUMN_USER_BOOKS_TOTAL_PAGES,
+                COLUMN_USER_BOOKS_ID
         };
         SQLiteDatabase db = this.getReadableDatabase();
         // selection criteria
@@ -737,7 +761,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
                     book.set_book_deadline(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_DEADLINE)));
                     book.set_book_total_pages((Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_TOTAL_PAGES)))));
                     book.set_book_done_pages((Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_DONE_PAGES)))));
-                    //book.set_id((Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)))));
+                    book.set_id((Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_ID)))));
                     //book.set_book_name(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOK_NAME)));
                     //USER.set_hear_rate((cursor.getInt(cursor.getColumnIndex(COLUMN_USER_RATE))));
                 } while (cursor.moveToNext());
@@ -747,7 +771,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
             return book;
         }
 
-        System.out.print("Duplicated Users");
+        System.out.print("Duplicated Books");
         return book;
     }
 

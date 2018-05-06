@@ -299,6 +299,8 @@ public class AddBook extends AppCompatActivity {
 
                     scheduleAlarm(time_interval_alarm);
 
+                    Toast.makeText(getApplicationContext(), bookName + " has been registered", Toast.LENGTH_SHORT).show();
+
                     Intent intent = new Intent(AddBook.this, BooksListActivity.class);
                     intent.putExtra("book","added");
                     startActivity(intent);
