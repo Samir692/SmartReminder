@@ -7,7 +7,8 @@ User's manual:
 This application is instinctive and native to use with clear instructions written in English. 
 The user is supposed to enter the data about the book and set the deadline for completing reading of the book. 
 The control over the process of reading and reminding will be based on the personality type of user. 
-This type will be determined at the registration point. The more information about this personality types can be found in the wiki pages.
+This type will be determined at the registration point. The more information about this personality types can be found in the following wiki page:
+https://github.com/Samir692/SmartReminder/wiki/%22Rubin-Tendencies%22
 
 Developer's manual:
 The required tools:
