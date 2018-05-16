@@ -21,7 +21,7 @@ The project is organized as standard Gradle project in a following way:
   |->src
     |->main // this folder contains the java code for the application 
     |->test // the unit tests that for correctness of single functions in the source code
-    |->android tests // the instrumented tests for checkign the functionality of the application and the logic
+    |->android tests // the instrumented tests for checking the functionality of the application and the logic
     
 The integration and system tests can be found here: https://github.com/AkzharkynDM/Integration-Tests-for-SmartReminder.
 
