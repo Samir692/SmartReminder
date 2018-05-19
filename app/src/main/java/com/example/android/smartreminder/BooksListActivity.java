@@ -24,6 +24,8 @@ import android.widget.TextView;
 
 import com.example.android.smartreminder.database_sql.DatabaseHandler;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -64,6 +66,9 @@ public class BooksListActivity extends AppCompatActivity
             TextView book_total_pages = (TextView) findViewById(R.id.TotalPage);
             ProgressBar simpleProgressBar = (ProgressBar) findViewById(R.id.simpleProgressBar);
             Button updateButton = (Button) findViewById(R.id.updateButton);
+
+
+
 
 
 
@@ -140,43 +145,15 @@ public class BooksListActivity extends AppCompatActivity
             navigationView.setNavigationItemSelectedListener(this);
 
 
-//            //calendar view test
-//            thedate = (TextView) findViewById(R.id.dateCalendar);
-//            btngocalendar = (Button) findViewById(R.id.btngocalendar);
-//            getLastBook = (Button) findViewById(R.id.getLastBook);
-//            currentBook = (TextView) findViewById(R.id.currentBook);
-//
-//            //default addbook is not visible
-//            getLastBook.setVisibility(View.GONE);
-//            currentBook.setVisibility(View.GONE);
-//
-//            Contacts user = dbHandler.getUser(username);
-//            System.out.println("nickname = " + username);
-//            String last_book_of_user = user.get_book_name();
-//            if(last_book_of_user.equals("EMPTY")){
-//                getLastBook.setVisibility(View.VISIBLE);
-//                currentBook.setVisibility(View.VISIBLE);
-//            }
-//
-//            Intent incoming = getIntent();
-//            String date = incoming.getStringExtra("date");
-//            thedate.setText(date);
-//
-//            btngocalendar.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent intent = new Intent(BooksListActivity.this, CalendarActivity.class);
-//                    intent.putExtra("className","com.example.android.smartreminder.BooksListActivity");
-//                    startActivity(intent);
-//                }
-//            });git s
-//
-//            getLastBook.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//
-//                }
-//            });
+            View headerView = navigationView.getHeaderView(0);
+
+            TextView user_name = (TextView) headerView.findViewById(R.id.user_name);
+            TextView textView = (TextView) headerView.findViewById(R.id.textView);
+
+
+            user_name.setText(username);
+            textView.setText(dbHandler.getUser(username).get_email());
+
         }
 
 
@@ -205,23 +182,7 @@ public class BooksListActivity extends AppCompatActivity
             // as you specify a parent activity in AndroidManifest.xml.
             int id = item.getItemId();
 
-            //noinspection SimplifiableIfStatement
-//            if (id == R.id.action_settings) {
-//                return true;
-//            }
             if (id == R.id.nav_history) {
-                if (!book_name.equals("EMPTY")) {
-
-                    System.out.println("HISTORY CLICKED");
-                    Intent intent1 = new Intent(getApplicationContext(), HistoryActivity.class);
-                    startActivity(intent1);
-                    return true;
-                } else {
-
-                    System.out.println("HISTORY CLICKED");
-                    Snackbar.make(nav_view, getString(R.string.error_no_book_settings), Snackbar.LENGTH_LONG).show();
-                    return false;
-                }
             }
 
             return super.onOptionsItemSelected(item);
@@ -243,7 +204,11 @@ public class BooksListActivity extends AppCompatActivity
                 return true;
 
 
-            } else if (id == R.id.nav_share) {
+            } else if (id == R.id.nav_action_settings) {
+
+                Intent intent2 = new Intent(getApplicationContext(), SettingActivity.class);
+                startActivity(intent2);
+                return true;
 
             } else if (id == R.id.nav_send) {
 

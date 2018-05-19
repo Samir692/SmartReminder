@@ -52,12 +52,12 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     private static final String COLUMN_USER_HISTORY_BOOK_NAME = "book_name";
     private static final String COLUMN_USER_HISTORY_BOOK_TOTAL_PAGES = "total_pages";
     private static final String COLUMN_USER_HISTORY_BOOK_DONE_PAGES = "done_pages";
-    private static final String COLUMN_USER_HISTORY_BOOK_CREATED = "created";
+    private static final String COLUMN_USER_HISTORY_BOOK_CREATED = "history_created";
 
     // BOOKS Table Columns names
     private static final String COLUMN_USER_BOOKS_ID = "id";
     private static final String COLUMN_USER_BOOKS_NAME = "name";
-    private static final String COLUMN_USER_BOOKS_CREATED = "created";
+    private static final String COLUMN_USER_BOOKS_CREATED = "books_created";
     private static final String COLUMN_USER_BOOKS_TOTAL_PAGES = "total_pages";
     private static final String COLUMN_USER_BOOKS_DONE_PAGES = "done_pages";
     private static final String COLUMN_USER_BOOKS_DEADLINE = "deadline";
@@ -68,7 +68,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     private static final String COLUMN_USER_QUEST_ANSW_CHARACHTER = "character";
     private static final String COLUMN_USER_QUEST_ANSW_QUESTIONS = "questions";
     private static final String COLUMN_USER_QUEST_ANSW_ANSWERS = "answers";
-    private static final String COLUMN_USER_QUEST_ANSW_CREATED = "created";
+    private static final String COLUMN_USER_QUEST_ANSW_CREATED = "quests_created";
 
 
     // create table sql query
@@ -448,9 +448,9 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
                 COLUMN_USER_BOOKS_NAME,
                 COLUMN_USER_BOOKS_TOTAL_PAGES,
                 COLUMN_USER_BOOKS_DONE_PAGES,
+                COLUMN_USER_BOOKS_CREATED,
                 COLUMN_USER_BOOKS_DEADLINE
         };
-
 
         // sorting orders
         String sortOrder =
@@ -477,10 +477,8 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
                 Books book = new Books();
                 //user.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID))));
                 book.set_book_name(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_NAME)));
-                book.set_book_done_pages(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_DONE_PAGES))));
                 book.set_book_total_pages(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_TOTAL_PAGES))));
-                //System.out.println("created BOOKS = " + cursor.getColumnIndex(COLUMN_USER_BOOKS_CREATED));
-                //book.set_book_created(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_CREATED)));
+                book.set_book_created(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_BOOKS_CREATED)));
                 book.set_book_deadline(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_DEADLINE)));
                 // Adding book record to list
                 booksList.add(book);
@@ -668,7 +666,9 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         // array of columns to fetch
         String[] columns = {
                 COLUMN_USER_ID,
-                COLUMN_USER_BOOK_NAME
+                COLUMN_USER_BOOK_NAME,
+                COLUMN_USER_EMAIL,
+                COLUMN_USER_PASSWORD
         };
         SQLiteDatabase db = this.getReadableDatabase();
         // selection criteria
@@ -702,7 +702,9 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
 
                     user.set_id((Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)))));
                     user.set_book_name(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOK_NAME)));
-                    //USER.set_hear_rate((cursor.getInt(cursor.getColumnIndex(COLUMN_USER_RATE))));
+                    user.set_password((cursor.getBlob(cursor.getColumnIndex(COLUMN_USER_PASSWORD))));
+                    user.set_email(cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL)));
+
                 } while (cursor.moveToNext());
             }
             cursor.close();

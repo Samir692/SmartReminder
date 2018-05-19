@@ -15,16 +15,11 @@
             android:layout_height="fill_parent"
             android:orientation="vertical">
 
-<!--<<<<<<< HEAD-->
-<!--=======-->
-
             <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/AppTheme.AppBarOverlay">
-<!--&gt;>>>>>> abaca2bbf11eebd6a03ff515f6bcdda5b987d3e0-->
-
-            <!--<android.support.design.widget.AppBarLayout-->
+         <!--<android.support.design.widget.AppBarLayout-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="wrap_content"-->
                 <!--android:theme="@style/AppTheme.AppBarOverlay">-->
@@ -38,11 +33,9 @@
 
             <!--</android.support.design.widget.AppBarLayout>-->
 
-<!--<<<<<<< HEAD-->
-<!--=======-->
+
             </android.support.design.widget.AppBarLayout>
 
-<!--&gt;>>>>>> abaca2bbf11eebd6a03ff515f6bcdda5b987d3e0-->
             <!--<android.support.design.widget.AppBarLayout-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="wrap_content"-->
