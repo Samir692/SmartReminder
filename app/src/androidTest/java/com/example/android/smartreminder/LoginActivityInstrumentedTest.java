@@ -51,10 +51,6 @@ public class LoginActivityInstrumentedTest {
     Instrumentation.ActivityMonitor monitorRegister = InstrumentationRegistry.getInstrumentation().
             addMonitor(RegisterActivity.class.getName(), null, false);
 
-    Instrumentation.ActivityMonitor monitorHeartRtMn = InstrumentationRegistry.getInstrumentation().
-            addMonitor(HeartRateMonitor.class.getName(), null, false);
-
-
     @Before
     public void setUp() throws Exception {
         mActivity = mActivityRule.getActivity();
@@ -75,19 +71,10 @@ public class LoginActivityInstrumentedTest {
                 .perform(typeText("password"), closeSoftKeyboard());
         onView(withId(R.id.textInputEditTextPassword)).check(matches(withText("password")));
 
-
         onView(withId(R.id.appCompatButtonLogin)).perform(click());
 
-
-
         String successString = InstrumentationRegistry.getTargetContext().getString(R.string.error_password_match);
-/*
-        if (successString == null){
-            Activity HrtRateActivity = InstrumentationRegistry.getInstrumentation().waitForMonitorWithTimeout(monitorHeartRtMn, 500);
-            assertNotNull(HrtRateActivity);
-            HrtRateActivity.finish();
-        }
-*/
+
     }
 
 
@@ -143,18 +130,6 @@ public class LoginActivityInstrumentedTest {
 
 
         onView(withId(R.id.appCompatButtonLogin)).perform(click());
-
-
-
-
-        //String successString2 = InstrumentationRegistry.getTargetContext().getString(R.string.error_password_match);
-
-        //if (successString2 == null){
-            Activity HrtRateActivity = InstrumentationRegistry.getInstrumentation().waitForMonitorWithTimeout(monitorHeartRtMn, 500);
-            assertNotNull(HrtRateActivity);
-            HrtRateActivity.finish();
-        //}
-
     }
 
     @Test
@@ -208,9 +183,10 @@ public class LoginActivityInstrumentedTest {
         String username = "Nickname";
         String emailAddress = "firstname.lastname@g.com";
         char[] password = "password".toCharArray();
+        int n_filled_quiz=0;
 
         try {
-            Contacts user = ath.register(name, username, emailAddress, password);
+            Contacts user = ath.register(name, username, emailAddress, password, n_filled_quiz);
             assertEquals(name, user.get_username());
             assertEquals(username, user.get_nick_name());
             assertEquals(emailAddress, user.get_email());
@@ -220,21 +196,10 @@ public class LoginActivityInstrumentedTest {
         } catch (Exception e) {
             //e.printStackTrace();
         }
-
-
     }
-
-
 
     @After
     public void tearDown() throws Exception {
         mActivity = null;
     }
-
-
-
-
-
-
-
 }

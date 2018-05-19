@@ -6,8 +6,10 @@ import android.provider.ContactsContract;
 import android.support.test.InstrumentationRegistry;
 
 import com.example.android.health_in_time.database_sql.DatabaseHandler;
+import com.example.android.smartreminder.database_sql.DatabaseHandler;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,14 +32,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @LargeTest
 public class DatabaseHandlerInstrumentedTest{
 
-
     private DatabaseHandler mDataSource;
-
 
     @Before
     public void setUp(){
-
         mDataSource = new DatabaseHandler(InstrumentationRegistry.getTargetContext());
+        Assert.assertNotNull(mDataSource);
         mDataSource.dropAndCreate();
     }
 
@@ -59,12 +59,13 @@ public class DatabaseHandlerInstrumentedTest{
         String emailAddress = "firstname.lastname@g.com";
         String password = "password";
         String salt = "password";
-
+        int n_filled_quiz=0;
 
         Contacts user = new Contacts();
         user.set_username(name);
         user.set_nick_name(username);
         user.set_email(emailAddress);
+        user.setFilled_quiz(n_filled_quiz);
 
         mDataSource.addUser(user);
         List<Contacts> allusers = mDataSource.getAllUser();
@@ -95,22 +96,20 @@ public class DatabaseHandlerInstrumentedTest{
     }
 
     @Test
-    public void testAddRate(){
+    public void testAddBook(){
 
-        int id = 4;
-        int rate = 25;
+        Books book = new Books();
+        book.set_id(1);
+        book.set_book_name("Pride and Prejudice");
+        book.set_book_total_pages(50);
+        book.set_book_done_pages(0);
+        book.set_book_deadline("21.05.2018");
+        book.set_book_created("20.05.2018");
 
-        UserRate user_rate = new UserRate();
-        user_rate.set_id(id);
-        user_rate.set_hear_rate(rate);
+        mDataSource.addBook(book);
 
-        Contacts user = new Contacts();
-        user.set_id(id);
-
-        mDataSource.addRate(user_rate);
-
-        List<UserRate> allRates = mDataSource.getAllRate(user);
-        assertThat(allRates.size(), is(1));
+        List<Books> allBooks = mDataSource.getAllBooks();
+        assertThat(allBooks.size(), is(1));
     }
 
 
@@ -143,8 +142,4 @@ public class DatabaseHandlerInstrumentedTest{
         assertThat(user_get_id.get_id(), greaterThan(0));
 
     }
-
-
-
-
 }
