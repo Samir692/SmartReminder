@@ -18,6 +18,7 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_history);
 
         DatabaseHandler dbHandler = new DatabaseHandler(HistoryActivity.this);
 
@@ -48,7 +49,8 @@ public class HistoryActivity extends AppCompatActivity {
 //        layout.setOrientation(LinearLayout.VERTICAL);
 //        layout.setLayoutParams(params);
 
-        LinearLayout layout = (LinearLayout)findViewById(R.id.loopLinear);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.loopLinear);
+        System.out.println("Books size = " + allBooks.size());
         //For loop history records
         for (Books book : allBooks){
             //TODO replace xml to java in order to create dynamic view
@@ -61,6 +63,8 @@ public class HistoryActivity extends AppCompatActivity {
             String bookName = book.get_book_name();
             String bookTotalPages = Integer.toString(book.get_book_total_pages());
             String bookDonePages = Integer.toString(book.get_book_done_pages());
+            //System.out.println("date = " + date);
+            //System.out.println("bookName = " + bookName);
 
             LinearLayout child1 = new LinearLayout(getApplicationContext());
             child1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
