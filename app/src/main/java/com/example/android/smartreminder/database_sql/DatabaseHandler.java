@@ -66,6 +66,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     // Character questions and answers Table Columns names
     private static final String COLUMN_USER_QUEST_ANSW_ID = "id";
     private static final String COLUMN_USER_QUEST_ANSW_CHARACHTER = "character";
+    private static final String COLUMN_USER_QUEST_ANSW_BOOK_NAME = "book_name";
     private static final String COLUMN_USER_QUEST_ANSW_QUESTIONS = "questions";
     private static final String COLUMN_USER_QUEST_ANSW_ANSWERS = "answers";
     private static final String COLUMN_USER_QUEST_ANSW_CREATED = "quests_created";
@@ -95,6 +96,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     private String CREATE_USER_QUESTIONS_ANSWERS_CHARACTER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_QUESTIONS_ANSWERS + "("
             + COLUMN_USER_QUEST_ANSW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COLUMN_USER_QUEST_ANSW_CHARACHTER + " TEXT,"
+            + COLUMN_USER_QUEST_ANSW_BOOK_NAME + " TEXT,"
             + COLUMN_USER_QUEST_ANSW_QUESTIONS + " TEXT,"
             + COLUMN_USER_QUEST_ANSW_ANSWERS + " TEXT,"
             + COLUMN_USER_QUEST_ANSW_CREATED + " DATETIME DEFAULT CURRENT_TIMESTAMP"
@@ -249,18 +251,20 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
      * @param answer
      * @param personality_type
      */
-    public void addQuestionAnswer(String question, String answer, String personality_type) {
+    public void addQuestionAnswer(String question, String answer, String personality_type, String bookName) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(COLUMN_USER_QUEST_ANSW_CHARACHTER, personality_type);
         values.put(COLUMN_USER_QUEST_ANSW_QUESTIONS, question);
         values.put(COLUMN_USER_QUEST_ANSW_ANSWERS, answer);
+        values.put(COLUMN_USER_QUEST_ANSW_BOOK_NAME, bookName);
 
         // Inserting Row
         db.insert(TABLE_QUESTIONS_ANSWERS, null, values);
         db.close();
     }
+
     /**
      * This method is to get all values in Questions and Answers table
      */
@@ -309,6 +313,64 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         return qaList;
     }
 
+
+    /**
+     * This method is to get Questions and Answers pair of given
+     * @param personality
+     * @param bookName
+     */
+    public List<String> getQuestionAnswerPair(String personality, String bookName) {
+        // array of columns to fetch
+        String[] columns = {
+                COLUMN_USER_QUEST_ANSW_CHARACHTER,
+                COLUMN_USER_QUEST_ANSW_QUESTIONS,
+                COLUMN_USER_QUEST_ANSW_ANSWERS
+        };
+
+
+        if (personality == null){
+            return new ArrayList<String>();
+        }
+//        // sorting orders
+//        String sortOrder =
+//                COLUMN_USER_QUEST_ANSW_CHARACHTER + " ASC";
+
+        String selection = COLUMN_USER_QUEST_ANSW_CHARACHTER + " = ? AND " + COLUMN_USER_QUEST_ANSW_BOOK_NAME + " = ?" ;
+
+        String[] selectionArgs = {personality, bookName};
+
+        List<String> qaList = new ArrayList<String>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // query the table of questions and answers
+        /**
+         * SELECT character, question, answer FROM user ORDER BY character;
+         */
+        Cursor cursor = db.query(TABLE_QUESTIONS_ANSWERS, //Table to query
+                columns,    //columns to return
+                selection ,        //columns for the WHERE clause
+                selectionArgs,        //The values for the WHERE clause
+                null,       //group the rows
+                null,       //filter by row groups
+                null); //The sort order
+
+        // Traversing through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                String character_q_a="";
+                character_q_a+=cursor.getString(cursor.getColumnIndex(COLUMN_USER_QUEST_ANSW_QUESTIONS));
+                character_q_a+= " answer = ";
+                character_q_a+=cursor.getString(cursor.getColumnIndex(COLUMN_USER_QUEST_ANSW_ANSWERS));
+                qaList.add(character_q_a);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        // return user list
+        return qaList;
+    }
     /**
      * This method is to delete user record
      *
