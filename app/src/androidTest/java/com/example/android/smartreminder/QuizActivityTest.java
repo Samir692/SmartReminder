@@ -6,6 +6,8 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 
+import com.example.android.smartreminder.database_sql.DatabaseHandler;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -23,11 +25,13 @@ public class QuizActivityTest {
     public ActivityTestRule<QuizActivity> quizActivityActivityTestRule = new ActivityTestRule<QuizActivity>(QuizActivity.class);
 
     private QuizActivity mActivity = null;
-    private DatabaseHandler databaseHandler = new DatabaseHandler(QuizActivity.this);
+    private DatabaseHandler databaseHandler;
 
     @Before
     public void setUp() throws Exception {
+        databaseHandler = new DatabaseHandler(mActivity);
         mActivity = quizActivityActivityTestRule.getActivity();
+        assertNotNull(databaseHandler);
     }
 
     @Test
@@ -42,16 +46,16 @@ public class QuizActivityTest {
         int actualsize=0;
         switch (personality){
             case "UPHOLDER":
-                actualsize=databaseHandler.get
+                actualsize=databaseHandler.getAllUser().size();
                 break;
             case "OBLIGER":
-                actualsize=databaseHandler.get
+                actualsize=databaseHandler.getAllUser().size();
                 break;
             case "REBEL":
-                actualsize=databaseHandler.get
+                actualsize=databaseHandler.getAllUser().size();
                 break;
             case "QUESTIONER":
-                actualsize=databaseHandler.get
+                actualsize=databaseHandler.getAllUser().size();
                 break;
 
         }
