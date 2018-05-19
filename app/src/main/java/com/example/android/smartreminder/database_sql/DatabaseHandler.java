@@ -715,7 +715,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
 
 
     /**
-     * This method fetches user and returns user records
+     * This method gets book
      *
      * @param bookname
      * @return book

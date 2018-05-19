@@ -37,7 +37,9 @@ public class BooksListActivity extends AppCompatActivity
 
 
         public static final String  EXTRA_MESSAGE = "com.example.android.smartreminder";
+        private String book_name;
         private DatabaseHandler dbHandler;
+        private NavigationView nav_view;
         private TextView thedate;
         private TextView currentBook;
         private Button btngocalendar;
@@ -53,6 +55,8 @@ public class BooksListActivity extends AppCompatActivity
 
             dbHandler = new DatabaseHandler(BooksListActivity.this);
 
+
+            nav_view = (NavigationView) findViewById(R.id.nav_view);
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
             TextView book_name_main = (TextView) findViewById(R.id.book_name_main);
             TextView book_deadline_main = (TextView) findViewById(R.id.DeadlineText);
@@ -69,7 +73,7 @@ public class BooksListActivity extends AppCompatActivity
 
             //check if there is already book stored or book is finished
             Contacts user_for_recent_book = dbHandler.getUsersBookName(username);
-            String book_name = user_for_recent_book.get_book_name();
+            book_name = user_for_recent_book.get_book_name();
 
             if(book_name.equals("EMPTY")) {
 
@@ -102,7 +106,7 @@ public class BooksListActivity extends AppCompatActivity
 
                     float division = donePages/totalPages;
 
-                    //System.out.println("TOTAL PAGES = " + total_pages);
+                    //uSystem.out.println("TOTAL PAGES = " + total_pages);
 
                     //System.out.println("Done PAGES = " + done_pages);
 
@@ -190,7 +194,7 @@ public class BooksListActivity extends AppCompatActivity
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
             // Inflate the menu; this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.main, menu);
+            getMenuInflater().inflate(R.menu.activity_main_drawer, menu);
             return true;
         }
 
@@ -202,14 +206,27 @@ public class BooksListActivity extends AppCompatActivity
             int id = item.getItemId();
 
             //noinspection SimplifiableIfStatement
-            if (id == R.id.action_settings) {
-                return true;
+//            if (id == R.id.action_settings) {
+//                return true;
+//            }
+            if (id == R.id.nav_history) {
+                if (!book_name.equals("EMPTY")) {
+
+                    System.out.println("HISTORY CLICKED");
+                    Intent intent1 = new Intent(getApplicationContext(), HistoryActivity.class);
+                    startActivity(intent1);
+                    return true;
+                } else {
+
+                    System.out.println("HISTORY CLICKED");
+                    Snackbar.make(nav_view, getString(R.string.error_no_book_settings), Snackbar.LENGTH_LONG).show();
+                    return false;
+                }
             }
 
             return super.onOptionsItemSelected(item);
         }
 
-        @SuppressWarnings("StatementWithEmptyBody")
         @Override
         public boolean onNavigationItemSelected(MenuItem item) {
             // Handle navigation view item clicks here.
@@ -217,17 +234,14 @@ public class BooksListActivity extends AppCompatActivity
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             int id = item.getItemId();
 
-            if (id == R.id.nav_camera) {
-                // Handle the camera action
-            } else if (id == R.id.nav_gallery) {
 
-            } else if (id == R.id.nav_history) {
+            if (id == R.id.nav_history) {
+                System.out.println("HISTORY CLICKED");
                 drawer.closeDrawers();
                 Intent intent1 = new Intent(getApplicationContext(), HistoryActivity.class);
                 startActivity(intent1);
                 return true;
 
-            } else if (id == R.id.nav_manage) {
 
             } else if (id == R.id.nav_share) {
 
@@ -235,7 +249,7 @@ public class BooksListActivity extends AppCompatActivity
 
             }
 
-
+            System.out.println("could not find");
             drawer.closeDrawer(GravityCompat.START);
             return true;
         }
