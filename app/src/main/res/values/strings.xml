@@ -24,6 +24,18 @@
     <string name="error_message_email">Enter Valid Email</string>
     <string name="error_message_password">Enter Password</string>
     <string name="error_valid_nick_password">Wrong Username or Password</string>
+    <string name="error_incorrect_old_password">You entered wrong old password. Please enter correct one</string>
+    <string name="error_empty_new_passwords">Entered new passwords are empty. Please enter correct one</string>
+    <string name="error_incorrect_new_passwords">Entered new password doesnt match with old one. Please enter correct one</string>
+    <string name="error_pages">Please add the number of pages</string>
+    <string name="error_no_book_settings">Please add a book to get the Settings</string>
+
+    <string name="error_add_book_not_filled">One or more sections are not correct. Please fill in correctly</string>
+
+    <string name="error_add_book_total_number">Total number of pages should be correct number. Please fill in correctly</string>
+    <string name="error_add_book_deadline_early">Chosen deadline has to be at least tomorrow. Please fill in correctly</string>
+
+
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">LoginActivity</string>

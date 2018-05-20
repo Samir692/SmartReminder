@@ -15,6 +15,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -87,6 +88,8 @@ public class LoginActivity extends AppCompatActivity implements ActivityCompat.O
         appCompatButtonLogin = (AppCompatButton) findViewById(R.id.appCompatButtonLogin);
         textViewLinkRegister = (AppCompatTextView) findViewById(R.id.textViewLinkRegister);
 
+
+
     }
 
     /**
@@ -116,6 +119,7 @@ public class LoginActivity extends AppCompatActivity implements ActivityCompat.O
     @Override
     public void onClick(View v) {
 
+        hideSoftKeyboard(v);
         switch (v.getId()) {
             case R.id.appCompatButtonLogin:
                 //System.out.println("user = " + databaseHelper.getAllUser());
@@ -131,6 +135,12 @@ public class LoginActivity extends AppCompatActivity implements ActivityCompat.O
                 startActivityForResult(intentRegister, REGISTER_CONTACT_REQUEST);
                 break;
         }
+    }
+
+
+    private void hideSoftKeyboard(View view){
+        InputMethodManager imm =(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     @Override
@@ -171,7 +181,7 @@ public class LoginActivity extends AppCompatActivity implements ActivityCompat.O
             return;
         }
 
-        System.out.println("FIELds are corrrrrrrrrrrrrrrrrect");
+        System.out.println("Fields are correct");
         Authenication ath = new Authenication();
         String usernm = textInputEditTextNickName.getText().toString().trim();
         String pass = textInputEditTextPassword.getText().toString().trim();
@@ -182,7 +192,7 @@ public class LoginActivity extends AppCompatActivity implements ActivityCompat.O
                 System.out.println("Input is valid");
                 username = textInputEditTextNickName.getText().toString().trim();
 
-                System.out.println("Username is savedddddddddddddddddd = " + username);
+                System.out.println("Username is saved = " + username);
                 //user = databaseHelper.getUser(username);
 
                 //Intent accountsIntent = new Intent(activity, UsersListActivity.class);

@@ -4,8 +4,6 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.ContactsContract;
 import android.support.test.InstrumentationRegistry;
-
-import com.example.android.health_in_time.database_sql.DatabaseHandler;
 import com.example.android.smartreminder.database_sql.DatabaseHandler;
 
 import org.junit.After;

@@ -14,6 +14,7 @@ Developer's manual:
 The required tools:
 -Android studio
 -java libraries, Eclipse for integration testing
+The full information can be found in the following wiki page: https://github.com/Samir692/SmartReminder/wiki/Developer-tools
 
 First of all, clone this project, and check carefully the Gradle settings and if the source code requirements are up-to-date.
 The project is organized as standard Gradle project in a following way:

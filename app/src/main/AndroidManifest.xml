@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.smartreminder">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -32,6 +34,8 @@
 
         <receiver android:name=".AlarmReceiver" android:process=":remote"></receiver>
         <receiver android:name=".CancelAlarmBroadcastReceiver" android:process=":remote"></receiver>
+
+
         <activity
             android:name=".CalendarActivity"
             android:label="CalendarActivity"
