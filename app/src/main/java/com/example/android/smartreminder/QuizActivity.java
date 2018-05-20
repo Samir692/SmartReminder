@@ -327,7 +327,7 @@ public class QuizActivity extends AppCompatActivity {
         if(outter ==1 & inner ==1){
             rel = "UPHOLDER";
         }else if(outter ==1 & inner==0){
-            rel = "QUESTIONNER";
+            rel = "QUESTIONER";
 
         }else if(outter == 0 & inner ==1){
             rel = "OBLIGER";
