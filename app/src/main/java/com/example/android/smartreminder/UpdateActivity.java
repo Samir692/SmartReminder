@@ -68,34 +68,46 @@ public class UpdateActivity extends AppCompatActivity {
                         //check done pages conditions
 
                         if (currentDonePages >= totalPages) {
-                            currentDonePages = totalPages;
-                            Log.d("Completion", "BOOK COMPLETED");
 
-                            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+                            if(currentDonePages > totalPages){
 
-                            alertDialog.setTitle("CONGRUTILATIONS!");
-                            alertDialog.setMessage("YOU HAVE FINISHED " + bookName + "!!");
+                                Snackbar.make(coordLayoutUpdate, "Total pages has to be " + totalPages + " You have entered " + currentDonePages, Snackbar.LENGTH_LONG).show();
 
-                            alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(context, "Good Job", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                                return;
 
-                            AlertDialog alert = alertDialog.create();
+                            }
+                            else {
+
+                                currentDonePages = totalPages;
+                                Log.d("Completion", "BOOK COMPLETED");
+
+                                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+
+                                alertDialog.setTitle("CONGRUTILATIONS!");
+                                alertDialog.setMessage("YOU HAVE FINISHED " + bookName + "!!");
+
+                                alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Toast.makeText(context, "Good Job", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                                AlertDialog alert = alertDialog.create();
 
 
-                            // line you have to add
-                            alert.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
-                            alert.show();
+                                // line you have to add
+                                alert.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
+                                alert.show();
 
-                            //set Book to Empty
-                            Contacts user_book = new Contacts();
-                            user_book.set_nick_name(username);
-                            user_book.set_book_name("EMPTY");
+                                //set Book to Empty
+                                Contacts user_book = new Contacts();
+                                user_book.set_nick_name(username);
+                                user_book.set_book_name("EMPTY");
 
-                            dbHandler.addBookNameValue(user_book);
+                                dbHandler.addBookNameValue(user_book);
+
+                            }
 
 
                         }
