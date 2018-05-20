@@ -20,6 +20,26 @@ android {
     }
 }
 
+//FindBugs task that load security rules only
+task findSecurityBugs(type: FindBugs) {
+
+    classes = fileTree(project.rootDir.absolutePath).include("**/*.class");
+    source = fileTree(project.rootDir.absolutePath).include("**/*.java");
+    classpath = files()
+    pluginClasspath = project.configurations.findbugsPlugins
+
+    findbugs {
+        toolVersion = "3.0.1"
+        sourceSets = [android.sourceSets] // [sourceSets.main] for Java project
+        ignoreFailures = true
+        reportsDir = file("$project.buildDir/findbugsReports")
+        effort = "max"
+        reportLevel = "low"
+        includeFilter = file("$rootProject.projectDir/fsb-include.xml")
+        excludeFilter = file("$rootProject.projectDir/fsb-exclude.xml")
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -29,5 +49,9 @@ dependencies {
     compile 'com.android.support:design:27.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.facebook.stetho:stetho:1.5.0'
+    findbugs 'com.google.code.findbugs:findbugs:3.0.1'
+    findbugs configurations.findbugsPlugins.dependencies
+    findbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.4.4'
+
     testCompile 'junit:junit:4.12'
 }
