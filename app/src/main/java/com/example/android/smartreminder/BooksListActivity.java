@@ -173,7 +173,7 @@ public class BooksListActivity extends AppCompatActivity
             user_name.setText(username);
             textView.setText(dbHandler.getUser(username).get_email());
 
-            showHistory();
+            showHistory(book_name);
 
         }
 
@@ -243,11 +243,14 @@ public class BooksListActivity extends AppCompatActivity
 
         //show progress for given book
 
-        private void showHistory(){
+        private void showHistory(String bookName){
 
 
-            List<History> allHistory = dbHandler.getAllHistory();
-            List<Books> allBooks = dbHandler.getAllBooks();
+            System.out.println("HISTORY IS CALLED = " + bookName);
+
+            List<History> allHistory = dbHandler.getHistoryForUserSpecific(username, bookName);
+
+            //List<Books> allBooks = dbHandler.getAllBooks();
 
 
             LinearLayout layout = (LinearLayout) findViewById(R.id.loopLinear);
@@ -255,11 +258,11 @@ public class BooksListActivity extends AppCompatActivity
 
             //For loop history records
 //        layout.addView(new LinearLayout(getApplicationContext()));
-            for (Books book : allBooks){
+            for (History book : allHistory){
 //            System.out.println("  " + book.get_book_name());
                 //dymanic variables
-                String date = book.get_book_deadline();
-                String bookName = book.get_book_name();
+                String date = book.get_book_created();
+                //String bookName = book.get_book_name();
                 String bookTotalPages = Integer.toString(book.get_book_total_pages());
                 String bookDonePages = Integer.toString(book.get_book_done_pages());
                 System.out.println("date = " + date);

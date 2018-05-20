@@ -70,11 +70,8 @@ public class UpdateActivity extends AppCompatActivity {
                         if (currentDonePages >= totalPages) {
 
                             if(currentDonePages > totalPages){
-
                                 Snackbar.make(coordLayoutUpdate, "Total pages has to be " + totalPages + " You have entered " + currentDonePages, Snackbar.LENGTH_LONG).show();
-
                                 return;
-
                             }
                             else {
 

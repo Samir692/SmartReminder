@@ -497,6 +497,72 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         return histroyList;
     }
 
+    /**
+     * This method is to fetch all history and return the list of history records
+     *
+     * @return list
+     */
+    public List<History> getHistoryForUserSpecific(String nickname, String bookName) {
+        // array of columns to fetch
+
+
+        String[] columns = {
+                COLUMN_USER_HISTORY_BOOK_DONE_PAGES,
+                COLUMN_USER_HISTORY_BOOK_TOTAL_PAGES,
+                COLUMN_USER_HISTORY_BOOK_CREATED
+        };
+
+        //          ,
+        //,
+
+        if(nickname == null || bookName == null){
+            return new ArrayList<History>();
+        }
+
+        String selection = COLUMN_USER_HISTORY_NICK_NAME + " = ? AND " + COLUMN_USER_HISTORY_BOOK_NAME + " = ?" ;
+
+        String[] selectionArgs = {nickname, bookName};
+        // sorting orders
+//        String sortOrder =
+//                COLUMN_USER_HISTORY_BOOK_CREATED + " DESC";
+        List<History> histroyList = new ArrayList<History>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // query the user table
+        /**
+         * SELECT user_id,user_name,user_email,user_password FROM user ORDER BY user_name;
+         */
+        Cursor cursor = db.query(TABLE_HISTORY, //Table to query
+                columns,    //columns to return
+                selection,        //columns for the WHERE clause
+                selectionArgs,        //The values for the WHERE clause
+                null,       //group the rows
+                null,       //filter by row groups
+                null); //The sort order
+
+        // Traversing through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                History history = new History();
+                //user.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID))));
+                //history.set_book_name(cursor.getString(cursor.getColumnIndex(COLUMN_USER_HISTORY_BOOK_NAME)));
+                history.set_book_done_pages(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_HISTORY_BOOK_DONE_PAGES))));
+                history.set_book_total_pages(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_HISTORY_BOOK_TOTAL_PAGES))));
+                history.set_book_created(cursor.getString(cursor.getColumnIndex(COLUMN_USER_HISTORY_BOOK_CREATED)));
+
+                // Adding book record to list
+                histroyList.add(history);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        // return user list
+        return histroyList;
+    }
+
+
 
     /**
      * This method is to fetch all user and return the list of user records
