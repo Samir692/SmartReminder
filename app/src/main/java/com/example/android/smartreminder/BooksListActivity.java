@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.android.smartreminder.database_sql.DatabaseHandler;
@@ -42,6 +43,7 @@ public class BooksListActivity extends AppCompatActivity
         private String book_name;
         private DatabaseHandler dbHandler;
         private NavigationView nav_view;
+        private ScrollView history_view;
         private TextView thedate;
         private TextView currentBook;
         private Button btngocalendar;
@@ -95,6 +97,19 @@ public class BooksListActivity extends AppCompatActivity
                 });
             }
             else{
+
+                fab.show();
+                fab.setEnabled(true);
+                fab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.d("transition", "adding book");
+                        Intent intent = new Intent(BooksListActivity.this, AddBook.class);
+                        startActivity(intent);
+
+                    }
+                });
+
                 book_name_main.setText(book_name);
                 Books last_book = dbHandler.getBook(book_name);
                 String deadline = last_book.get_book_deadline();
@@ -153,6 +168,8 @@ public class BooksListActivity extends AppCompatActivity
 
             user_name.setText(username);
             textView.setText(dbHandler.getUser(username).get_email());
+
+            showHistory();
 
         }
 
@@ -222,7 +239,12 @@ public class BooksListActivity extends AppCompatActivity
 
         //show progress for given book
 
-        private void displayProgressBook(){
+        private void showHistory(){
+
+
+            List<History> allHistory = dbHandler.getAllHistory();
+
+
 
             //number of pages have been finished
 

@@ -444,7 +444,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
      *
      * @return list
      */
-    public List<History> getAllHistroy() {
+    public List<History> getAllHistory() {
         // array of columns to fetch
 
 

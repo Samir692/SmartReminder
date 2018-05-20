@@ -14,6 +14,7 @@ import android.text.InputType;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -36,11 +37,6 @@ import static com.example.android.smartreminder.LoginActivity.username;
 public class AddBook extends AppCompatActivity {
 
     private DatabaseHandler dbHandler;
-//    private TextView deadline;
-//    private String date;
-//    private Calendar myCalendar;
-
-
     private TextView deadline;
     private String date;
     private Calendar myCalendar;
@@ -192,6 +188,7 @@ public class AddBook extends AppCompatActivity {
         addBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard(view);
                 Log.d("transition", "adding book to database");
                 String answer1Text = answer1.getText().toString();
 
@@ -204,6 +201,7 @@ public class AddBook extends AppCompatActivity {
                 }
                 catch (Exception e){
 
+                    Toast.makeText(getApplicationContext(), R.string.error_add_book_total_number, Toast.LENGTH_SHORT).show();
                 }
                 String ANSWER1 = answer1.getText().toString();
                 String ANSWER2 = answer2.getText().toString();
@@ -211,105 +209,116 @@ public class AddBook extends AppCompatActivity {
                 String ANSWER4 = answer4.getText().toString();
                 String ANSWER5 = answer5.getText().toString();
 
-                System.out.println("Setting book details");
-                book.set_book_name(bookName);
-                book.set_book_total_pages(totalPage);
-                book.set_book_done_pages(0);
-                book.set_book_deadline(date);
+                if(!bookName.equals("") && totalPage != 0 && !ANSWER1.equals("") && !ANSWER2.equals("") && !ANSWER3.equals("")
+                        && !ANSWER4.equals("") && !ANSWER5.equals("") && millis > System.currentTimeMillis()) {
 
-                switch (personality){
-                    case "QUESTIONNER":
-                        String[] mAnswersQuestionner = new String[5];
-                        mAnswersQuestionner[0] = answer1.getText().toString();
-                        mAnswersQuestionner[1] = answer2.getText().toString();
-                        mAnswersQuestionner[2] = answer3.getText().toString();
-                        mAnswersQuestionner[3] = answer4.getText().toString();
-                        mAnswersQuestionner[4] = answer5.getText().toString();
+                    System.out.println("Setting book details");
+                    book.set_book_name(bookName);
+                    book.set_book_total_pages(totalPage);
+                    book.set_book_done_pages(0);
+                    book.set_book_deadline(date);
 
-                        questAnsChar.setmAnswersQuestionner(mAnswersQuestionner);
-                        dbHandler.addQuestionAnswer(mQuestionsQuestionner[0], mAnswersQuestionner[0], "QUESTIONNER", bookName);
-                        dbHandler.addQuestionAnswer(mQuestionsQuestionner[1], mAnswersQuestionner[1], "QUESTIONNER", bookName);
-                        dbHandler.addQuestionAnswer(mQuestionsQuestionner[2], mAnswersQuestionner[2], "QUESTIONNER", bookName);
-                        dbHandler.addQuestionAnswer(mQuestionsQuestionner[3], mAnswersQuestionner[3], "QUESTIONNER", bookName);
-                        dbHandler.addQuestionAnswer(mQuestionsQuestionner[4], mAnswersQuestionner[4], "QUESTIONNER", bookName);
+                    switch (personality) {
+                        case "QUESTIONNER":
+                            String[] mAnswersQuestionner = new String[5];
+                            mAnswersQuestionner[0] = answer1.getText().toString();
+                            mAnswersQuestionner[1] = answer2.getText().toString();
+                            mAnswersQuestionner[2] = answer3.getText().toString();
+                            mAnswersQuestionner[3] = answer4.getText().toString();
+                            mAnswersQuestionner[4] = answer5.getText().toString();
 
-                        break;
+                            questAnsChar.setmAnswersQuestionner(mAnswersQuestionner);
+                            dbHandler.addQuestionAnswer(mQuestionsQuestionner[0], mAnswersQuestionner[0], "QUESTIONNER", bookName);
+                            dbHandler.addQuestionAnswer(mQuestionsQuestionner[1], mAnswersQuestionner[1], "QUESTIONNER", bookName);
+                            dbHandler.addQuestionAnswer(mQuestionsQuestionner[2], mAnswersQuestionner[2], "QUESTIONNER", bookName);
+                            dbHandler.addQuestionAnswer(mQuestionsQuestionner[3], mAnswersQuestionner[3], "QUESTIONNER", bookName);
+                            dbHandler.addQuestionAnswer(mQuestionsQuestionner[4], mAnswersQuestionner[4], "QUESTIONNER", bookName);
 
-                    case "UPHOLDER":
-                        String[] mAnswersUpholders = new String[5];
-                        mAnswersUpholders[0] = answer1.getText().toString();
-                        mAnswersUpholders[1] = answer2.getText().toString();
-                        mAnswersUpholders[2] = answer3.getText().toString();
-                        mAnswersUpholders[3] = answer4.getText().toString();
-                        mAnswersUpholders[4] = answer5.getText().toString();
+                            break;
 
-                        questAnsChar.setmAnswersQuestionner(mAnswersUpholders);
-                        dbHandler.addQuestionAnswer(mQuestionsUpholders[0], mAnswersUpholders[0], "UPHOLDER", bookName);
-                        dbHandler.addQuestionAnswer(mQuestionsUpholders[1], mAnswersUpholders[1], "UPHOLDER", bookName);
-                        dbHandler.addQuestionAnswer(mQuestionsUpholders[2], mAnswersUpholders[2], "UPHOLDER", bookName);
-                        dbHandler.addQuestionAnswer(mQuestionsUpholders[3], mAnswersUpholders[3], "UPHOLDER", bookName);
-                        dbHandler.addQuestionAnswer(mQuestionsUpholders[4], mAnswersUpholders[4], "UPHOLDER", bookName);
+                        case "UPHOLDER":
+                            String[] mAnswersUpholders = new String[5];
+                            mAnswersUpholders[0] = answer1.getText().toString();
+                            mAnswersUpholders[1] = answer2.getText().toString();
+                            mAnswersUpholders[2] = answer3.getText().toString();
+                            mAnswersUpholders[3] = answer4.getText().toString();
+                            mAnswersUpholders[4] = answer5.getText().toString();
 
-                        break;
+                            questAnsChar.setmAnswersQuestionner(mAnswersUpholders);
+                            dbHandler.addQuestionAnswer(mQuestionsUpholders[0], mAnswersUpholders[0], "UPHOLDER", bookName);
+                            dbHandler.addQuestionAnswer(mQuestionsUpholders[1], mAnswersUpholders[1], "UPHOLDER", bookName);
+                            dbHandler.addQuestionAnswer(mQuestionsUpholders[2], mAnswersUpholders[2], "UPHOLDER", bookName);
+                            dbHandler.addQuestionAnswer(mQuestionsUpholders[3], mAnswersUpholders[3], "UPHOLDER", bookName);
+                            dbHandler.addQuestionAnswer(mQuestionsUpholders[4], mAnswersUpholders[4], "UPHOLDER", bookName);
 
-                    case "OBLIGER":
-                        String[] mAnswersObliger = new String[5];
-                        mAnswersObliger[0] = answer1.getText().toString();
-                        mAnswersObliger[1] = answer2.getText().toString();
-                        mAnswersObliger[2] = answer3.getText().toString();
-                        mAnswersObliger[3] = answer4.getText().toString();
-                        mAnswersObliger[4] = answer5.getText().toString();
+                            break;
 
-                        questAnsChar.setmAnswersQuestionner(mAnswersObliger);
+                        case "OBLIGER":
+                            String[] mAnswersObliger = new String[5];
+                            mAnswersObliger[0] = answer1.getText().toString();
+                            mAnswersObliger[1] = answer2.getText().toString();
+                            mAnswersObliger[2] = answer3.getText().toString();
+                            mAnswersObliger[3] = answer4.getText().toString();
+                            mAnswersObliger[4] = answer5.getText().toString();
 
-                        dbHandler.addQuestionAnswer(mQuestionsObliger[0], mAnswersObliger[0], "OBLIGER", bookName);
-                        dbHandler.addQuestionAnswer(mQuestionsObliger[1], mAnswersObliger[1], "OBLIGER", bookName);
-                        dbHandler.addQuestionAnswer(mQuestionsObliger[2], mAnswersObliger[2], "OBLIGER", bookName);
-                        dbHandler.addQuestionAnswer(mQuestionsObliger[3], mAnswersObliger[3], "OBLIGER", bookName);
-                        dbHandler.addQuestionAnswer(mQuestionsObliger[4], mAnswersObliger[4], "OBLIGER", bookName);
+                            questAnsChar.setmAnswersQuestionner(mAnswersObliger);
 
-                        break;
+                            dbHandler.addQuestionAnswer(mQuestionsObliger[0], mAnswersObliger[0], "OBLIGER", bookName);
+                            dbHandler.addQuestionAnswer(mQuestionsObliger[1], mAnswersObliger[1], "OBLIGER", bookName);
+                            dbHandler.addQuestionAnswer(mQuestionsObliger[2], mAnswersObliger[2], "OBLIGER", bookName);
+                            dbHandler.addQuestionAnswer(mQuestionsObliger[3], mAnswersObliger[3], "OBLIGER", bookName);
+                            dbHandler.addQuestionAnswer(mQuestionsObliger[4], mAnswersObliger[4], "OBLIGER", bookName);
 
-                    case "REBEL":
-                        String[] mAnswersRebel = new String[5];
-                        mAnswersRebel[0] = answer1.getText().toString();
-                        mAnswersRebel[1] = answer2.getText().toString();
-                        mAnswersRebel[2] = answer3.getText().toString();
-                        mAnswersRebel[3] = answer4.getText().toString();
-                        mAnswersRebel[4] = answer5.getText().toString();
+                            break;
 
-                        questAnsChar.setmAnswersQuestionner(mAnswersRebel);
-                        dbHandler.addQuestionAnswer(mQuestionsRebel[0], mAnswersRebel[0], "REBEL", bookName);
-                        dbHandler.addQuestionAnswer(mQuestionsRebel[1], mAnswersRebel[1], "REBEL", bookName);
-                        dbHandler.addQuestionAnswer(mQuestionsRebel[2], mAnswersRebel[2], "REBEL", bookName);
-                        dbHandler.addQuestionAnswer(mQuestionsRebel[3], mAnswersRebel[3], "REBEL", bookName);
-                        dbHandler.addQuestionAnswer(mQuestionsRebel[4], mAnswersRebel[4], "REBEL", bookName);
+                        case "REBEL":
+                            String[] mAnswersRebel = new String[5];
+                            mAnswersRebel[0] = answer1.getText().toString();
+                            mAnswersRebel[1] = answer2.getText().toString();
+                            mAnswersRebel[2] = answer3.getText().toString();
+                            mAnswersRebel[3] = answer4.getText().toString();
+                            mAnswersRebel[4] = answer5.getText().toString();
 
-                        break;
-                }
+                            questAnsChar.setmAnswersQuestionner(mAnswersRebel);
+                            dbHandler.addQuestionAnswer(mQuestionsRebel[0], mAnswersRebel[0], "REBEL", bookName);
+                            dbHandler.addQuestionAnswer(mQuestionsRebel[1], mAnswersRebel[1], "REBEL", bookName);
+                            dbHandler.addQuestionAnswer(mQuestionsRebel[2], mAnswersRebel[2], "REBEL", bookName);
+                            dbHandler.addQuestionAnswer(mQuestionsRebel[3], mAnswersRebel[3], "REBEL", bookName);
+                            dbHandler.addQuestionAnswer(mQuestionsRebel[4], mAnswersRebel[4], "REBEL", bookName);
 
-                if(dbHandler.addBook(book) > 0){
-                    Contacts user_local = new Contacts();
-                    user_local.set_book_name(bookName);
-                    user_local.set_nick_name(username);
-                    dbHandler.addBookNameValue(user_local);
+                            break;
+                    }
 
-                    //set alarms
-                    long time_interval_alarm = millis;
+                    if (dbHandler.addBook(book) > 0) {
+                        Contacts user_local = new Contacts();
+                        user_local.set_book_name(bookName);
+                        user_local.set_nick_name(username);
+                        dbHandler.addBookNameValue(user_local);
 
-                    scheduleAlarm(time_interval_alarm);
+                        //set alarms
+                        long time_interval_alarm = millis;
 
-                    Toast.makeText(getApplicationContext(), bookName + " has been registered", Toast.LENGTH_SHORT).show();
+                        scheduleAlarm(time_interval_alarm);
 
-                    Intent intent = new Intent(AddBook.this, BooksListActivity.class);
-                    intent.putExtra("book","added");
-                    startActivity(intent);
+                        Toast.makeText(getApplicationContext(), bookName + " has been registered", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(AddBook.this, BooksListActivity.class);
+                        intent.putExtra("book", "added");
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(AddBook.this, R.string.error_add_book, Toast.LENGTH_LONG).show();
+                    }
+
+                    //add book information depending on category
                 }
                 else{
-                    Toast.makeText(AddBook.this, R.string.error_add_book, Toast.LENGTH_LONG).show();
+                    if(millis <= System.currentTimeMillis()){
+                        Toast.makeText(getApplicationContext(), R.string.error_add_book_deadline_early, Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), R.string.error_add_book_not_filled, Toast.LENGTH_SHORT).show();
+                    }
                 }
-
-                //add book information depending on category
 
             }
         });
@@ -317,6 +326,11 @@ public class AddBook extends AppCompatActivity {
 
     }
 
+
+    private void hideSoftKeyboard(View view){
+        InputMethodManager imm =(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
     private String updateLabel() {
 
         String myFormat = "MM/dd/yy"; //In which you need put here
@@ -337,7 +351,7 @@ public class AddBook extends AppCompatActivity {
         Log.d("alarm", "Setted repeated alarms");
 
 
-
+        //
         //set alarmmanaget to cancel already existing alarm
         manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+86400000, manager.INTERVAL_DAY, pending);
         Intent cancellationIntent = new Intent(this, CancelAlarmBroadcastReceiver.class);

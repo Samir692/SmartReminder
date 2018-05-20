@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.android.smartreminder.database_sql.DatabaseHandler;
@@ -34,7 +37,7 @@ public class SettingActivity extends AppCompatActivity{
 
         edit_Name = (EditText) findViewById(R.id.edit_Name);
         edit_Email = (EditText) findViewById(R.id.edit_Email);
-
+        Button edit_submit = (Button) findViewById(R.id.edit_submit) ;
         DatabaseHandler dbHandler = new DatabaseHandler(SettingActivity.this);
 
 
@@ -46,7 +49,20 @@ public class SettingActivity extends AppCompatActivity{
 
 
 
+        edit_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideSoftKeyboard(view);
 
+            }
+        });
+
+
+    }
+
+    private void hideSoftKeyboard(View view){
+        InputMethodManager imm =(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
 
