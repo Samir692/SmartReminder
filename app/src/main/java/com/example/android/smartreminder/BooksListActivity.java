@@ -74,6 +74,7 @@ public class BooksListActivity extends AppCompatActivity
 
 
 
+
             fab.hide();
             fab.setEnabled(false);
 
@@ -84,6 +85,7 @@ public class BooksListActivity extends AppCompatActivity
 
             if(book_name.equals("EMPTY")) {
 
+                updateButton.setVisibility(View.GONE);
                 fab.show();
                 fab.setEnabled(true);
                 fab.setOnClickListener(new View.OnClickListener() {

@@ -12,6 +12,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -41,6 +42,8 @@ public class UpdateActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 final String done_more_pages_str = more_pages.getText().toString();
+                hideSoftKeyboard(view);
+
 
 
 
@@ -65,6 +68,7 @@ public class UpdateActivity extends AppCompatActivity {
                         //check done pages conditions
 
                         if (currentDonePages >= totalPages) {
+                            currentDonePages = totalPages;
                             Log.d("Completion", "BOOK COMPLETED");
 
                             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
@@ -136,5 +140,10 @@ public class UpdateActivity extends AppCompatActivity {
 
 
         });
+    }
+
+    private void hideSoftKeyboard(View view){
+        InputMethodManager imm =(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
