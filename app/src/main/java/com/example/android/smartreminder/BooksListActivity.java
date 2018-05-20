@@ -102,17 +102,17 @@ public class BooksListActivity extends AppCompatActivity
             }
             else{
 
-                fab.show();
-                fab.setEnabled(true);
-                fab.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Log.d("transition", "adding book");
-                        Intent intent = new Intent(BooksListActivity.this, AddBook.class);
-                        startActivity(intent);
-
-                    }
-                });
+//                fab.show();
+//                fab.setEnabled(true);
+//                fab.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Log.d("transition", "adding book");
+//                        Intent intent = new Intent(BooksListActivity.this, AddBook.class);
+//                        startActivity(intent);
+//
+//                    }
+//                });
 
                 book_name_main.setText(book_name);
                 Books last_book = dbHandler.getBook(book_name);
@@ -249,12 +249,14 @@ public class BooksListActivity extends AppCompatActivity
             System.out.println("HISTORY IS CALLED = " + bookName);
 
             List<History> allHistory = dbHandler.getHistoryForUserSpecific(username, bookName);
-
+//            TextView headerHistory = (TextView) findViewById(R.id.headerHistory);
+//            headerHistory.setText(null);
+//            headerHistory.setPadding(300,0,0,0);
             //List<Books> allBooks = dbHandler.getAllBooks();
 
 
             LinearLayout layout = (LinearLayout) findViewById(R.id.loopLinear);
-
+            layout.setPadding(200,0,0,0);
 
             //For loop history records
 //        layout.addView(new LinearLayout(getApplicationContext()));
