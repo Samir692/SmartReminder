@@ -57,9 +57,6 @@ public class AlarmReceiver extends BroadcastReceiver{
     public AlertDialog getAlertDialog(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-        Log.d("alerm-popup", "alarm fired");
-
-        System.out.println("Alert dialog initilaized");
         builder.setTitle("REMINDER!");
         builder.setMessage("Turn off alarm by pressing off");
 
@@ -71,8 +68,6 @@ public class AlarmReceiver extends BroadcastReceiver{
         });
 
         AlertDialog alert = builder.create();
-
-
         // line you have to add
         alert.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
 
