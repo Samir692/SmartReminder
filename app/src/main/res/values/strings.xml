@@ -27,6 +27,11 @@
     <string name="error_pages">Please add the number of pages</string>
     <string name="error_no_book_settings">Please add a book to get the Settings</string>
 
+    <string name="error_add_book_not_filled">One or more sections are not correct. Please fill in correctly</string>
+
+    <string name="error_add_book_total_number">Total number of pages should be correct number. Please fill in correctly</string>
+    <string name="error_add_book_deadline_early">Chosen deadline has to be at least tomorrow. Please fill in correctly</string>
+
 
 
     <string name="action_settings">Settings</string>
