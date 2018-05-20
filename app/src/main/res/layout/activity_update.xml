@@ -56,10 +56,7 @@
                     <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
 
             <!--</android.support.design.widget.AppBarLayout>-->
-<!--<<<<<<< HEAD-->
-<!--=======-->
 
-<!--&gt;>>>>>> abaca2bbf11eebd6a03ff515f6bcdda5b987d3e0-->
 
             <include layout="@layout/content_add_book" />
 
