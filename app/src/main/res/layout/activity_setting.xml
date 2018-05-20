@@ -96,7 +96,7 @@
 
                             <EditText
                                 android:id="@+id/edit_Name"
-                                android:layout_width="100dp"
+                                android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:text="name"/>
 
@@ -115,7 +115,7 @@
 
                             <EditText
                                 android:id="@+id/edit_Email"
-                                android:layout_width="100dp"
+                                android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:text="email"/>
 
@@ -134,7 +134,7 @@
 
                             <EditText
                                 android:id="@+id/edit_Password"
-                                android:layout_width="100dp"
+                                android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:text="password"/>
 

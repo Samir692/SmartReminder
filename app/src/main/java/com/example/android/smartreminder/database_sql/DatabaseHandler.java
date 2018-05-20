@@ -119,7 +119,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     //constructor
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        //deleteDb(context);
+//        deleteDb(context);
     }
 
 
@@ -540,6 +540,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
                 //user.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID))));
                 book.set_book_name(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_NAME)));
                 book.set_book_total_pages(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_TOTAL_PAGES))));
+                book.set_book_done_pages(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_DONE_PAGES))));
                 book.set_book_created(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_BOOKS_CREATED)));
                 book.set_book_deadline(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_DEADLINE)));
                 // Adding book record to list
