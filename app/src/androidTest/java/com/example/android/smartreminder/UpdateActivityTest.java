@@ -41,7 +41,10 @@ public class UpdateActivityTest {
 
     @Test
     public void testLaunch(){
-        assertNotNull(uActivity.findViewById(R.id.textview));
+        assertNotNull(uActivity.findViewById(R.layout.activity_update));
+        assertNotNull(uActivity.findViewById(R.id.update_pagedone));
+        assertNotNull(uActivity.findViewById(R.id.update_submit));
+        assertNotNull(uActivity.findViewById(R.id.coordLayoutUpdate));
     }
 
     @After
