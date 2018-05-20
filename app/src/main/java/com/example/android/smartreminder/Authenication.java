@@ -27,7 +27,7 @@ public class Authenication {
         this.rand = new SecureRandom();
     }
 
-    private boolean constantTimeEquals(byte[] a, byte[] b) {
+    public boolean constantTimeEquals(byte[] a, byte[] b) {
         if (a.length != b.length) {
             return false;
         }
@@ -50,7 +50,7 @@ public class Authenication {
         Contacts user = dbhand.getPassAndSalt(username);
 
         if (user == null || user.get_password() == null){
-            System.out.println("USER IS EMPTYYYYYYYYYYYYYYY");
+            System.out.println("USER IS EMPTY");
             return false;
         }
 
@@ -59,7 +59,7 @@ public class Authenication {
         byte[] got_salt = user.get_salt();
 
         if (got_salt.length <= 0){
-            System.out.println("SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALTTTTTTTTTT");
+            System.out.println("Salt");
             return false;
         }
 
@@ -70,8 +70,8 @@ public class Authenication {
 
         //System.out.println("input_password = " + char_pass);
 
-        System.out.println("input password hashed = " + hash);
-        System.out.println("stored password hashed = " + user.get_password());
+        //System.out.println("input password hashed = " + hash);
+        //System.out.println("stored password hashed = " + user.get_password());
 
         return constantTimeEquals(hash, user.get_password());
     }
@@ -100,7 +100,7 @@ public class Authenication {
     }
 
 
-    private byte[] hashPassword(char[] password, byte[] salt)
+    protected byte[] hashPassword(char[] password, byte[] salt)
             throws NoSuchAlgorithmException, InvalidKeySpecException {
         int iterations = 50;
 

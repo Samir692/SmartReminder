@@ -181,7 +181,7 @@ public class LoginActivity extends AppCompatActivity implements ActivityCompat.O
             return;
         }
 
-        System.out.println("FIELds are correct");
+        System.out.println("Fields are correct");
         Authenication ath = new Authenication();
         String usernm = textInputEditTextNickName.getText().toString().trim();
         String pass = textInputEditTextPassword.getText().toString().trim();

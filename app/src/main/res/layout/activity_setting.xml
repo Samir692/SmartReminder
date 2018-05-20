@@ -136,8 +136,46 @@
                                 android:id="@+id/edit_Password"
                                 android:layout_width="200dp"
                                 android:layout_height="wrap_content"
+                                android:inputType="textPassword"
                                 android:text="password"/>
 
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/newPassword"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:width="80dp"
+                                android:text="New Password" />
+
+                            <EditText
+                                android:id="@+id/edit_Password2"
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPassword"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/newPassword2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:width="80dp"
+                                android:text="Enter again" />
+
+                            <EditText
+                                android:id="@+id/edit_Password3"
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPassword"/>
+                        </LinearLayout>
 
 
 
@@ -153,7 +191,6 @@
                         android:layout_marginLeft="80dp"/>
                 </LinearLayout>
 
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

@@ -226,12 +226,17 @@ public class BooksListActivity extends AppCompatActivity
 
 
             } else if (id == R.id.nav_action_settings) {
-
+                drawer.closeDrawers();
                 Intent intent2 = new Intent(getApplicationContext(), SettingActivity.class);
                 startActivity(intent2);
                 return true;
 
-            } else if (id == R.id.nav_send) {
+            } else if (id == R.id.nav_exit) {
+                drawer.closeDrawers();
+                Intent intent3 = new Intent(getApplicationContext(), LoginActivity.class);
+                //intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent3);
+                return true;
 
             }
 

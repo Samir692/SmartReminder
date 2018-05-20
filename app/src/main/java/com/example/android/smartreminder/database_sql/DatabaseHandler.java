@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.example.android.smartreminder.Books;
 import com.example.android.smartreminder.Contacts;
 import com.example.android.smartreminder.History;
-import com.example.android.smartreminder.QuestionsAnswersCharacterBased;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -625,19 +624,21 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
      *
      * @param user
      */
-    public void updateUser(Contacts user) {
+    public int updateUser(Contacts user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(COLUMN_USER_NAME, user.get_username());
         values.put(COLUMN_USER_NICK_NAME, user.get_nick_name());
         values.put(COLUMN_USER_EMAIL, user.get_email());
         values.put(COLUMN_USER_PASSWORD, user.get_password());
 
         // updating row
-        db.update(TABLE_CONTACTS, values, COLUMN_USER_ID + " = ?",
+        int ret =  db.update(TABLE_CONTACTS, values, COLUMN_USER_ID + " = ?",
                 new String[]{String.valueOf(user.get_id())});
+
+        System.out.println("DATABASE RETURN VALUE = " + ret);
         db.close();
+        return  ret;
     }
 
     /**
@@ -679,6 +680,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         // updating row
         long id = db.update(TABLE_BOOKS, values, COLUMN_USER_BOOKS_ID + " = ?",
                 new String[]{String.valueOf(bookID)});
+
         db.close();
         return  id;
 
