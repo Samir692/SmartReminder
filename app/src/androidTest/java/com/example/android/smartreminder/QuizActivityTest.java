@@ -32,12 +32,13 @@ public class QuizActivityTest {
         databaseHandler = new DatabaseHandler(mActivity);
         mActivity = quizActivityActivityTestRule.getActivity();
         assertNotNull(databaseHandler);
+        //assertNotNull(mActivity.findViewById(R.layout.activity_quiz));
     }
 
     @Test
     public void testIfUpholderDBCreated(){
-        assertNotNull(mActivity.findViewById(R.layout.activity_quiz));
-        onView(withId(R.id.login_page)).perform(click());
+
+        onView(withId(R.id.quiz_question)).perform(click());
         checkIfDBCreated("UPHOLDER");
     }
 

@@ -41,7 +41,13 @@ public class SettingActivityTest {
 
     @Test
     public void testLaunch(){
-        assertNotNull(sActivity.findViewById(R.id.textview));
+        assertNotNull(sActivity.findViewById(R.id.toolbar));
+        assertNotNull(sActivity.findViewById(R.layout.activity_setting));
+        assertNotNull(sActivity.findViewById(R.id.edit_Name));
+        assertNotNull(sActivity.findViewById(R.id.edit_Email));
+        assertNotNull(sActivity.findViewById(R.id.edit_Password));
+        assertNotNull(sActivity.findViewById(R.id.edit_Password2));
+
     }
 
     @After

@@ -44,7 +44,8 @@ public class AlarmReceiver extends BroadcastReceiver{
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
         //detect personality of user
-        String personality = dbHandler.getPersonalityType(userNAME).get_personality_type();
+        try {
+            String personality = dbHandler.getPersonalityType(userNAME).get_personality_type();
 
         //detect name of book
         String bookName = dbHandler.getUser(userNAME).get_book_name();
@@ -53,6 +54,7 @@ public class AlarmReceiver extends BroadcastReceiver{
         //System.out.println("PERSONAOSLMSA " + personality);
         //System.out.println("USERNAMEEEE " + userNAME);
         List<String> qaList = dbHandler.getQuestionAnswerPair(personality, bookName);
+
         Random rng = new Random();
         //System.out.println("Question List = " + qaList);
 
@@ -76,7 +78,9 @@ public class AlarmReceiver extends BroadcastReceiver{
         System.out.println("Alert dialog initilaized");
         alertDialog.setTitle(chosenQuest);
         alertDialog.setMessage(chosenAnswer);
-
+        } catch (NullPointerException e){
+            System.out.println("Personality is null");
+        }
         alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {

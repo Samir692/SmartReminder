@@ -22,6 +22,7 @@ public class AlarmReceiverTest {
 
     @Test
     public void testShowDialog(){
+        alarmReceiver.ShowDialog();
        AlertDialog alertDialog=alarmReceiver.getAlertDialog();
        assertNotNull(alertDialog);
        assertTrue(alertDialog.isShowing());
