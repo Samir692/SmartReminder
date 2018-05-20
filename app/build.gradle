@@ -1,5 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'findbugs'
+findbugs {
+    ignoreFailures = true
+}
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = true
+        html.enabled = false
+    }
+}
 
 android {
     compileSdkVersion 27
