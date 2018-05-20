@@ -112,6 +112,9 @@ public class AddBook extends AppCompatActivity {
         Contacts user_local = dbHandler.getPersonalityType(username);
         final String personality = user_local.get_personality_type();
         System.out.println("personality = " + personality + " username = " + username);
+        if (personality==null) {
+            System.out.println("The personality is null!");
+        }
 
         if(personality.length() > 0){
             //create questions
