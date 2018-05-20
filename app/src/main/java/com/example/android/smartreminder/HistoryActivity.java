@@ -4,6 +4,18 @@ import android.app.ActionBar;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -13,13 +25,19 @@ import com.example.android.smartreminder.database_sql.DatabaseHandler;
 
 import java.util.List;
 
-public class HistoryActivity extends AppCompatActivity {
+public class HistoryActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_history);
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         DatabaseHandler dbHandler = new DatabaseHandler(HistoryActivity.this);
+
+
 
 
 
@@ -48,19 +66,26 @@ public class HistoryActivity extends AppCompatActivity {
 //        layout.setOrientation(LinearLayout.VERTICAL);
 //        layout.setLayoutParams(params);
 
-        LinearLayout layout = (LinearLayout)findViewById(R.id.loopLinear);
+//        LinearLayout layout = (LinearLayout)findViewById(R.id.loopLinear);
+        //For loop history records
+//        for (Books book : allBooks){
+//            //TODO replace xml to java in order to create dynamic view
+////            LinearLayout parent = new LinearLayout(getApplicationContext());
+////            parent.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+////            parent.setOrientation(LinearLayout.VERTICAL);
+
+        LinearLayout layout = (LinearLayout) findViewById(R.id.loopLinear);
+        System.out.println("Books size = " + allBooks.size());
         //For loop history records
         for (Books book : allBooks){
-            //TODO replace xml to java in order to create dynamic view
-//            LinearLayout parent = new LinearLayout(getApplicationContext());
-//            parent.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-//            parent.setOrientation(LinearLayout.VERTICAL);
 
             //dymanic variables
             String date = book.get_book_deadline();
             String bookName = book.get_book_name();
             String bookTotalPages = Integer.toString(book.get_book_total_pages());
             String bookDonePages = Integer.toString(book.get_book_done_pages());
+            //System.out.println("date = " + date);
+            //System.out.println("bookName = " + bookName);
 
             LinearLayout child1 = new LinearLayout(getApplicationContext());
             child1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -137,4 +162,7 @@ public class HistoryActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_history);
     }
+
+
+
 }

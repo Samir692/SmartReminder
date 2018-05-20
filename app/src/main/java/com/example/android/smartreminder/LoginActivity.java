@@ -171,7 +171,7 @@ public class LoginActivity extends AppCompatActivity implements ActivityCompat.O
             return;
         }
 
-        System.out.println("FIELds are corrrrrrrrrrrrrrrrrect");
+        System.out.println("FIELds are correct");
         Authenication ath = new Authenication();
         String usernm = textInputEditTextNickName.getText().toString().trim();
         String pass = textInputEditTextPassword.getText().toString().trim();
@@ -182,7 +182,7 @@ public class LoginActivity extends AppCompatActivity implements ActivityCompat.O
                 System.out.println("Input is valid");
                 username = textInputEditTextNickName.getText().toString().trim();
 
-                System.out.println("Username is savedddddddddddddddddd = " + username);
+                System.out.println("Username is saved = " + username);
                 //user = databaseHelper.getUser(username);
 
                 //Intent accountsIntent = new Intent(activity, UsersListActivity.class);

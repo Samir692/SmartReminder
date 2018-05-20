@@ -52,12 +52,12 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     private static final String COLUMN_USER_HISTORY_BOOK_NAME = "book_name";
     private static final String COLUMN_USER_HISTORY_BOOK_TOTAL_PAGES = "total_pages";
     private static final String COLUMN_USER_HISTORY_BOOK_DONE_PAGES = "done_pages";
-    private static final String COLUMN_USER_HISTORY_BOOK_CREATED = "created";
+    private static final String COLUMN_USER_HISTORY_BOOK_CREATED = "history_created";
 
     // BOOKS Table Columns names
     private static final String COLUMN_USER_BOOKS_ID = "id";
     private static final String COLUMN_USER_BOOKS_NAME = "name";
-    private static final String COLUMN_USER_BOOKS_CREATED = "created";
+    private static final String COLUMN_USER_BOOKS_CREATED = "books_created";
     private static final String COLUMN_USER_BOOKS_TOTAL_PAGES = "total_pages";
     private static final String COLUMN_USER_BOOKS_DONE_PAGES = "done_pages";
     private static final String COLUMN_USER_BOOKS_DEADLINE = "deadline";
@@ -66,9 +66,10 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     // Character questions and answers Table Columns names
     private static final String COLUMN_USER_QUEST_ANSW_ID = "id";
     private static final String COLUMN_USER_QUEST_ANSW_CHARACHTER = "character";
+    private static final String COLUMN_USER_QUEST_ANSW_BOOK_NAME = "book_name";
     private static final String COLUMN_USER_QUEST_ANSW_QUESTIONS = "questions";
     private static final String COLUMN_USER_QUEST_ANSW_ANSWERS = "answers";
-    private static final String COLUMN_USER_QUEST_ANSW_CREATED = "created";
+    private static final String COLUMN_USER_QUEST_ANSW_CREATED = "quests_created";
 
 
     // create table sql query
@@ -84,7 +85,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     // create table sql query
     private String CREATE_USER_HISTORY = "CREATE TABLE IF NOT EXISTS " + TABLE_HISTORY + "("
             + COLUMN_USER_HISTORY_ID          + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + COLUMN_USER_HISTORY_NICK_NAME + " TEXT NOT NULL UNIQUE,"
+            + COLUMN_USER_HISTORY_NICK_NAME + " TEXT NOT NULL,"
             + COLUMN_USER_HISTORY_BOOK_NAME   + " TEXT,"
             + COLUMN_USER_HISTORY_BOOK_DONE_PAGES + " INTEGER,"
             + COLUMN_USER_HISTORY_BOOK_TOTAL_PAGES + " INTEGER,"
@@ -95,6 +96,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     private String CREATE_USER_QUESTIONS_ANSWERS_CHARACTER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_QUESTIONS_ANSWERS + "("
             + COLUMN_USER_QUEST_ANSW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COLUMN_USER_QUEST_ANSW_CHARACHTER + " TEXT,"
+            + COLUMN_USER_QUEST_ANSW_BOOK_NAME + " TEXT,"
             + COLUMN_USER_QUEST_ANSW_QUESTIONS + " TEXT,"
             + COLUMN_USER_QUEST_ANSW_ANSWERS + " TEXT,"
             + COLUMN_USER_QUEST_ANSW_CREATED + " DATETIME DEFAULT CURRENT_TIMESTAMP"
@@ -249,18 +251,20 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
      * @param answer
      * @param personality_type
      */
-    public void addQuestionAnswer(String question, String answer, String personality_type) {
+    public void addQuestionAnswer(String question, String answer, String personality_type, String bookName) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(COLUMN_USER_QUEST_ANSW_CHARACHTER, personality_type);
         values.put(COLUMN_USER_QUEST_ANSW_QUESTIONS, question);
         values.put(COLUMN_USER_QUEST_ANSW_ANSWERS, answer);
+        values.put(COLUMN_USER_QUEST_ANSW_BOOK_NAME, bookName);
 
         // Inserting Row
         db.insert(TABLE_QUESTIONS_ANSWERS, null, values);
         db.close();
     }
+
     /**
      * This method is to get all values in Questions and Answers table
      */
@@ -309,6 +313,64 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         return qaList;
     }
 
+
+    /**
+     * This method is to get Questions and Answers pair of given
+     * @param personality
+     * @param bookName
+     */
+    public List<String> getQuestionAnswerPair(String personality, String bookName) {
+        // array of columns to fetch
+        String[] columns = {
+                COLUMN_USER_QUEST_ANSW_CHARACHTER,
+                COLUMN_USER_QUEST_ANSW_QUESTIONS,
+                COLUMN_USER_QUEST_ANSW_ANSWERS
+        };
+
+
+        if (personality == null){
+            return new ArrayList<String>();
+        }
+//        // sorting orders
+//        String sortOrder =
+//                COLUMN_USER_QUEST_ANSW_CHARACHTER + " ASC";
+
+        String selection = COLUMN_USER_QUEST_ANSW_CHARACHTER + " = ? AND " + COLUMN_USER_QUEST_ANSW_BOOK_NAME + " = ?" ;
+
+        String[] selectionArgs = {personality, bookName};
+
+        List<String> qaList = new ArrayList<String>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // query the table of questions and answers
+        /**
+         * SELECT character, question, answer FROM user ORDER BY character;
+         */
+        Cursor cursor = db.query(TABLE_QUESTIONS_ANSWERS, //Table to query
+                columns,    //columns to return
+                selection ,        //columns for the WHERE clause
+                selectionArgs,        //The values for the WHERE clause
+                null,       //group the rows
+                null,       //filter by row groups
+                null); //The sort order
+
+        // Traversing through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                String character_q_a="";
+                character_q_a+=cursor.getString(cursor.getColumnIndex(COLUMN_USER_QUEST_ANSW_QUESTIONS));
+                character_q_a+= " answer = ";
+                character_q_a+=cursor.getString(cursor.getColumnIndex(COLUMN_USER_QUEST_ANSW_ANSWERS));
+                qaList.add(character_q_a);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        // return user list
+        return qaList;
+    }
     /**
      * This method is to delete user record
      *
@@ -448,9 +510,9 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
                 COLUMN_USER_BOOKS_NAME,
                 COLUMN_USER_BOOKS_TOTAL_PAGES,
                 COLUMN_USER_BOOKS_DONE_PAGES,
+                COLUMN_USER_BOOKS_CREATED,
                 COLUMN_USER_BOOKS_DEADLINE
         };
-
 
         // sorting orders
         String sortOrder =
@@ -477,9 +539,8 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
                 Books book = new Books();
                 //user.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID))));
                 book.set_book_name(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_NAME)));
-                book.set_book_done_pages(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_DONE_PAGES))));
                 book.set_book_total_pages(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_TOTAL_PAGES))));
-                book.set_book_created(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_CREATED)));
+                book.set_book_created(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_BOOKS_CREATED)));
                 book.set_book_deadline(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_DEADLINE)));
                 // Adding book record to list
                 booksList.add(book);
@@ -532,6 +593,29 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         db.close();
     }
 
+
+    /**
+     * This method to update user record
+     *
+     * @param book
+     */
+    public long updateDonePages(Books book) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        int bookID = book.get_id();//getBook(book.get_book_name()).get_id();
+
+        values.put(COLUMN_USER_BOOKS_NAME, book.get_book_name());
+        values.put(COLUMN_USER_BOOKS_DONE_PAGES, book.get_book_done_pages());
+
+
+        // updating row
+        long id = db.update(TABLE_BOOKS, values, COLUMN_USER_BOOKS_ID + " = ?",
+                new String[]{String.valueOf(bookID)});
+        db.close();
+        return  id;
+
+    }
 
      /*
      * This method to check user exist or not
@@ -644,7 +728,9 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         // array of columns to fetch
         String[] columns = {
                 COLUMN_USER_ID,
-                COLUMN_USER_BOOK_NAME
+                COLUMN_USER_BOOK_NAME,
+                COLUMN_USER_EMAIL,
+                COLUMN_USER_PASSWORD
         };
         SQLiteDatabase db = this.getReadableDatabase();
         // selection criteria
@@ -678,7 +764,9 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
 
                     user.set_id((Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)))));
                     user.set_book_name(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOK_NAME)));
-                    //USER.set_hear_rate((cursor.getInt(cursor.getColumnIndex(COLUMN_USER_RATE))));
+                    user.set_password((cursor.getBlob(cursor.getColumnIndex(COLUMN_USER_PASSWORD))));
+                    user.set_email(cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL)));
+
                 } while (cursor.moveToNext());
             }
             cursor.close();
@@ -692,7 +780,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
 
 
     /**
-     * This method fetches user and returns user records
+     * This method gets book
      *
      * @param bookname
      * @return book
@@ -703,7 +791,8 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         String[] columns = {
                 COLUMN_USER_BOOKS_DEADLINE,
                 COLUMN_USER_BOOKS_DONE_PAGES,
-                COLUMN_USER_BOOKS_TOTAL_PAGES
+                COLUMN_USER_BOOKS_TOTAL_PAGES,
+                COLUMN_USER_BOOKS_ID
         };
         SQLiteDatabase db = this.getReadableDatabase();
         // selection criteria
@@ -737,7 +826,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
                     book.set_book_deadline(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_DEADLINE)));
                     book.set_book_total_pages((Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_TOTAL_PAGES)))));
                     book.set_book_done_pages((Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_DONE_PAGES)))));
-                    //book.set_id((Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)))));
+                    book.set_id((Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOKS_ID)))));
                     //book.set_book_name(cursor.getString(cursor.getColumnIndex(COLUMN_USER_BOOK_NAME)));
                     //USER.set_hear_rate((cursor.getInt(cursor.getColumnIndex(COLUMN_USER_RATE))));
                 } while (cursor.moveToNext());
@@ -747,7 +836,7 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
             return book;
         }
 
-        System.out.print("Duplicated Users");
+        System.out.print("Duplicated Books");
         return book;
     }
 

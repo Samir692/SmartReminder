@@ -227,11 +227,11 @@ public class AddBook extends AppCompatActivity {
                         mAnswersQuestionner[4] = answer5.getText().toString();
 
                         questAnsChar.setmAnswersQuestionner(mAnswersQuestionner);
-                        dbHandler.addQuestionAnswer(mQuestionsQuestionner[0], mAnswersQuestionner[0], "QUESTIONNER");
-                        dbHandler.addQuestionAnswer(mQuestionsQuestionner[1], mAnswersQuestionner[1], "QUESTIONNER");
-                        dbHandler.addQuestionAnswer(mQuestionsQuestionner[2], mAnswersQuestionner[2], "QUESTIONNER");
-                        dbHandler.addQuestionAnswer(mQuestionsQuestionner[3], mAnswersQuestionner[3], "QUESTIONNER");
-                        dbHandler.addQuestionAnswer(mQuestionsQuestionner[4], mAnswersQuestionner[4], "QUESTIONNER");
+                        dbHandler.addQuestionAnswer(mQuestionsQuestionner[0], mAnswersQuestionner[0], "QUESTIONNER", bookName);
+                        dbHandler.addQuestionAnswer(mQuestionsQuestionner[1], mAnswersQuestionner[1], "QUESTIONNER", bookName);
+                        dbHandler.addQuestionAnswer(mQuestionsQuestionner[2], mAnswersQuestionner[2], "QUESTIONNER", bookName);
+                        dbHandler.addQuestionAnswer(mQuestionsQuestionner[3], mAnswersQuestionner[3], "QUESTIONNER", bookName);
+                        dbHandler.addQuestionAnswer(mQuestionsQuestionner[4], mAnswersQuestionner[4], "QUESTIONNER", bookName);
 
                         break;
 
@@ -244,11 +244,11 @@ public class AddBook extends AppCompatActivity {
                         mAnswersUpholders[4] = answer5.getText().toString();
 
                         questAnsChar.setmAnswersQuestionner(mAnswersUpholders);
-                        dbHandler.addQuestionAnswer(mQuestionsUpholders[0], mAnswersUpholders[0], "UPHOLDER");
-                        dbHandler.addQuestionAnswer(mQuestionsUpholders[1], mAnswersUpholders[1], "UPHOLDER");
-                        dbHandler.addQuestionAnswer(mQuestionsUpholders[2], mAnswersUpholders[2], "UPHOLDER");
-                        dbHandler.addQuestionAnswer(mQuestionsUpholders[3], mAnswersUpholders[3], "UPHOLDER");
-                        dbHandler.addQuestionAnswer(mQuestionsUpholders[4], mAnswersUpholders[4], "UPHOLDER");
+                        dbHandler.addQuestionAnswer(mQuestionsUpholders[0], mAnswersUpholders[0], "UPHOLDER", bookName);
+                        dbHandler.addQuestionAnswer(mQuestionsUpholders[1], mAnswersUpholders[1], "UPHOLDER", bookName);
+                        dbHandler.addQuestionAnswer(mQuestionsUpholders[2], mAnswersUpholders[2], "UPHOLDER", bookName);
+                        dbHandler.addQuestionAnswer(mQuestionsUpholders[3], mAnswersUpholders[3], "UPHOLDER", bookName);
+                        dbHandler.addQuestionAnswer(mQuestionsUpholders[4], mAnswersUpholders[4], "UPHOLDER", bookName);
 
                         break;
 
@@ -262,11 +262,11 @@ public class AddBook extends AppCompatActivity {
 
                         questAnsChar.setmAnswersQuestionner(mAnswersObliger);
 
-                        dbHandler.addQuestionAnswer(mQuestionsObliger[0], mAnswersObliger[0], "OBLIGER");
-                        dbHandler.addQuestionAnswer(mQuestionsObliger[1], mAnswersObliger[1], "OBLIGER");
-                        dbHandler.addQuestionAnswer(mQuestionsObliger[2], mAnswersObliger[2], "OBLIGER");
-                        dbHandler.addQuestionAnswer(mQuestionsObliger[3], mAnswersObliger[3], "OBLIGER");
-                        dbHandler.addQuestionAnswer(mQuestionsObliger[4], mAnswersObliger[4], "OBLIGER");
+                        dbHandler.addQuestionAnswer(mQuestionsObliger[0], mAnswersObliger[0], "OBLIGER", bookName);
+                        dbHandler.addQuestionAnswer(mQuestionsObliger[1], mAnswersObliger[1], "OBLIGER", bookName);
+                        dbHandler.addQuestionAnswer(mQuestionsObliger[2], mAnswersObliger[2], "OBLIGER", bookName);
+                        dbHandler.addQuestionAnswer(mQuestionsObliger[3], mAnswersObliger[3], "OBLIGER", bookName);
+                        dbHandler.addQuestionAnswer(mQuestionsObliger[4], mAnswersObliger[4], "OBLIGER", bookName);
 
                         break;
 
@@ -279,11 +279,11 @@ public class AddBook extends AppCompatActivity {
                         mAnswersRebel[4] = answer5.getText().toString();
 
                         questAnsChar.setmAnswersQuestionner(mAnswersRebel);
-                        dbHandler.addQuestionAnswer(mQuestionsRebel[0], mAnswersRebel[0], "REBEL");
-                        dbHandler.addQuestionAnswer(mQuestionsRebel[1], mAnswersRebel[1], "REBEL");
-                        dbHandler.addQuestionAnswer(mQuestionsRebel[2], mAnswersRebel[2], "REBEL");
-                        dbHandler.addQuestionAnswer(mQuestionsRebel[3], mAnswersRebel[3], "REBEL");
-                        dbHandler.addQuestionAnswer(mQuestionsRebel[4], mAnswersRebel[4], "REBEL");
+                        dbHandler.addQuestionAnswer(mQuestionsRebel[0], mAnswersRebel[0], "REBEL", bookName);
+                        dbHandler.addQuestionAnswer(mQuestionsRebel[1], mAnswersRebel[1], "REBEL", bookName);
+                        dbHandler.addQuestionAnswer(mQuestionsRebel[2], mAnswersRebel[2], "REBEL", bookName);
+                        dbHandler.addQuestionAnswer(mQuestionsRebel[3], mAnswersRebel[3], "REBEL", bookName);
+                        dbHandler.addQuestionAnswer(mQuestionsRebel[4], mAnswersRebel[4], "REBEL", bookName);
 
                         break;
                 }
@@ -298,6 +298,8 @@ public class AddBook extends AppCompatActivity {
                     long time_interval_alarm = millis;
 
                     scheduleAlarm(time_interval_alarm);
+
+                    Toast.makeText(getApplicationContext(), bookName + " has been registered", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(AddBook.this, BooksListActivity.class);
                     intent.putExtra("book","added");
@@ -328,11 +330,16 @@ public class AddBook extends AppCompatActivity {
 
         /* Create the PendingIntent that will launch the BroadcastReceiver */
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pending = PendingIntent.getBroadcast(this, 0, new Intent(this, AlarmReceiver.class), 0);
+        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        alarmIntent.putExtra("username", username);
+        System.out.println("USERNAMEBEFORE ALARM = " + username);
+        PendingIntent pending = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         Log.d("alarm", "Setted repeated alarms");
 
+
+
         //set alarmmanaget to cancel already existing alarm
-        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), manager.INTERVAL_DAY, pending);
+        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+86400000, manager.INTERVAL_DAY, pending);
         Intent cancellationIntent = new Intent(this, CancelAlarmBroadcastReceiver.class);
         cancellationIntent.putExtra("key", pending);
         PendingIntent cancellationPendingIntent = PendingIntent.getBroadcast(this, 0, cancellationIntent, 0);

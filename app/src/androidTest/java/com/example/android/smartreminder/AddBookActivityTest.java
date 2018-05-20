@@ -22,15 +22,15 @@ import static android.support.test.espresso.Espresso.onView;
 public class AddBookActivityTest {
 
     @Rule
-    public ActivityTestRule<AddBookActivity> addBookActivityActivityTestRule = new ActivityTestRule<AddBookActivity>(AddBookActivity.class);
+    public ActivityTestRule<AddBook> addBookActivityActivityTestRule = new ActivityTestRule<AddBook>(AddBook.class);
 
-    private AddBookActivity mActivity = null;
+    private AddBook mActivity = null;
     private DatabaseHandler dbHandler;
 
     @Before
     public void init() throws Exception {
         mActivity = addBookActivityActivityTestRule.getActivity();
-        dbHandler = new DatabaseHandler(AddBook.this);
+        dbHandler = new DatabaseHandler(mActivity);
 
     }
 

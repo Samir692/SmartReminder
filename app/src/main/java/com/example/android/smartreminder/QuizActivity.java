@@ -83,7 +83,7 @@ public class QuizActivity extends AppCompatActivity {
                             case "REBEL":
                                 //databaseHandler.createREBELtable();
                                 break;
-                            case "QUESTIONER":
+                            case "QUESTIONNER":
                                 //databaseHandler.createQUESTIONERtable();
                                 break;
 
@@ -141,7 +141,7 @@ public class QuizActivity extends AppCompatActivity {
                             case "REBEL":
                                 //databaseHandler.createREBELtable();
                                 break;
-                            case "QUESTIONER":
+                            case "QUESTIONNER":
                                 //databaseHandler.createQUESTIONERtable();
                                 break;
 
@@ -286,7 +286,7 @@ public class QuizActivity extends AppCompatActivity {
         answers.add(an);
     }
     private String getPersonalityByQuiz(){
-        String rel = "Upholder";
+        String rel = "UPHOLDER";
 
         int countOutterYes=0;
         int countOutterNo=0;
@@ -328,6 +328,7 @@ public class QuizActivity extends AppCompatActivity {
             rel = "UPHOLDER";
         }else if(outter ==1 & inner==0){
             rel = "QUESTIONER";
+
         }else if(outter == 0 & inner ==1){
             rel = "OBLIGER";
         }else if(outter ==0 & inner ==0){

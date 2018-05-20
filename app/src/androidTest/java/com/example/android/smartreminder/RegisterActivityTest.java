@@ -19,6 +19,8 @@ import static android.support.test.espresso.Espresso.onView;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.android.smartreminder.database_sql.DatabaseHandler;
+
 public class RegisterActivityTest {
 
     private DatabaseHandler databaseHelper;
@@ -34,9 +36,9 @@ public class RegisterActivityTest {
     @Before
     public void setUp() throws Exception {
         mActivity = registerActivityActivityTestRule.getActivity();
-        asserNotNull(mActivity);
+        assertNotNull(mActivity);
         databaseHelper = new DatabaseHandler(mActivity);
-        asserNotNull(databaseHelper);
+        assertNotNull(databaseHelper);
     }
 
     @Test
@@ -57,7 +59,7 @@ public class RegisterActivityTest {
         assertEquals(expectedCount, actualCount);
 
         if (actualCount!=0){
-            for (Contacts user: getAllUser()) {
+            for (Contacts user:  databaseHelper.getAllUser()) {
                 databaseHelper.deleteUser(user);
             }
         }
