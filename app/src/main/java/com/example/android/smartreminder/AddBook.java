@@ -116,6 +116,9 @@ public class AddBook extends AppCompatActivity {
             System.out.println("The personality is null!");
         }
 
+        if (personality==null) {
+            System.out.println("The personality is null");
+        }
         if(personality.length() > 0){
             //create questions
             switch (personality) {

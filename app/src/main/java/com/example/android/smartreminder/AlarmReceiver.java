@@ -26,6 +26,7 @@ public class AlarmReceiver extends BroadcastReceiver{
     private Intent intent;
     private DatabaseHandler dbHandler;
     private String userNAME;
+    private AlertDialog alert;
 
 
     @Override
@@ -43,7 +44,8 @@ public class AlarmReceiver extends BroadcastReceiver{
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
         //detect personality of user
-        String personality = dbHandler.getPersonalityType(userNAME).get_personality_type();
+        try {
+            String personality = dbHandler.getPersonalityType(userNAME).get_personality_type();
 
         //detect name of book
         String bookName = dbHandler.getUser(userNAME).get_book_name();
@@ -52,6 +54,7 @@ public class AlarmReceiver extends BroadcastReceiver{
         //System.out.println("PERSONAOSLMSA " + personality);
         //System.out.println("USERNAMEEEE " + userNAME);
         List<String> qaList = dbHandler.getQuestionAnswerPair(personality, bookName);
+
         Random rng = new Random();
         //System.out.println("Question List = " + qaList);
 
@@ -75,7 +78,9 @@ public class AlarmReceiver extends BroadcastReceiver{
         System.out.println("Alert dialog initilaized");
         alertDialog.setTitle(chosenQuest);
         alertDialog.setMessage(chosenAnswer);
-
+        } catch (NullPointerException e){
+            System.out.println("Personality is null");
+        }
         alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -83,7 +88,7 @@ public class AlarmReceiver extends BroadcastReceiver{
             }
         });
 
-        AlertDialog alert = alertDialog.create();
+        alert = alertDialog.create();
 
 
         // line you have to add
@@ -95,22 +100,6 @@ public class AlarmReceiver extends BroadcastReceiver{
     }
 
     public AlertDialog getAlertDialog(){
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
-        builder.setTitle("REMINDER!");
-        builder.setMessage("Turn off alarm by pressing off");
-
-        builder.setNegativeButton("Off", new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(context, "OFF", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        AlertDialog alert = builder.create();
-        // line you have to add
-        alert.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
-
         return alert;
     }
 }
