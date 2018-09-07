@@ -1,1 +1,2 @@
 include ':app'
+//include ':subproject:weka-android-release'
