@@ -35,10 +35,12 @@ public class AddBookActivityTest {
     }
 
     @Test
+    public void testToolBar(){
+        assertNotNull(mActivity.findViewById(R.id.toolbar));
+    }
+    @Test
     public void testAddingBook(){
-        assertNotNull(mActivity.findViewById(R.id.textview));
         onView(withId(R.id.addBook)).perform(click());
-
         int actualCountBooks=dbHandler.getAllBooks().size();
         int expectedCountBooks=1;
         assertEquals(actualCountBooks, expectedCountBooks);

@@ -21,7 +21,8 @@ build.dependsOn customFindbugs
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "26.0.2"
+    //buildToolsVersion '27.0.3'
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.example.android.smartreminder"
         minSdkVersion 15
@@ -42,6 +43,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(dir: 'libs', include: ['*.aar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -54,4 +56,9 @@ dependencies {
     findbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.4.4'
 
     testCompile 'junit:junit:4.12'
+
+    //compile project(':weka-android-release.aar')
+
+    compile (name: 'weka-android-release', ext:'aar')
+
 }
