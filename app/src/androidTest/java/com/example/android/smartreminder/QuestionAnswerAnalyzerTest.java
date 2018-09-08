@@ -1,10 +1,15 @@
 package com.example.android.smartreminder;
-import org.junit.After;
-import org.junit.Before;
+//import org.junit.After;
+//import org.junit.Before;
 import org.junit.Test;
+import org.junit.Assert;
 
+import com.feedzai.fos.api.FOSException;
+import com.feedzai.fos.api.ModelConfig;
 
-import static org.junit.Assert.assertEquals;
+import weka.classifiers.trees.J48;
+import weka.classifiers.meta.Vote;
+import weka.classifiers.MultipleClassifiersCombiner;
 
 public class QuestionAnswerAnalyzerTest {
     @Test

@@ -57,6 +57,8 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
 
-    //compile files (':subproject:weka-android-release.aar')
+    //compile project(':weka-android-release.aar')
+
+    compile (name: 'weka-android-release', ext:'aar')
 
 }
